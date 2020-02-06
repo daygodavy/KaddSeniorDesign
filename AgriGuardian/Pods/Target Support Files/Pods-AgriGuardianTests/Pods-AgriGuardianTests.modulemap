@@ -1,0 +1,6 @@
+framework module Pods_AgriGuardianTests {
+  umbrella header "Pods-AgriGuardianTests-umbrella.h"
+
+  export *
+  module * { export * }
+}
