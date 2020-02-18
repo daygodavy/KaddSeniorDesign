@@ -19,18 +19,20 @@
 	<key>STORAGE_BUCKET</key>
 	<string>agriguardian-68b94.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
-	<false></false>
+	<false/>
 	<key>IS_ANALYTICS_ENABLED</key>
-	<false></false>
+	<false/>
 	<key>IS_APPINVITE_ENABLED</key>
-	<true></true>
+	<true/>
 	<key>IS_GCM_ENABLED</key>
-	<true></true>
+	<true/>
 	<key>IS_SIGNIN_ENABLED</key>
-	<true></true>
+	<true/>
 	<key>GOOGLE_APP_ID</key>
 	<string>1:198783924544:ios:3d58e4f5ac2346eb4162a5</string>
 	<key>DATABASE_URL</key>
 	<string>https://agriguardian-68b94.firebaseio.com</string>
+	<key>FirebaseScreenRecordingEnabled</key>
+	<string>NO</string>
 </dict>
 </plist>

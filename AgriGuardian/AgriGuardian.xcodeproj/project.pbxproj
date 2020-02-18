@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -21,6 +21,10 @@
 		5B5A721623EB414200B5E2C5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5B5A721523EB414200B5E2C5 /* GoogleService-Info.plist */; };
 		5B5A721723EB414200B5E2C5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5B5A721523EB414200B5E2C5 /* GoogleService-Info.plist */; };
 		5B5A721823EB414200B5E2C5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5B5A721523EB414200B5E2C5 /* GoogleService-Info.plist */; };
+		666AC0CD23FA229300DEB3E3 /* PeripheralViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 666AC0CC23FA229300DEB3E3 /* PeripheralViewController.swift */; };
+		666AC0D223FA5AB100DEB3E3 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 666AC0CF23FA5AB100DEB3E3 /* Message.swift */; };
+		666AC0D323FA5AB100DEB3E3 /* Datagram.swift in Sources */ = {isa = PBXBuildFile; fileRef = 666AC0D023FA5AB100DEB3E3 /* Datagram.swift */; };
+		666AC0D423FA5AB200DEB3E3 /* MessageReceiver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 666AC0D123FA5AB100DEB3E3 /* MessageReceiver.swift */; };
 		DE74545DB1BF91D578B9B020 /* Pods_AgriGuardianTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 308491F463AA03189AF1C47D /* Pods_AgriGuardianTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -64,6 +68,11 @@
 		5B5A720923EB3FE100B5E2C5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5B5A721523EB414200B5E2C5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		618C7BDDD59ADCFBC6E61169 /* Pods-AgriGuardianTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AgriGuardianTests.release.xcconfig"; path = "Target Support Files/Pods-AgriGuardianTests/Pods-AgriGuardianTests.release.xcconfig"; sourceTree = "<group>"; };
+		666AC0CC23FA229300DEB3E3 /* PeripheralViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeripheralViewController.swift; sourceTree = "<group>"; };
+		666AC0CE23FA266700DEB3E3 /* AgriGuardian.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AgriGuardian.entitlements; sourceTree = "<group>"; };
+		666AC0CF23FA5AB100DEB3E3 /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
+		666AC0D023FA5AB100DEB3E3 /* Datagram.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Datagram.swift; sourceTree = "<group>"; };
+		666AC0D123FA5AB100DEB3E3 /* MessageReceiver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageReceiver.swift; sourceTree = "<group>"; };
 		72CDA6B62E40929D7489B30A /* Pods-AgriGuardian-AgriGuardianUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AgriGuardian-AgriGuardianUITests.release.xcconfig"; path = "Target Support Files/Pods-AgriGuardian-AgriGuardianUITests/Pods-AgriGuardian-AgriGuardianUITests.release.xcconfig"; sourceTree = "<group>"; };
 		7E3A151E18A68275109273B7 /* Pods-AgriGuardianTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AgriGuardianTests.debug.xcconfig"; path = "Target Support Files/Pods-AgriGuardianTests/Pods-AgriGuardianTests.debug.xcconfig"; sourceTree = "<group>"; };
 		B95C3541C7589A86775711F5 /* Pods_AgriGuardian.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AgriGuardian.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -122,9 +131,12 @@
 		5B5A71E123EB3FDD00B5E2C5 /* AgriGuardian */ = {
 			isa = PBXGroup;
 			children = (
+				666AC0CE23FA266700DEB3E3 /* AgriGuardian.entitlements */,
+				666AC0CB23FA219500DEB3E3 /* Views */,
+				666AC0CA23FA218E00DEB3E3 /* Models */,
+				666AC0C923FA216400DEB3E3 /* Controllers */,
 				5B5A71E223EB3FDD00B5E2C5 /* AppDelegate.swift */,
 				5B5A71E423EB3FDD00B5E2C5 /* SceneDelegate.swift */,
-				5B5A71E623EB3FDD00B5E2C5 /* ViewController.swift */,
 				5B5A71E823EB3FDD00B5E2C5 /* Main.storyboard */,
 				5B5A71EE23EB3FE100B5E2C5 /* Assets.xcassets */,
 				5B5A71F023EB3FE100B5E2C5 /* LaunchScreen.storyboard */,
@@ -153,6 +165,32 @@
 			path = AgriGuardianUITests;
 			sourceTree = "<group>";
 		};
+		666AC0C923FA216400DEB3E3 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				5B5A71E623EB3FDD00B5E2C5 /* ViewController.swift */,
+				666AC0CC23FA229300DEB3E3 /* PeripheralViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		666AC0CA23FA218E00DEB3E3 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				666AC0D023FA5AB100DEB3E3 /* Datagram.swift */,
+				666AC0CF23FA5AB100DEB3E3 /* Message.swift */,
+				666AC0D123FA5AB100DEB3E3 /* MessageReceiver.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		666AC0CB23FA219500DEB3E3 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		7972145C9AC6A816D97D3155 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -163,7 +201,6 @@
 				7E3A151E18A68275109273B7 /* Pods-AgriGuardianTests.debug.xcconfig */,
 				618C7BDDD59ADCFBC6E61169 /* Pods-AgriGuardianTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -455,8 +492,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				666AC0CD23FA229300DEB3E3 /* PeripheralViewController.swift in Sources */,
 				5B5A71E723EB3FDD00B5E2C5 /* ViewController.swift in Sources */,
+				666AC0D423FA5AB200DEB3E3 /* MessageReceiver.swift in Sources */,
 				5B5A71E323EB3FDD00B5E2C5 /* AppDelegate.swift in Sources */,
+				666AC0D223FA5AB100DEB3E3 /* Message.swift in Sources */,
+				666AC0D323FA5AB100DEB3E3 /* Datagram.swift in Sources */,
 				5B5A71E523EB3FDD00B5E2C5 /* SceneDelegate.swift in Sources */,
 				5B5A71ED23EB3FDD00B5E2C5 /* AgriGuardian.xcdatamodeld in Sources */,
 			);
@@ -632,8 +673,9 @@
 			baseConfigurationReference = 47E5248EF16D6D1D773BE05C /* Pods-AgriGuardian.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = AgriGuardian/AgriGuardian.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 2J43M5H25R;
+				DEVELOPMENT_TEAM = K3DJPEYB23;
 				INFOPLIST_FILE = AgriGuardian/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -651,8 +693,9 @@
 			baseConfigurationReference = 0E26F404FF7C1C65AD048677 /* Pods-AgriGuardian.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = AgriGuardian/AgriGuardian.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 2J43M5H25R;
+				DEVELOPMENT_TEAM = K3DJPEYB23;
 				INFOPLIST_FILE = AgriGuardian/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
