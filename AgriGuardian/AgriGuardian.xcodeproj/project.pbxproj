@@ -3,12 +3,16 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		2179126A1D637B5859C9948F /* Pods_AgriGuardian_AgriGuardianUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4105BD46B8FED2606965F48E /* Pods_AgriGuardian_AgriGuardianUITests.framework */; };
 		56C7AD22A1A13119480A2213 /* Pods_AgriGuardian.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B95C3541C7589A86775711F5 /* Pods_AgriGuardian.framework */; };
+		5B1BB2ED23FBA49F00E235CD /* Owner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1BB2EC23FBA49F00E235CD /* Owner.swift */; };
+		5B1BB2EF23FBA4AE00E235CD /* Rider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1BB2EE23FBA4AE00E235CD /* Rider.swift */; };
+		5B1BB2F123FE160B00E235CD /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1BB2F023FE160B00E235CD /* LoginViewController.swift */; };
+		5B1BB2F323FE1A0800E235CD /* HomeTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1BB2F223FE1A0800E235CD /* HomeTabBarViewController.swift */; };
 		5B5A71E323EB3FDD00B5E2C5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5A71E223EB3FDD00B5E2C5 /* AppDelegate.swift */; };
 		5B5A71E523EB3FDD00B5E2C5 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5A71E423EB3FDD00B5E2C5 /* SceneDelegate.swift */; };
 		5B5A71E723EB3FDD00B5E2C5 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5A71E623EB3FDD00B5E2C5 /* ViewController.swift */; };
@@ -47,6 +51,10 @@
 		308491F463AA03189AF1C47D /* Pods_AgriGuardianTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AgriGuardianTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4105BD46B8FED2606965F48E /* Pods_AgriGuardian_AgriGuardianUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AgriGuardian_AgriGuardianUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		47E5248EF16D6D1D773BE05C /* Pods-AgriGuardian.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AgriGuardian.debug.xcconfig"; path = "Target Support Files/Pods-AgriGuardian/Pods-AgriGuardian.debug.xcconfig"; sourceTree = "<group>"; };
+		5B1BB2EC23FBA49F00E235CD /* Owner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Owner.swift; sourceTree = "<group>"; };
+		5B1BB2EE23FBA4AE00E235CD /* Rider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rider.swift; sourceTree = "<group>"; };
+		5B1BB2F023FE160B00E235CD /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		5B1BB2F223FE1A0800E235CD /* HomeTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTabBarViewController.swift; sourceTree = "<group>"; };
 		5B5A71DF23EB3FDD00B5E2C5 /* AgriGuardian.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AgriGuardian.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5B5A71E223EB3FDD00B5E2C5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5B5A71E423EB3FDD00B5E2C5 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -97,6 +105,31 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5B1BB2E923FBA44B00E235CD /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				5B1BB2EC23FBA49F00E235CD /* Owner.swift */,
+				5B1BB2EE23FBA4AE00E235CD /* Rider.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		5B1BB2EA23FBA45900E235CD /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		5B1BB2EB23FBA46300E235CD /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				5B1BB2F023FE160B00E235CD /* LoginViewController.swift */,
+				5B1BB2F223FE1A0800E235CD /* HomeTabBarViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
 		5B5A71D623EB3FDD00B5E2C5 = {
 			isa = PBXGroup;
 			children = (
@@ -122,6 +155,9 @@
 		5B5A71E123EB3FDD00B5E2C5 /* AgriGuardian */ = {
 			isa = PBXGroup;
 			children = (
+				5B1BB2EB23FBA46300E235CD /* Controllers */,
+				5B1BB2EA23FBA45900E235CD /* Views */,
+				5B1BB2E923FBA44B00E235CD /* Models */,
 				5B5A71E223EB3FDD00B5E2C5 /* AppDelegate.swift */,
 				5B5A71E423EB3FDD00B5E2C5 /* SceneDelegate.swift */,
 				5B5A71E623EB3FDD00B5E2C5 /* ViewController.swift */,
@@ -163,7 +199,6 @@
 				7E3A151E18A68275109273B7 /* Pods-AgriGuardianTests.debug.xcconfig */,
 				618C7BDDD59ADCFBC6E61169 /* Pods-AgriGuardianTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -455,9 +490,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5B1BB2F123FE160B00E235CD /* LoginViewController.swift in Sources */,
 				5B5A71E723EB3FDD00B5E2C5 /* ViewController.swift in Sources */,
 				5B5A71E323EB3FDD00B5E2C5 /* AppDelegate.swift in Sources */,
+				5B1BB2EF23FBA4AE00E235CD /* Rider.swift in Sources */,
 				5B5A71E523EB3FDD00B5E2C5 /* SceneDelegate.swift in Sources */,
+				5B1BB2F323FE1A0800E235CD /* HomeTabBarViewController.swift in Sources */,
+				5B1BB2ED23FBA49F00E235CD /* Owner.swift in Sources */,
 				5B5A71ED23EB3FDD00B5E2C5 /* AgriGuardian.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

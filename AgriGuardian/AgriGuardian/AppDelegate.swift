@@ -9,6 +9,8 @@
 import UIKit
 import CoreData
 import Firebase
+import GoogleSignIn
+import FirebaseAuth
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -27,6 +29,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when a new scene session is being created.
         // Use this method to select a configuration to create the new scene with.
         return UISceneConfiguration(name: "Default Configuration", sessionRole: connectingSceneSession.role)
+    }
+    
+    // For Google Sign In to handle the URL the app receives after authentication
+    @available(iOS 9.0, *)
+    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
+        let handled = GIDSignIn.sharedInstance().handle(url)
+        return handled
+        // return GIDSignIn.sharedInstance().handle(url,
+        // sourceApplication:options[UIApplication.OpenURLOptionsKey.sourceApplication] as? String,
+        // annotation: [:])
+    }
+    
+    // Same as above function, but for iOS 8 and older
+    func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
+        return GIDSignIn.sharedInstance().handle(url)
     }
 
     func application(_ application: UIApplication, didDiscardSceneSessions sceneSessions: Set<UISceneSession>) {
