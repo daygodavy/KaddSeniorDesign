@@ -120,7 +120,20 @@ extension PeripheralViewController: CBPeripheralDelegate {
                     datagrams.append(datagram)
                     print(datagram.payload)
                     let offset = datagram.header.offset
-                    peripheral.readValue(for: characteristic)
+                    if (offset < datagram.header.messageLength) {
+                        peripheral.readValue(for: characteristic)
+                    } else {
+                        print("NO MORE DATAGRAMS")
+                        var reconstructed: Message?
+                        let manager = MessageManager { message in
+                            reconstructed = message
+                        }
+                        for datagram in datagrams {
+                            try! manager.process(datagramData: datagram.encoded)
+                        }
+                        let str = String(decoding: reconstructed!.data, as: UTF8.self)
+                        print("Success")
+                    }
     //                let data = withUnsafeBytes(of: offset?.littleEndian) { Data($0) }
     //                peripheral.writeValue(data, for: characteristic, type: .withResponse)
                     print("offset: \(String(describing: offset))")
