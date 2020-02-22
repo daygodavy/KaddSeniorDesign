@@ -19,28 +19,56 @@ class PeripheralViewController: UIViewController {
     
     var datagrams = [Datagram]()
     
-
     override func viewDidLoad() {
         super.viewDidLoad()
         centralManager = CBCentralManager(delegate: self, queue: nil)
-
-
-
-        // Do any additional setup after loading the view.
     }
     
+    // MARK: - Private Functions
+    /**
+    Repeatedly reads datagrams from pi until a FYN (datagram key == 6) is read. Upon reading FYN, datagrams are stopped being read and an AWK message is written to the pi to acknowledge that all datagrams have been recieved
 
-    /*
-    // MARK: - Navigation
+    - Parameter characteristic: characteristic being used from pi
+    - Parameter peripheral: peripheral of the pi uuid
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
+
+    - Returns: Nothing for now.
     */
-
+    fileprivate func processDatagrams(_ characteristic: CBCharacteristic, _ peripheral: CBPeripheral) {
+        // check for nil data
+        guard let charVal = characteristic.value else {
+            fatalError("Unexpectedly found nil when unwrapping characteristic value")
+        }
+        // check for nil datagram
+        if let datagram = Datagram.decode(charVal) {
+            // all message datagrams have key of 0
+            if (datagram.header.key == UInt(0)) {
+                datagrams.append(datagram)
+                peripheral.readValue(for: characteristic)
+            } else {
+                // send ack - write back to pi
+                let ack = Data("ACK".utf8)
+                peripheral.writeValue(ack, for: characteristic, type: .withResponse)
+                
+                // reconsruct datagrams into message
+                var reconstructed: Message?
+                let manager = MessageManager { message in
+                    reconstructed = message
+                }
+                for datagram in datagrams {
+                    try! manager.process(datagramData: datagram.encoded)
+                }
+                // temp string storing message contents
+                let str = String(decoding: reconstructed!.data, as: UTF8.self)
+                print(str)
+            }
+            
+        } else {
+            print("ERROR")
+        }
+    }
 }
+
 extension PeripheralViewController: CBCentralManagerDelegate {
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
         switch central.state {
@@ -58,6 +86,8 @@ extension PeripheralViewController: CBCentralManagerDelegate {
             print("central.state is .poweredOn")
             centralManager.scanForPeripherals(withServices: [raspberryPi])
 
+        @unknown default:
+            fatalError("Unknown Peripheral State")
         }
 
 
@@ -99,7 +129,6 @@ extension PeripheralViewController: CBPeripheralDelegate {
             if characteristic.properties.contains(.read) {
                 print("\(characteristic.uuid): properties contains .read")
                 peripheral.readValue(for: characteristic)
-
             }
             if characteristic.properties.contains(.notify) {
               print("\(characteristic.uuid): properties contains .notify")
@@ -109,58 +138,15 @@ extension PeripheralViewController: CBPeripheralDelegate {
             }
         }
     }
+
+    
     func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
         
         switch characteristic.uuid {
             case tempCharacteristic:
-                print(characteristic.value ?? "no value")
-                let message = Message(key: 0, data: characteristic.value!)
-
-                if let datagram = Datagram.decode(characteristic.value!) {
-                    datagrams.append(datagram)
-                    print(datagram.payload)
-                    let offset = datagram.header.offset
-                    if (offset < datagram.header.messageLength) {
-                        peripheral.readValue(for: characteristic)
-                    } else {
-                        print("NO MORE DATAGRAMS")
-                        var reconstructed: Message?
-                        let manager = MessageManager { message in
-                            reconstructed = message
-                        }
-                        for datagram in datagrams {
-                            try! manager.process(datagramData: datagram.encoded)
-                        }
-                        let str = String(decoding: reconstructed!.data, as: UTF8.self)
-                        print("Success")
-                    }
-    //                let data = withUnsafeBytes(of: offset?.littleEndian) { Data($0) }
-    //                peripheral.writeValue(data, for: characteristic, type: .withResponse)
-                    print("offset: \(String(describing: offset))")
-                } else {
-                    print("NO MORE DATAGRAMS")
-                    var reconstructed: Message?
-                    let manager = MessageManager { message in
-                        reconstructed = message
-                    }
-                    for datagram in datagrams {
-                        try! manager.process(datagramData: datagram.encoded)
-                    }
-                    let str = String(decoding: reconstructed!.data, as: UTF8.self)
-                    print("Success")
-
-            }
-                
-
-
-//        let str = String(decoding: value, as: UTF8.self)
-//        print("Data being read from pi: \(str)")
-          
-          
+                processDatagrams(characteristic, peripheral)
         default:
           print("Unhandled Characteristic UUID: \(characteristic.uuid)")
-      }
+        }
     }
-
-
 }
