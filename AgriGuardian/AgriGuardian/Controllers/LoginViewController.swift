@@ -37,7 +37,7 @@ class LoginViewController: UIViewController, GIDSignInDelegate {
     func setupGoogleSignIn() {
         GIDSignIn.sharedInstance()?.presentingViewController = self
         // Automatically sign in the user.
-        GIDSignIn.sharedInstance()?.restorePreviousSignIn()
+         GIDSignIn.sharedInstance()?.restorePreviousSignIn()
     }
 
     func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {

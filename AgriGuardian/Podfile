@@ -4,6 +4,7 @@
 target 'AgriGuardian' do
   # Comment the next line if you don't want to use dynamic frameworks
   use_frameworks!
+  #use_modular_headers!
 
   # Pods for AgriGuardian
   pod 'Firebase'
@@ -15,6 +16,7 @@ target 'AgriGuardian' do
   pod 'Firebase/Firestore'
   pod 'FirebaseFirestoreSwift'
   pod 'GoogleSignIn'
+  pod 'LMGaugeView'
 
   target 'AgriGuardianTests' do
     inherit! :search_paths
