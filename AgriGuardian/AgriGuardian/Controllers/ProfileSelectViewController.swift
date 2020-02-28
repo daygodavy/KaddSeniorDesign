@@ -34,6 +34,7 @@ extension ProfileSelectViewController: UICollectionViewDataSource, UICollectionV
         UICollectionViewCell {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ProfileCollectionViewCell", for: indexPath) as! ProfileCollectionViewCell
             cell.bgView.backgroundColor = #colorLiteral(red: 1, green: 0.1118306135, blue: 0, alpha: 1)
+            cell.profileNameLabel.text = "ATV #"
             
             //        cell.myLabel.text = "ABCD"
             return cell

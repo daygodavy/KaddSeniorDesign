@@ -10,6 +10,7 @@ import UIKit
 
 class ProfileCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var bgView: UIView!
+    @IBOutlet weak var profileNameLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()

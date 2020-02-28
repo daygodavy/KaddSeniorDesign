@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="QR4-V6-i3t">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="OYY-pq-zMF">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
@@ -57,7 +57,7 @@
                                     <size key="estimatedItemSize" width="100" height="100"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="5" maxY="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="10" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="ProfileCollectionViewCell" reuseIdentifier="ProfileCollectionViewCell" id="mMs-M3-53x" customClass="ProfileCollectionViewCell" customModule="AgriGuardian" customModuleProvider="target">
@@ -66,8 +66,18 @@
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="rXF-j2-ZH3">
                                             <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MO0-QJ-u5K">
+                                                    <rect key="frame" x="0.0" y="79" width="100" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
                                             <rect key="contentStretch" x="0.25" y="0.0" width="1" height="1"/>
                                         </collectionViewCellContentView>
+                                        <size key="customSize" width="100" height="100"/>
                                         <connections>
                                             <outlet property="bgView" destination="rXF-j2-ZH3" id="LxL-OV-9V0"/>
                                         </connections>
@@ -108,10 +118,10 @@
             </objects>
             <point key="canvasLocation" x="2051" y="406"/>
         </scene>
-        <!--Item 1-->
+        <!--HomeViewController-->
         <scene sceneID="e62-pI-vC2">
             <objects>
-                <viewController storyboardIdentifier="HomeViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="pyc-bc-cYA" customClass="HomeViewController" customModule="AgriGuardian" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="HomeViewController" title="HomeViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="pyc-bc-cYA" customClass="HomeViewController" customModule="AgriGuardian" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="rjv-iX-8Ce">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -141,20 +151,34 @@
             </objects>
             <point key="canvasLocation" x="2050.7246376811595" y="-243.08035714285714"/>
         </scene>
-        <!--ProfileViewController-->
+        <!--MapLocationViewController-->
         <scene sceneID="cKk-ZB-Kqp">
             <objects>
-                <viewController title="ProfileViewController" id="OYY-pq-zMF" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="SXo-ie-JTV">
+                <viewController storyboardIdentifier="MapLocationViewController" title="MapLocationViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="OYY-pq-zMF" customClass="MapLocationViewController" customModule="AgriGuardian" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="SXo-ie-JTV" customClass="MapLocationViewController">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="qZI-Pb-H3K">
+                                <rect key="frame" x="0.0" y="44" width="414" height="431"/>
+                            </mapView>
+                        </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="Yj4-Vg-c2E" firstAttribute="bottom" secondItem="qZI-Pb-H3K" secondAttribute="bottom" constant="387" id="6Cx-ND-92e"/>
+                            <constraint firstItem="qZI-Pb-H3K" firstAttribute="centerX" secondItem="SXo-ie-JTV" secondAttribute="centerX" id="GEl-0w-Jse"/>
+                            <constraint firstItem="qZI-Pb-H3K" firstAttribute="leading" secondItem="Yj4-Vg-c2E" secondAttribute="leading" id="NJE-hO-fhP"/>
+                            <constraint firstItem="qZI-Pb-H3K" firstAttribute="top" secondItem="Yj4-Vg-c2E" secondAttribute="top" id="X2N-8R-Xkj"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="Yj4-Vg-c2E"/>
                     </view>
+                    <connections>
+                        <outlet property="mapView" destination="qZI-Pb-H3K" id="Lpi-JY-tZL"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wxR-4P-sN1" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2993" y="-230"/>
+            <point key="canvasLocation" x="2992.753623188406" y="-230.35714285714283"/>
         </scene>
         <!--Home Tab Bar View Controller-->
         <scene sceneID="42Z-rm-tcD">
