@@ -21,10 +21,16 @@
 		5B5A721623EB414200B5E2C5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5B5A721523EB414200B5E2C5 /* GoogleService-Info.plist */; };
 		5B5A721723EB414200B5E2C5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5B5A721523EB414200B5E2C5 /* GoogleService-Info.plist */; };
 		5B5A721823EB414200B5E2C5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5B5A721523EB414200B5E2C5 /* GoogleService-Info.plist */; };
+		66603F20240B2C3300253B04 /* RideParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66603F1F240B2C3300253B04 /* RideParameters.swift */; };
+		66603F22240B308200253B04 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66603F21240B308200253B04 /* User.swift */; };
 		666AC0CD23FA229300DEB3E3 /* PeripheralViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 666AC0CC23FA229300DEB3E3 /* PeripheralViewController.swift */; };
-		666AC0D223FA5AB100DEB3E3 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 666AC0CF23FA5AB100DEB3E3 /* Message.swift */; };
-		666AC0D323FA5AB100DEB3E3 /* Datagram.swift in Sources */ = {isa = PBXBuildFile; fileRef = 666AC0D023FA5AB100DEB3E3 /* Datagram.swift */; };
-		666AC0D423FA5AB200DEB3E3 /* MessageReceiver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 666AC0D123FA5AB100DEB3E3 /* MessageReceiver.swift */; };
+		667302AE2404DB5100BA015A /* DeviceTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 667302AD2404DB5100BA015A /* DeviceTableViewController.swift */; };
+		667302B02405E2AF00BA015A /* AddDeviceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 667302AF2405E2AF00BA015A /* AddDeviceViewController.swift */; };
+		667302B22405FD2500BA015A /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = 667302B12405FD2500BA015A /* Device.swift */; };
+		667302B92405FF2600BA015A /* Datagram.swift in Sources */ = {isa = PBXBuildFile; fileRef = 667302B62405FF2600BA015A /* Datagram.swift */; };
+		667302BA2405FF2600BA015A /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 667302B72405FF2600BA015A /* Message.swift */; };
+		667302BB2405FF2600BA015A /* MessageReceiver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 667302B82405FF2600BA015A /* MessageReceiver.swift */; };
+		667302C024073ED800BA015A /* ViewController+Alerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 667302BF24073ED800BA015A /* ViewController+Alerts.swift */; };
 		DE74545DB1BF91D578B9B020 /* Pods_AgriGuardianTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 308491F463AA03189AF1C47D /* Pods_AgriGuardianTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -68,11 +74,17 @@
 		5B5A720923EB3FE100B5E2C5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5B5A721523EB414200B5E2C5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		618C7BDDD59ADCFBC6E61169 /* Pods-AgriGuardianTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AgriGuardianTests.release.xcconfig"; path = "Target Support Files/Pods-AgriGuardianTests/Pods-AgriGuardianTests.release.xcconfig"; sourceTree = "<group>"; };
+		66603F1F240B2C3300253B04 /* RideParameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RideParameters.swift; sourceTree = "<group>"; };
+		66603F21240B308200253B04 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		666AC0CC23FA229300DEB3E3 /* PeripheralViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeripheralViewController.swift; sourceTree = "<group>"; };
 		666AC0CE23FA266700DEB3E3 /* AgriGuardian.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AgriGuardian.entitlements; sourceTree = "<group>"; };
-		666AC0CF23FA5AB100DEB3E3 /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
-		666AC0D023FA5AB100DEB3E3 /* Datagram.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Datagram.swift; sourceTree = "<group>"; };
-		666AC0D123FA5AB100DEB3E3 /* MessageReceiver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageReceiver.swift; sourceTree = "<group>"; };
+		667302AD2404DB5100BA015A /* DeviceTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceTableViewController.swift; sourceTree = "<group>"; };
+		667302AF2405E2AF00BA015A /* AddDeviceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddDeviceViewController.swift; sourceTree = "<group>"; };
+		667302B12405FD2500BA015A /* Device.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Device.swift; sourceTree = "<group>"; };
+		667302B62405FF2600BA015A /* Datagram.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Datagram.swift; sourceTree = "<group>"; };
+		667302B72405FF2600BA015A /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
+		667302B82405FF2600BA015A /* MessageReceiver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageReceiver.swift; sourceTree = "<group>"; };
+		667302BF24073ED800BA015A /* ViewController+Alerts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewController+Alerts.swift"; sourceTree = "<group>"; };
 		72CDA6B62E40929D7489B30A /* Pods-AgriGuardian-AgriGuardianUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AgriGuardian-AgriGuardianUITests.release.xcconfig"; path = "Target Support Files/Pods-AgriGuardian-AgriGuardianUITests/Pods-AgriGuardian-AgriGuardianUITests.release.xcconfig"; sourceTree = "<group>"; };
 		7E3A151E18A68275109273B7 /* Pods-AgriGuardianTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AgriGuardianTests.debug.xcconfig"; path = "Target Support Files/Pods-AgriGuardianTests/Pods-AgriGuardianTests.debug.xcconfig"; sourceTree = "<group>"; };
 		B95C3541C7589A86775711F5 /* Pods_AgriGuardian.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AgriGuardian.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -168,6 +180,9 @@
 		666AC0C923FA216400DEB3E3 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				667302BF24073ED800BA015A /* ViewController+Alerts.swift */,
+				667302AD2404DB5100BA015A /* DeviceTableViewController.swift */,
+				667302AF2405E2AF00BA015A /* AddDeviceViewController.swift */,
 				5B5A71E623EB3FDD00B5E2C5 /* ViewController.swift */,
 				666AC0CC23FA229300DEB3E3 /* PeripheralViewController.swift */,
 			);
@@ -177,9 +192,10 @@
 		666AC0CA23FA218E00DEB3E3 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				666AC0D023FA5AB100DEB3E3 /* Datagram.swift */,
-				666AC0CF23FA5AB100DEB3E3 /* Message.swift */,
-				666AC0D123FA5AB100DEB3E3 /* MessageReceiver.swift */,
+				667302B52405FF2600BA015A /* BLE */,
+				667302B12405FD2500BA015A /* Device.swift */,
+				66603F1F240B2C3300253B04 /* RideParameters.swift */,
+				66603F21240B308200253B04 /* User.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -189,6 +205,16 @@
 			children = (
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		667302B52405FF2600BA015A /* BLE */ = {
+			isa = PBXGroup;
+			children = (
+				667302B62405FF2600BA015A /* Datagram.swift */,
+				667302B72405FF2600BA015A /* Message.swift */,
+				667302B82405FF2600BA015A /* MessageReceiver.swift */,
+			);
+			path = BLE;
 			sourceTree = "<group>";
 		};
 		7972145C9AC6A816D97D3155 /* Pods */ = {
@@ -492,13 +518,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				667302B22405FD2500BA015A /* Device.swift in Sources */,
+				667302C024073ED800BA015A /* ViewController+Alerts.swift in Sources */,
 				666AC0CD23FA229300DEB3E3 /* PeripheralViewController.swift in Sources */,
 				5B5A71E723EB3FDD00B5E2C5 /* ViewController.swift in Sources */,
-				666AC0D423FA5AB200DEB3E3 /* MessageReceiver.swift in Sources */,
+				667302AE2404DB5100BA015A /* DeviceTableViewController.swift in Sources */,
 				5B5A71E323EB3FDD00B5E2C5 /* AppDelegate.swift in Sources */,
-				666AC0D223FA5AB100DEB3E3 /* Message.swift in Sources */,
-				666AC0D323FA5AB100DEB3E3 /* Datagram.swift in Sources */,
+				66603F22240B308200253B04 /* User.swift in Sources */,
+				667302B92405FF2600BA015A /* Datagram.swift in Sources */,
+				667302B02405E2AF00BA015A /* AddDeviceViewController.swift in Sources */,
+				667302BA2405FF2600BA015A /* Message.swift in Sources */,
+				667302BB2405FF2600BA015A /* MessageReceiver.swift in Sources */,
 				5B5A71E523EB3FDD00B5E2C5 /* SceneDelegate.swift in Sources */,
+				66603F20240B2C3300253B04 /* RideParameters.swift in Sources */,
 				5B5A71ED23EB3FDD00B5E2C5 /* AgriGuardian.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
