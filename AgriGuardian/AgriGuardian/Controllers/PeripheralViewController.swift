@@ -23,7 +23,7 @@ class PeripheralViewController: UIViewController {
         super.viewDidLoad()
         centralManager = CBCentralManager(delegate: self, queue: nil)
     }
-    
+
     // MARK: - Private Functions
     /**
     Repeatedly reads datagrams from pi until a FYN (datagram key == 6) is read. Upon reading FYN, datagrams are stopped being read and an AWK message is written to the pi to acknowledge that all datagrams have been recieved
