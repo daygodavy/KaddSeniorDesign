@@ -9,6 +9,8 @@
 import UIKit
 import CoreData
 import Firebase
+import GoogleSignIn
+import FirebaseAuth
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -33,6 +35,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the user discards a scene session.
         // If any sessions were discarded while the application was not running, this will be called shortly after application:didFinishLaunchingWithOptions.
         // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
+    }
+    
+    // MARK: Google Auth Config
+    // For Google Sign In to handle the URL the app receives after authentication
+    @available(iOS 9.0, *)
+    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
+        let handled = GIDSignIn.sharedInstance().handle(url)
+        return handled
+        // return GIDSignIn.sharedInstance().handle(url,
+        // sourceApplication:options[UIApplication.OpenURLOptionsKey.sourceApplication] as? String,
+        // annotation: [:])
+    }
+
+    // Same as above function, but for iOS 8 and older
+    func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
+        return GIDSignIn.sharedInstance().handle(url)
     }
 
     // MARK: - Core Data stack

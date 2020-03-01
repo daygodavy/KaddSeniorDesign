@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		2179126A1D637B5859C9948F /* Pods_AgriGuardian_AgriGuardianUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4105BD46B8FED2606965F48E /* Pods_AgriGuardian_AgriGuardianUITests.framework */; };
 		56C7AD22A1A13119480A2213 /* Pods_AgriGuardian.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B95C3541C7589A86775711F5 /* Pods_AgriGuardian.framework */; };
+		5B1BB309240B431600E235CD /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1BB308240B431600E235CD /* LoginViewController.swift */; };
+		5B1BB30B240B43EB00E235CD /* HomeTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1BB30A240B43EB00E235CD /* HomeTabBarViewController.swift */; };
+		5B1BB30D240B450000E235CD /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1BB30C240B450000E235CD /* HomeViewController.swift */; };
 		5B5A71E323EB3FDD00B5E2C5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5A71E223EB3FDD00B5E2C5 /* AppDelegate.swift */; };
 		5B5A71E523EB3FDD00B5E2C5 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5A71E423EB3FDD00B5E2C5 /* SceneDelegate.swift */; };
 		5B5A71E723EB3FDD00B5E2C5 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5A71E623EB3FDD00B5E2C5 /* ViewController.swift */; };
@@ -57,6 +60,9 @@
 		308491F463AA03189AF1C47D /* Pods_AgriGuardianTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AgriGuardianTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4105BD46B8FED2606965F48E /* Pods_AgriGuardian_AgriGuardianUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AgriGuardian_AgriGuardianUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		47E5248EF16D6D1D773BE05C /* Pods-AgriGuardian.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AgriGuardian.debug.xcconfig"; path = "Target Support Files/Pods-AgriGuardian/Pods-AgriGuardian.debug.xcconfig"; sourceTree = "<group>"; };
+		5B1BB308240B431600E235CD /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		5B1BB30A240B43EB00E235CD /* HomeTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTabBarViewController.swift; sourceTree = "<group>"; };
+		5B1BB30C240B450000E235CD /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		5B5A71DF23EB3FDD00B5E2C5 /* AgriGuardian.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AgriGuardian.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5B5A71E223EB3FDD00B5E2C5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5B5A71E423EB3FDD00B5E2C5 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -185,6 +191,9 @@
 				667302AF2405E2AF00BA015A /* AddDeviceViewController.swift */,
 				5B5A71E623EB3FDD00B5E2C5 /* ViewController.swift */,
 				666AC0CC23FA229300DEB3E3 /* PeripheralViewController.swift */,
+				5B1BB308240B431600E235CD /* LoginViewController.swift */,
+				5B1BB30A240B43EB00E235CD /* HomeTabBarViewController.swift */,
+				5B1BB30C240B450000E235CD /* HomeViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -521,6 +530,8 @@
 				667302B22405FD2500BA015A /* Device.swift in Sources */,
 				667302C024073ED800BA015A /* ViewController+Alerts.swift in Sources */,
 				666AC0CD23FA229300DEB3E3 /* PeripheralViewController.swift in Sources */,
+				5B1BB30D240B450000E235CD /* HomeViewController.swift in Sources */,
+				5B1BB309240B431600E235CD /* LoginViewController.swift in Sources */,
 				5B5A71E723EB3FDD00B5E2C5 /* ViewController.swift in Sources */,
 				667302AE2404DB5100BA015A /* DeviceTableViewController.swift in Sources */,
 				5B5A71E323EB3FDD00B5E2C5 /* AppDelegate.swift in Sources */,
@@ -530,6 +541,7 @@
 				667302BA2405FF2600BA015A /* Message.swift in Sources */,
 				667302BB2405FF2600BA015A /* MessageReceiver.swift in Sources */,
 				5B5A71E523EB3FDD00B5E2C5 /* SceneDelegate.swift in Sources */,
+				5B1BB30B240B43EB00E235CD /* HomeTabBarViewController.swift in Sources */,
 				66603F20240B2C3300253B04 /* RideParameters.swift in Sources */,
 				5B5A71ED23EB3FDD00B5E2C5 /* AgriGuardian.xcdatamodeld in Sources */,
 			);
@@ -707,7 +719,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = AgriGuardian/AgriGuardian.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = K3DJPEYB23;
+				DEVELOPMENT_TEAM = 2J43M5H25R;
 				INFOPLIST_FILE = AgriGuardian/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -727,7 +739,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = AgriGuardian/AgriGuardian.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = K3DJPEYB23;
+				DEVELOPMENT_TEAM = 2J43M5H25R;
 				INFOPLIST_FILE = AgriGuardian/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
