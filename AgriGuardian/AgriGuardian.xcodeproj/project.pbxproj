@@ -17,6 +17,8 @@
 		5B1BB2FB2408414D00E235CD /* ProfileSelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1BB2FA2408414C00E235CD /* ProfileSelectViewController.swift */; };
 		5B1BB2FD2408664500E235CD /* ProfileCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1BB2FC2408664500E235CD /* ProfileCollectionViewCell.swift */; };
 		5B1BB3012409AAAC00E235CD /* MapLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1BB3002409AAAC00E235CD /* MapLocationViewController.swift */; };
+		5B1BB305240B1F6200E235CD /* GeofencingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1BB304240B1F6200E235CD /* GeofencingViewController.swift */; };
+		5B1BB307240B2F9500E235CD /* GFViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1BB306240B2F9500E235CD /* GFViewController.swift */; };
 		5B5A71E323EB3FDD00B5E2C5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5A71E223EB3FDD00B5E2C5 /* AppDelegate.swift */; };
 		5B5A71E523EB3FDD00B5E2C5 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5A71E423EB3FDD00B5E2C5 /* SceneDelegate.swift */; };
 		5B5A71E723EB3FDD00B5E2C5 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5A71E623EB3FDD00B5E2C5 /* ViewController.swift */; };
@@ -65,6 +67,8 @@
 		5B1BB2FA2408414C00E235CD /* ProfileSelectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSelectViewController.swift; sourceTree = "<group>"; };
 		5B1BB2FC2408664500E235CD /* ProfileCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCollectionViewCell.swift; sourceTree = "<group>"; };
 		5B1BB3002409AAAC00E235CD /* MapLocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapLocationViewController.swift; sourceTree = "<group>"; };
+		5B1BB304240B1F6200E235CD /* GeofencingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeofencingViewController.swift; sourceTree = "<group>"; };
+		5B1BB306240B2F9500E235CD /* GFViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFViewController.swift; sourceTree = "<group>"; };
 		5B5A71DF23EB3FDD00B5E2C5 /* AgriGuardian.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AgriGuardian.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5B5A71E223EB3FDD00B5E2C5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5B5A71E423EB3FDD00B5E2C5 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -141,6 +145,8 @@
 				5B1BB2F42407571500E235CD /* HomeViewController.swift */,
 				5B1BB2FA2408414C00E235CD /* ProfileSelectViewController.swift */,
 				5B1BB3002409AAAC00E235CD /* MapLocationViewController.swift */,
+				5B1BB304240B1F6200E235CD /* GeofencingViewController.swift */,
+				5B1BB306240B2F9500E235CD /* GFViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -514,10 +520,12 @@
 				5B1BB2FB2408414D00E235CD /* ProfileSelectViewController.swift in Sources */,
 				5B1BB2F323FE1A0800E235CD /* HomeTabBarViewController.swift in Sources */,
 				5B1BB2ED23FBA49F00E235CD /* Owner.swift in Sources */,
+				5B1BB305240B1F6200E235CD /* GeofencingViewController.swift in Sources */,
 				5B5A71ED23EB3FDD00B5E2C5 /* AgriGuardian.xcdatamodeld in Sources */,
 				5B1BB2FD2408664500E235CD /* ProfileCollectionViewCell.swift in Sources */,
 				5B1BB3012409AAAC00E235CD /* MapLocationViewController.swift in Sources */,
 				5B1BB2F924079E0400E235CD /* RideParameters.swift in Sources */,
+				5B1BB307240B2F9500E235CD /* GFViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="OYY-pq-zMF">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="pXh-5P-rmh">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
@@ -178,7 +178,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wxR-4P-sN1" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2992.753623188406" y="-230.35714285714283"/>
+            <point key="canvasLocation" x="3074" y="-253"/>
         </scene>
         <!--Home Tab Bar View Controller-->
         <scene sceneID="42Z-rm-tcD">
@@ -197,6 +197,71 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ceb-t8-cVx" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1132" y="82"/>
+        </scene>
+        <!--GeofencingViewController-->
+        <scene sceneID="yxM-E7-8yl">
+            <objects>
+                <viewController storyboardIdentifier="GeofencingViewController" title="GeofencingViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="u6e-J0-cpJ" customClass="GeofencingViewController" customModule="AgriGuardian" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="9is-Pg-Rhj">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Ijj-J7-qm5">
+                                <rect key="frame" x="0.0" y="44" width="414" height="700"/>
+                            </mapView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="GEOFENCING!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NDE-4y-oro">
+                                <rect key="frame" x="0.0" y="744" width="414" height="101"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                                <color key="shadowColor" systemColor="systemPinkColor" red="1" green="0.1764705882" blue="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="NDE-4y-oro" firstAttribute="trailing" secondItem="Ijj-J7-qm5" secondAttribute="trailing" id="3VO-6E-qEn"/>
+                            <constraint firstItem="NDE-4y-oro" firstAttribute="top" secondItem="nye-qz-q0w" secondAttribute="top" constant="700" id="5Lj-yD-MIX"/>
+                            <constraint firstItem="NDE-4y-oro" firstAttribute="leading" secondItem="nye-qz-q0w" secondAttribute="leading" id="962-3h-UEc"/>
+                            <constraint firstItem="NDE-4y-oro" firstAttribute="leading" secondItem="Ijj-J7-qm5" secondAttribute="leading" id="N2v-9H-kgu"/>
+                            <constraint firstItem="NDE-4y-oro" firstAttribute="centerX" secondItem="9is-Pg-Rhj" secondAttribute="centerX" id="UkO-13-Yd2"/>
+                            <constraint firstItem="Ijj-J7-qm5" firstAttribute="top" secondItem="nye-qz-q0w" secondAttribute="top" id="Wjl-pI-SOa"/>
+                            <constraint firstItem="nye-qz-q0w" firstAttribute="bottom" secondItem="NDE-4y-oro" secondAttribute="bottom" constant="17" id="qLp-Bu-dKa"/>
+                            <constraint firstItem="NDE-4y-oro" firstAttribute="top" secondItem="Ijj-J7-qm5" secondAttribute="bottom" id="t1w-7c-wMP"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="nye-qz-q0w"/>
+                    </view>
+                    <connections>
+                        <outlet property="mapView" destination="Ijj-J7-qm5" id="D0B-yp-LfE"/>
+                        <outlet property="message" destination="NDE-4y-oro" id="qIt-VJ-v6p"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dFU-e3-4ut" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3073.913043478261" y="405.80357142857139"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="HOw-9l-qMY">
+            <objects>
+                <viewController storyboardIdentifier="GFViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="pXh-5P-rmh" customClass="GFViewController" customModule="AgriGuardian" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="g6c-nJ-AHw">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="flS-mE-XPF">
+                                <rect key="frame" x="0.0" y="44" width="414" height="770"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </mapView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="JQy-xc-E4i"/>
+                    </view>
+                    <connections>
+                        <outlet property="mapView" destination="flS-mE-XPF" id="xxY-rr-5GC"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="z9U-xx-WU9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4224.6376811594209" y="348.88392857142856"/>
         </scene>
     </scenes>
 </document>

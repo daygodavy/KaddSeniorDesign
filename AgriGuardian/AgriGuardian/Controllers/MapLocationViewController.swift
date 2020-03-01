@@ -85,7 +85,7 @@ class MapLocationViewController: UIViewController, CLLocationManagerDelegate, MK
         }
         
         for i in newLocation {
-//            print("present location : \(i.coordinate.latitude), \(i.coordinate.longitude)")
+            print("present location : \(i.coordinate.latitude), \(i.coordinate.longitude)")
             locationHistory.append(i)
         }
         
