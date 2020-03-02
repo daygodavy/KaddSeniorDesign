@@ -30,6 +30,11 @@
 		6621C63D240B69900039B49A /* DeviceTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6621C639240B69900039B49A /* DeviceTableViewController.swift */; };
 		6621C63E240B69900039B49A /* ViewController+Alerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6621C63B240B69900039B49A /* ViewController+Alerts.swift */; };
 		6621C640240B6D230039B49A /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6621C63F240B6D230039B49A /* MainTabBarController.swift */; };
+		6621C645240B7AC20039B49A /* MonthHistoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6621C643240B7AC20039B49A /* MonthHistoryTableViewCell.swift */; };
+		6621C646240B7AC20039B49A /* MonthHistoryTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6621C644240B7AC20039B49A /* MonthHistoryTableViewCell.xib */; };
+		6621C649240C7DAD0039B49A /* RideTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6621C647240C7DAD0039B49A /* RideTableViewCell.swift */; };
+		6621C64A240C7DAD0039B49A /* RideTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6621C648240C7DAD0039B49A /* RideTableViewCell.xib */; };
+		6621C64C240C8B560039B49A /* RideDetailCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6621C64B240C8B560039B49A /* RideDetailCollectionViewController.swift */; };
 		66603F20240B2C3300253B04 /* RideParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66603F1F240B2C3300253B04 /* RideParameters.swift */; };
 		66603F22240B308200253B04 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66603F21240B308200253B04 /* User.swift */; };
 		666AC0CD23FA229300DEB3E3 /* PeripheralViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 666AC0CC23FA229300DEB3E3 /* PeripheralViewController.swift */; };
@@ -89,6 +94,11 @@
 		6621C639240B69900039B49A /* DeviceTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceTableViewController.swift; sourceTree = "<group>"; };
 		6621C63B240B69900039B49A /* ViewController+Alerts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ViewController+Alerts.swift"; sourceTree = "<group>"; };
 		6621C63F240B6D230039B49A /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
+		6621C643240B7AC20039B49A /* MonthHistoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthHistoryTableViewCell.swift; sourceTree = "<group>"; };
+		6621C644240B7AC20039B49A /* MonthHistoryTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MonthHistoryTableViewCell.xib; sourceTree = "<group>"; };
+		6621C647240C7DAD0039B49A /* RideTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RideTableViewCell.swift; sourceTree = "<group>"; };
+		6621C648240C7DAD0039B49A /* RideTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RideTableViewCell.xib; sourceTree = "<group>"; };
+		6621C64B240C8B560039B49A /* RideDetailCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RideDetailCollectionViewController.swift; sourceTree = "<group>"; };
 		66603F1F240B2C3300253B04 /* RideParameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RideParameters.swift; sourceTree = "<group>"; };
 		66603F21240B308200253B04 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		666AC0CC23FA229300DEB3E3 /* PeripheralViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeripheralViewController.swift; sourceTree = "<group>"; };
@@ -194,6 +204,7 @@
 			children = (
 				6621C633240B69490039B49A /* YearlyHistoryTableViewController.swift */,
 				6621C634240B69490039B49A /* MonthlyHistoryTableViewController.swift */,
+				6621C64B240C8B560039B49A /* RideDetailCollectionViewController.swift */,
 			);
 			path = RideHistory;
 			sourceTree = "<group>";
@@ -245,6 +256,10 @@
 		666AC0CB23FA219500DEB3E3 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				6621C643240B7AC20039B49A /* MonthHistoryTableViewCell.swift */,
+				6621C644240B7AC20039B49A /* MonthHistoryTableViewCell.xib */,
+				6621C647240C7DAD0039B49A /* RideTableViewCell.swift */,
+				6621C648240C7DAD0039B49A /* RideTableViewCell.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -394,8 +409,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				5B5A71F223EB3FE100B5E2C5 /* LaunchScreen.storyboard in Resources */,
+				6621C64A240C7DAD0039B49A /* RideTableViewCell.xib in Resources */,
 				5B5A721623EB414200B5E2C5 /* GoogleService-Info.plist in Resources */,
 				5B5A71EF23EB3FE100B5E2C5 /* Assets.xcassets in Resources */,
+				6621C646240B7AC20039B49A /* MonthHistoryTableViewCell.xib in Resources */,
 				5B5A71EA23EB3FDD00B5E2C5 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -564,6 +581,7 @@
 				666AC0CD23FA229300DEB3E3 /* PeripheralViewController.swift in Sources */,
 				6621C640240B6D230039B49A /* MainTabBarController.swift in Sources */,
 				5B1BB30D240B450000E235CD /* HomeViewController.swift in Sources */,
+				6621C64C240C8B560039B49A /* RideDetailCollectionViewController.swift in Sources */,
 				5B1BB309240B431600E235CD /* LoginViewController.swift in Sources */,
 				5B5A71E723EB3FDD00B5E2C5 /* ViewController.swift in Sources */,
 				5B5A71E323EB3FDD00B5E2C5 /* AppDelegate.swift in Sources */,
@@ -580,6 +598,8 @@
 				66603F20240B2C3300253B04 /* RideParameters.swift in Sources */,
 				5B5A71ED23EB3FDD00B5E2C5 /* AgriGuardian.xcdatamodeld in Sources */,
 				6621C63C240B69900039B49A /* AddDeviceViewController.swift in Sources */,
+				6621C645240B7AC20039B49A /* MonthHistoryTableViewCell.swift in Sources */,
+				6621C649240C7DAD0039B49A /* RideTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
