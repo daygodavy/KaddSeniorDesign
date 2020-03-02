@@ -10,11 +10,14 @@ import UIKit
 import GoogleSignIn
 import FirebaseAuth
 
-class HomeViewController: UITabBarController {
+class HomeViewController: UIViewController {
+    
+    @IBOutlet weak var signOutButton: UIBarButtonItem!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.setupNavBar()
+        self.signOutButton.title = "SignOut"
         // Do any additional setup after loading the view.
     }
     
@@ -22,6 +25,11 @@ class HomeViewController: UITabBarController {
         print("attempting to signout")
         self.userLogout()
         self.goToHome()
+    }
+    
+    private func setupNavBar() {
+        self.navigationItem.title = "Home"
+        self.signOutButton.title = "Sign Out"
     }
     
     func userLogout() {
@@ -40,15 +48,15 @@ class HomeViewController: UITabBarController {
     // ====TEMPORARY====: segue programatically (no unwind segue?)
     func goToHome() {
         
-        //        let loginViewController = self.storyboard?.instantiateViewController(withIdentifier: "LoginViewController") as? LoginViewController
+                let loginViewController = self.storyboard?.instantiateViewController(withIdentifier: "LoginViewController") as? LoginViewController
+        
+                self.view.window?.rootViewController = loginViewController
+                self.view.window?.makeKeyAndVisible()
         //
-        //        self.view.window?.rootViewController = loginViewController
-        //        self.view.window?.makeKeyAndVisible()
-        //
-        let mainStoryboard = UIStoryboard(name: "Main", bundle:nil)
-        let loginVC = mainStoryboard.instantiateViewController(identifier: "LoginViewController") as! LoginViewController
-        let loginViewController = UINavigationController(rootViewController: loginVC)
-        self.present(loginViewController, animated: true)
+//        let mainStoryboard = UIStoryboard(name: "Main", bundle:nil)
+//        let loginVC = mainStoryboard.instantiateViewController(identifier: "LoginViewController") as! LoginViewController
+//        let loginViewController = UINavigationController(rootViewController: loginVC)
+//        self.present(loginViewController, animated: true)
     }
     
     

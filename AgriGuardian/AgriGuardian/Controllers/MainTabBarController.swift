@@ -17,20 +17,24 @@ class MainTabBarController: UITabBarController {
         let historyVC = mainStoryboard.instantiateViewController(identifier: "YearlyHistoryView") as! YearlyHistoryTableViewController
         let devicesVC = mainStoryboard.instantiateViewController(identifier: "DevicesView") as! DeviceTableViewController
         let settingVC = mainStoryboard.instantiateViewController(identifier: "SettingsView")
+        let homeVC = mainStoryboard.instantiateViewController(identifier: "HomeView")
         
         let historyNC = UINavigationController(rootViewController: historyVC)
         let devicesNC = UINavigationController(rootViewController: devicesVC)
         let settingsNC = UINavigationController(rootViewController: settingVC)
+        let homeNC = UINavigationController(rootViewController: homeVC)
         
         historyNC.navigationBar.prefersLargeTitles = true
         devicesNC.navigationBar.prefersLargeTitles = true
         settingsNC.navigationBar.prefersLargeTitles = true
+        homeNC.navigationBar.prefersLargeTitles = true
         
         historyNC.tabBarItem = UITabBarItem(title: "Rides", image: nil, tag: 0)
         devicesNC.tabBarItem = UITabBarItem(title: "Devices", image: nil, tag: 1)
         settingsNC.tabBarItem = UITabBarItem(title: "Settings", image: nil, tag: 2)
+        homeNC.tabBarItem = UITabBarItem(title: "Home", image: nil, tag: 2)
         
-        let tabBarList = [historyNC, devicesNC, settingsNC]
+        let tabBarList = [historyNC, devicesNC, settingsNC, homeNC]
         self.viewControllers = tabBarList
         
     }

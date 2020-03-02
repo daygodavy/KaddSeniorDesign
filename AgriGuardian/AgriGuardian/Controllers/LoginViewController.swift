@@ -63,9 +63,9 @@ class LoginViewController: UIViewController, GIDSignInDelegate {
 
     func navigateToHome() {
         // TODO:
-        let homeViewController = self.storyboard?.instantiateViewController(withIdentifier: "HomeTabBarViewController") as? UITabBarController
+        let MainTabBarController = self.storyboard?.instantiateViewController(withIdentifier: "MainTabBarController") as? UITabBarController
 
-        self.view.window?.rootViewController = homeViewController
+        self.view.window?.rootViewController = MainTabBarController
         self.view.window?.makeKeyAndVisible()
     }
     /*
