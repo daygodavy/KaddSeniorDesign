@@ -9,7 +9,8 @@
 import UIKit
 
 class MainTabBarController: UITabBarController {
-
+    var chosenDevice = Device()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -17,7 +18,7 @@ class MainTabBarController: UITabBarController {
         let historyVC = mainStoryboard.instantiateViewController(identifier: "YearlyHistoryView") as! YearlyHistoryTableViewController
         let devicesVC = mainStoryboard.instantiateViewController(identifier: "DevicesView") as! DeviceTableViewController
         let settingVC = mainStoryboard.instantiateViewController(identifier: "SettingsView")
-        let homeVC = mainStoryboard.instantiateViewController(identifier: "HomeView")
+        let homeVC = mainStoryboard.instantiateViewController(identifier: "HomeViewController") as! HomeViewController
         
         let historyNC = UINavigationController(rootViewController: historyVC)
         let devicesNC = UINavigationController(rootViewController: devicesVC)
@@ -32,10 +33,14 @@ class MainTabBarController: UITabBarController {
         historyNC.tabBarItem = UITabBarItem(title: "Rides", image: nil, tag: 0)
         devicesNC.tabBarItem = UITabBarItem(title: "Devices", image: nil, tag: 1)
         settingsNC.tabBarItem = UITabBarItem(title: "Settings", image: nil, tag: 2)
-        homeNC.tabBarItem = UITabBarItem(title: "Home", image: nil, tag: 2)
+        homeNC.tabBarItem = UITabBarItem(title: "Home", image: nil, tag: 3)
+        
+        homeVC.currDevice = chosenDevice
         
         let tabBarList = [historyNC, devicesNC, settingsNC, homeNC]
         self.viewControllers = tabBarList
+        
+        print("GOT IT: \(chosenDevice.name)")
         
     }
     

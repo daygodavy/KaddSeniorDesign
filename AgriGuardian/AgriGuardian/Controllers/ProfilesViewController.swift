@@ -12,6 +12,7 @@ class ProfilesViewController: UIViewController {
     
     @IBOutlet weak var profilesCollectionView: UICollectionView!
     var profiles: [Device] = []
+    var selectedIdx: Int = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,6 +56,14 @@ class ProfilesViewController: UIViewController {
         profilesCollectionView.reloadData()
     }
     
+    func navigateToHome(idx: Int) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let MainTabBarController = storyboard.instantiateViewController(withIdentifier: "MainTabBarController") as! MainTabBarController
+        MainTabBarController.chosenDevice = profiles[idx]
+        MainTabBarController.modalPresentationStyle = .fullScreen
+        self.present(MainTabBarController, animated: true, completion: nil)
+    }
+    
     
     
     /*
@@ -89,8 +98,10 @@ extension ProfilesViewController: UICollectionViewDataSource, UICollectionViewDe
             return cell
     }
     
-    
-    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        navigateToHome(idx: indexPath.section)
+        self.selectedIdx = indexPath.item
+    }
     
 }
 

@@ -13,12 +13,14 @@ import FirebaseAuth
 class HomeViewController: UIViewController {
     
     @IBOutlet weak var signOutButton: UIBarButtonItem!
+    var currDevice = Device()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setupNavBar()
         self.signOutButton.title = "SignOut"
-        // Do any additional setup after loading the view.
+        print("GOTEM: \(currDevice.name)")
+        
     }
     
     @IBAction func SignOutButtonPressed(_ sender: Any) {
