@@ -43,7 +43,10 @@ class DeviceTableViewController: UITableViewController {
         self.spinner.hidesWhenStopped = true
         self.spinner.startAnimating()
         self.view.addSubview(spinner)
-        centralManager.scanForPeripherals(withServices: [kaddService])
+        //centralManager.scanForPeripherals(withServices: [kaddService])
+        let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = mainStoryboard.instantiateViewController(identifier: "AddDevice")
+        self.navigationController?.pushViewController(vc, animated: true)
 
         
 
