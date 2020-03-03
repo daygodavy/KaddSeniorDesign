@@ -107,7 +107,7 @@ class AddDeviceViewController: FormViewController {
         else {
             fatalError("Unexpectedly found nil unwrapping devive data")
         }
-        let newDevice = Device(name: nameRow.value!, modelNumber: modelNumber, serialNumber: serialNumber, atvModel: vehicleRow.value!, manufacturer: manufacturer, hardwareVersion: hardwareVersion, firmwareVersion: firmwareVersion)
+        let newDevice = Device(name: nameRow.value!, modelNumber: modelNumber, serialNumber: serialNumber, atvModel: vehicleRow.value!, manufacturer: manufacturer, hardwareVersion: hardwareVersion, firmwareVersion: firmwareVersion, uid: "")
         return newDevice
     }
     
