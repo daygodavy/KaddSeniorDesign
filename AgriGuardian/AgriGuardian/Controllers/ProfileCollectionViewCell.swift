@@ -12,6 +12,7 @@ class ProfileCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var bgView: UIView!
     @IBOutlet weak var vehicleNameLabel: UILabel!
+    @IBOutlet weak var selectedToggle: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()

@@ -13,11 +13,15 @@ class ProfilesViewController: UIViewController {
     
     
     @IBOutlet weak var profilesCollectionView: UICollectionView!
+    @IBOutlet weak var editButton: UIButton!
     var ref: DocumentReference? = nil
     let db = Firestore.firestore()
     var currUID: String = ""
     var profiles: [Device] = []
     var selectedIdx: Int = 0
+    var editMode: Bool = false
+    var deletedProfiles: [Int] = []
+    var isSelected: [Bool] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,6 +58,28 @@ class ProfilesViewController: UIViewController {
         self.present(alertController, animated: true, completion: nil)
     }
     
+    @IBAction func editButtonPressed(_ sender: Any) {
+        print(editButton.currentTitle)
+        if let status = editButton.currentTitle{
+            if status == "Edit" {
+                
+                self.editButton.setTitle("Done", for: .normal)
+//                self.editButton.titleLabel?.text = "Done"
+                self.editMode = true
+            }
+            else {
+                print("STATUS IS NOT EDIT")
+                // check to confirm deletion with Alert? --> is good then delete
+                //            self.deleteCells()
+                self.editButton.setTitle("Edit", for: .normal)
+//                self.editButton.titleLabel?.text = "Edit"
+                self.editMode = false
+            }
+        }
+    }
+    
+    
+    
     func loadProfiles() {
         if let id = Auth.auth().currentUser?.uid {
             self.currUID = id
@@ -65,14 +91,14 @@ class ProfilesViewController: UIViewController {
                 print("\(err)")
             }
             if let deviceDocs = data?.documents {
-                print("COUNT: \(deviceDocs.count)")
                 for devices in deviceDocs {
                     let dev = Device(data: devices.data())
                     self.profiles.append(dev)
-                    print("GRABBED DEVICE")
+                    
+                    self.isSelected.append(true)
+                    
                     self.profilesCollectionView.reloadData()
                 }
-                print("RELOAD TABLE")
                 self.profilesCollectionView.reloadData()
             }
         }
@@ -162,6 +188,7 @@ extension ProfilesViewController: UICollectionViewDataSource, UICollectionViewDe
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ProfileCollectionViewCell", for: indexPath) as! ProfileCollectionViewCell
             cell.bgView.backgroundColor = #colorLiteral(red: 1, green: 0.1118306135, blue: 0, alpha: 1)
             cell.vehicleNameLabel.text = "\(profiles[indexPath.section].name)"
+            cell.selectedToggle.isHidden = isSelected[indexPath.section]
             //            cell.profileNameLabel.text = "ATV #"
             
             //        cell.myLabel.text = "ABCD"
@@ -169,9 +196,51 @@ extension ProfilesViewController: UICollectionViewDataSource, UICollectionViewDe
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        navigateToHome(idx: indexPath.section)
-        self.selectedIdx = indexPath.item
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ProfileCollectionViewCell", for: indexPath) as! ProfileCollectionViewCell
+        print("=====HIDDEN======: \(cell.selectedToggle.isHidden)")
+        if editMode == false {
+            //            navigateToHome(idx: indexPath.section)
+            //            self.selectedIdx = indexPath.item
+        }
+        else {
+            // append label representing cell is selected for deletion
+            
+            if isSelected[indexPath.section] == true {
+                isSelected[indexPath.section] = false
+            } else {
+                isSelected[indexPath.section] = true
+            }
+            profilesCollectionView.reloadData()
+            
+//            print("HIDDEN?: \(cell.selectedToggle.isHidden)")
+//            if cell.selectedToggle.isHidden == true {
+//                cell.selectedToggle.isHidden = false
+////                print("false")
+////                deletedProfiles.append(indexPath.section)
+//            }
+//            else {
+//                cell.selectedToggle.isHidden = true
+////                print("true")
+////                deletedProfiles.remove(at: indexPath.section)
+//            }
+            
+            
+//            print("DELETEDPROFILES: \(deletedProfiles)")
+            
+        }
+        
     }
+    
+    
+//    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+//        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ProfileCollectionViewCell", for: indexPath) as! ProfileCollectionViewCell
+//        if editMode == true {
+//            // remove label represented cell is deselected for deletion
+//            cell.selectedToggle.isHidden = true
+//            deletedProfiles.remove(at: indexPath.section)
+//            print("DESELECTEDPROFILES: \(deletedProfiles)")
+//        }
+//    }
     
 }
 
