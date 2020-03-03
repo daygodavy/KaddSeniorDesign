@@ -17,6 +17,7 @@ class Device {
     var firmwareVersion: String
     var hardwareVersion: String
     var uid: String
+    var devId: String
     
     init() {
         name = ""
@@ -27,10 +28,11 @@ class Device {
         hardwareVersion = ""
         firmwareVersion = ""
         uid = ""
+        devId = ""
     }
     
     
-    init(name: String, modelNumber: String, serialNumber: String, atvModel: String, manufacturer: String, hardwareVersion: String, firmwareVersion: String, uid: String) {
+    init(name: String, modelNumber: String, serialNumber: String, atvModel: String, manufacturer: String, hardwareVersion: String, firmwareVersion: String, uid: String, devId: String) {
         self.name = name
         self.modelNumber = modelNumber
         self.serialNumber = serialNumber
@@ -39,6 +41,7 @@ class Device {
         self.hardwareVersion = hardwareVersion
         self.firmwareVersion = firmwareVersion
         self.uid = uid
+        self.devId = devId
     }
     
     // Reading data into from Firebase
@@ -51,6 +54,7 @@ class Device {
         self.hardwareVersion = data["hardwareVersion"] as! String
         self.firmwareVersion = data["firmwareVersion"] as! String
         self.uid = data["uid"] as! String
+        self.devId = data["devId"] as! String
     }
     
     func printDevice() {

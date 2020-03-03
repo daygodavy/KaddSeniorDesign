@@ -64,15 +64,16 @@ class ProfilesViewController: UIViewController {
             if status == "Edit" {
                 
                 self.editButton.setTitle("Done", for: .normal)
-//                self.editButton.titleLabel?.text = "Done"
                 self.editMode = true
             }
             else {
                 print("STATUS IS NOT EDIT")
-                // check to confirm deletion with Alert? --> is good then delete
-                //            self.deleteCells()
+                
+                let count = self.isSelected.filter {$0 == true}.count
+                if count > 0 {
+                    self.verifyDeletion()
+                }
                 self.editButton.setTitle("Edit", for: .normal)
-//                self.editButton.titleLabel?.text = "Edit"
                 self.editMode = false
             }
         }
@@ -94,8 +95,8 @@ class ProfilesViewController: UIViewController {
                 for devices in deviceDocs {
                     let dev = Device(data: devices.data())
                     self.profiles.append(dev)
-                    
-                    self.isSelected.append(true)
+                    // STOP UNDOING HERE!!!!!!
+                    self.isSelected.append(false)
                     
                     self.profilesCollectionView.reloadData()
                 }
@@ -108,6 +109,7 @@ class ProfilesViewController: UIViewController {
         let newVehicle = Device.init()
         newVehicle.name = name
         profiles.append(newVehicle)
+        self.isSelected.append(false)
         profilesCollectionView.reloadData()
         
         self.addToDevice(device: newVehicle)
@@ -123,7 +125,8 @@ class ProfilesViewController: UIViewController {
             "manufacturer" : device.manufacturer,
             "hardwareVersion" : device.hardwareVersion,
             "firmwareVersion" : device.firmwareVersion,
-            "uid" : currUID
+            "uid" : currUID,
+            "devId" : ref.documentID
         ]) { err in
             if let err = err {
                 print("Error adding document: \(err)")
@@ -151,6 +154,70 @@ class ProfilesViewController: UIViewController {
         }
     }
     
+    func verifyDeletion() {
+        let alertController = UIAlertController(title: "Are you sure you want to delete them?", message: "", preferredStyle: .alert)
+        
+        
+        //        alertController.addTextField { (textField : UITextField!) -> Void in
+        //            textField.placeholder = "Enter Vehicle Name"
+        //        }
+        
+        //        let cancelAction = UIAlertAction(title: "Cancel", style: .default, handler: nil )
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .default, handler: { alert -> Void in
+            self.isSelected = Array(repeating: false, count: self.profiles.count)
+            self.profilesCollectionView.reloadData()
+        })
+        
+        let deleteAction = UIAlertAction(title: "Delete", style: .default, handler: { alert -> Void in
+            for (i, check) in self.isSelected.enumerated().reversed() {
+                if check == true {
+                    // REMOVE FROM FIREBASE
+                    self.removeFromDevice(devId: self.profiles[i].devId)
+                    // self.removeFromUserDevice()
+                    self.profiles.remove(at: i)
+                }
+            }
+            self.isSelected = Array(repeating: false, count: self.profiles.count)
+            self.profilesCollectionView.reloadData()
+            // UPDATE TO FIREBASE
+            
+        })
+        deleteAction.setValue(UIColor.red, forKey: "titleTextColor")
+        
+        
+        alertController.addAction(cancelAction)
+        alertController.addAction(deleteAction)
+        
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
+    
+    func removeFromDevice(devId: String) {
+        db.collection("devices").document(devId).delete() { err in
+            if let err = err {
+                print("Error removing document: \(err)")
+            } else {
+                print("Document successfully removed!")
+                self.removeFromUserDevice(devId: devId)
+            }
+        }
+    }
+    
+    func removeFromUserDevice(devId: String) {
+        if let uid = Auth.auth().currentUser?.uid {
+            let ref = db.collection("users").document(uid)
+            ref.updateData([
+                "Devices" : FieldValue.arrayRemove([devId])
+            ]) {err in
+                if let err = err {
+                    print("Error adding document: \(err)")
+                } else {
+                    print("Successfully deleted users.device: \(ref.documentID)")
+                }
+            }
+        }
+    }
     
     func navigateToHome(idx: Int) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
@@ -188,7 +255,7 @@ extension ProfilesViewController: UICollectionViewDataSource, UICollectionViewDe
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ProfileCollectionViewCell", for: indexPath) as! ProfileCollectionViewCell
             cell.bgView.backgroundColor = #colorLiteral(red: 1, green: 0.1118306135, blue: 0, alpha: 1)
             cell.vehicleNameLabel.text = "\(profiles[indexPath.section].name)"
-            cell.selectedToggle.isHidden = isSelected[indexPath.section]
+            cell.selectedToggle.isHidden = !isSelected[indexPath.section]
             //            cell.profileNameLabel.text = "ATV #"
             
             //        cell.myLabel.text = "ABCD"
@@ -212,35 +279,9 @@ extension ProfilesViewController: UICollectionViewDataSource, UICollectionViewDe
             }
             profilesCollectionView.reloadData()
             
-//            print("HIDDEN?: \(cell.selectedToggle.isHidden)")
-//            if cell.selectedToggle.isHidden == true {
-//                cell.selectedToggle.isHidden = false
-////                print("false")
-////                deletedProfiles.append(indexPath.section)
-//            }
-//            else {
-//                cell.selectedToggle.isHidden = true
-////                print("true")
-////                deletedProfiles.remove(at: indexPath.section)
-//            }
-            
-            
-//            print("DELETEDPROFILES: \(deletedProfiles)")
-            
         }
         
     }
-    
-    
-//    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-//        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ProfileCollectionViewCell", for: indexPath) as! ProfileCollectionViewCell
-//        if editMode == true {
-//            // remove label represented cell is deselected for deletion
-//            cell.selectedToggle.isHidden = true
-//            deletedProfiles.remove(at: indexPath.section)
-//            print("DESELECTEDPROFILES: \(deletedProfiles)")
-//        }
-//    }
     
 }
 
