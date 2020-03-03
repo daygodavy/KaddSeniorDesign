@@ -13,6 +13,8 @@ class YearlyHistoryTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNavBar()
+        let nib = UINib(nibName: "MonthHistoryTableViewCell", bundle: nil)
+        self.tableView.register(nib, forCellReuseIdentifier: "MonthCell")
     }
     // MARK: - Private functions
     private func setupNavBar() {
@@ -28,7 +30,10 @@ class YearlyHistoryTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 10
+        return 12
+    }
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 120
     }
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return "Year Header"
@@ -36,9 +41,7 @@ class YearlyHistoryTableViewController: UITableViewController {
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell()
-        cell.textLabel?.text = "Section: \(indexPath.section) Row: \(indexPath.row)"
-
+        let cell = tableView.dequeueReusableCell(withIdentifier: "MonthCell") as! MonthHistoryTableViewCell
         return cell
     }
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

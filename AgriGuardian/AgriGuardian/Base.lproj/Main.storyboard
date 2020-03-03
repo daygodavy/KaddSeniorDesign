@@ -140,10 +140,10 @@
             </objects>
             <point key="canvasLocation" x="2322" y="745"/>
         </scene>
-        <!--Collection View Controller-->
+        <!--Ride Detail Collection View Controller-->
         <scene sceneID="T9k-s2-Y7z">
             <objects>
-                <collectionViewController storyboardIdentifier="RideDetailView" useStoryboardIdentifierAsRestorationIdentifier="YES" id="jbY-Cm-PWN" sceneMemberID="viewController">
+                <collectionViewController storyboardIdentifier="RideDetailView" useStoryboardIdentifierAsRestorationIdentifier="YES" id="jbY-Cm-PWN" customClass="RideDetailCollectionViewController" customModule="AgriGuardian" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="1kv-0I-jmQ">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -172,7 +172,22 @@
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IxH-58-QeC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3158" y="745"/>
+            <point key="canvasLocation" x="3100" y="745"/>
+        </scene>
+        <!--Ride Map View Controller-->
+        <scene sceneID="fnl-Cn-6ch">
+            <objects>
+                <viewController storyboardIdentifier="RideMapView" useStoryboardIdentifierAsRestorationIdentifier="YES" id="AOJ-75-yif" customClass="RideMapViewController" customModule="AgriGuardian" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="cs6-kK-EKg">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="nrr-67-LCd"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9ru-5A-7bG" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3899" y="745"/>
         </scene>
         <!--Add Device View Controller-->
         <scene sceneID="uKc-rz-ZC1">

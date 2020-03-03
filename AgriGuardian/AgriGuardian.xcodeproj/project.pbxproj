@@ -31,8 +31,20 @@
 		6621C63D240B69900039B49A /* DeviceTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6621C639240B69900039B49A /* DeviceTableViewController.swift */; };
 		6621C63E240B69900039B49A /* ViewController+Alerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6621C63B240B69900039B49A /* ViewController+Alerts.swift */; };
 		6621C640240B6D230039B49A /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6621C63F240B6D230039B49A /* MainTabBarController.swift */; };
+		6621C64C240C8B560039B49A /* RideDetailCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6621C64B240C8B560039B49A /* RideDetailCollectionViewController.swift */; };
 		66603F20240B2C3300253B04 /* RideParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66603F1F240B2C3300253B04 /* RideParameters.swift */; };
 		66603F22240B308200253B04 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66603F21240B308200253B04 /* User.swift */; };
+		6662C26D240E011D00C622D5 /* RideMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6662C26C240E011D00C622D5 /* RideMapViewController.swift */; };
+		6662C279240E111700C622D5 /* RideDetailInfoCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6662C26F240E111700C622D5 /* RideDetailInfoCVC.swift */; };
+		6662C27A240E111700C622D5 /* RideTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6662C270240E111700C622D5 /* RideTableViewCell.swift */; };
+		6662C27B240E111700C622D5 /* RideTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6662C271240E111700C622D5 /* RideTableViewCell.xib */; };
+		6662C27C240E111700C622D5 /* RideDetailHeaderCRV.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6662C272240E111700C622D5 /* RideDetailHeaderCRV.swift */; };
+		6662C27D240E111700C622D5 /* RideDetailInfoCVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6662C273240E111700C622D5 /* RideDetailInfoCVC.xib */; };
+		6662C27E240E111700C622D5 /* MonthHistoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6662C274240E111700C622D5 /* MonthHistoryTableViewCell.swift */; };
+		6662C27F240E111700C622D5 /* MonthHistoryTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6662C275240E111700C622D5 /* MonthHistoryTableViewCell.xib */; };
+		6662C280240E111700C622D5 /* RideDetailMapCVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6662C276240E111700C622D5 /* RideDetailMapCVC.xib */; };
+		6662C281240E111700C622D5 /* RideDetailMapCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6662C277240E111700C622D5 /* RideDetailMapCVC.swift */; };
+		6662C282240E111700C622D5 /* RideDetailHeaderCRV.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6662C278240E111700C622D5 /* RideDetailHeaderCRV.xib */; };
 		666AC0CD23FA229300DEB3E3 /* PeripheralViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 666AC0CC23FA229300DEB3E3 /* PeripheralViewController.swift */; };
 		667302B22405FD2500BA015A /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = 667302B12405FD2500BA015A /* Device.swift */; };
 		667302B92405FF2600BA015A /* Datagram.swift in Sources */ = {isa = PBXBuildFile; fileRef = 667302B62405FF2600BA015A /* Datagram.swift */; };
@@ -91,8 +103,20 @@
 		6621C639240B69900039B49A /* DeviceTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceTableViewController.swift; sourceTree = "<group>"; };
 		6621C63B240B69900039B49A /* ViewController+Alerts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ViewController+Alerts.swift"; sourceTree = "<group>"; };
 		6621C63F240B6D230039B49A /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
+		6621C64B240C8B560039B49A /* RideDetailCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RideDetailCollectionViewController.swift; sourceTree = "<group>"; };
 		66603F1F240B2C3300253B04 /* RideParameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RideParameters.swift; sourceTree = "<group>"; };
 		66603F21240B308200253B04 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		6662C26C240E011D00C622D5 /* RideMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RideMapViewController.swift; sourceTree = "<group>"; };
+		6662C26F240E111700C622D5 /* RideDetailInfoCVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RideDetailInfoCVC.swift; sourceTree = "<group>"; };
+		6662C270240E111700C622D5 /* RideTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RideTableViewCell.swift; sourceTree = "<group>"; };
+		6662C271240E111700C622D5 /* RideTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RideTableViewCell.xib; sourceTree = "<group>"; };
+		6662C272240E111700C622D5 /* RideDetailHeaderCRV.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RideDetailHeaderCRV.swift; sourceTree = "<group>"; };
+		6662C273240E111700C622D5 /* RideDetailInfoCVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RideDetailInfoCVC.xib; sourceTree = "<group>"; };
+		6662C274240E111700C622D5 /* MonthHistoryTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MonthHistoryTableViewCell.swift; sourceTree = "<group>"; };
+		6662C275240E111700C622D5 /* MonthHistoryTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MonthHistoryTableViewCell.xib; sourceTree = "<group>"; };
+		6662C276240E111700C622D5 /* RideDetailMapCVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RideDetailMapCVC.xib; sourceTree = "<group>"; };
+		6662C277240E111700C622D5 /* RideDetailMapCVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RideDetailMapCVC.swift; sourceTree = "<group>"; };
+		6662C278240E111700C622D5 /* RideDetailHeaderCRV.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RideDetailHeaderCRV.xib; sourceTree = "<group>"; };
 		666AC0CC23FA229300DEB3E3 /* PeripheralViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeripheralViewController.swift; sourceTree = "<group>"; };
 		666AC0CE23FA266700DEB3E3 /* AgriGuardian.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AgriGuardian.entitlements; sourceTree = "<group>"; };
 		667302B12405FD2500BA015A /* Device.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Device.swift; sourceTree = "<group>"; };
@@ -196,6 +220,8 @@
 			children = (
 				6621C633240B69490039B49A /* YearlyHistoryTableViewController.swift */,
 				6621C634240B69490039B49A /* MonthlyHistoryTableViewController.swift */,
+				6621C64B240C8B560039B49A /* RideDetailCollectionViewController.swift */,
+				6662C26C240E011D00C622D5 /* RideMapViewController.swift */,
 			);
 			path = RideHistory;
 			sourceTree = "<group>";
@@ -215,6 +241,23 @@
 				6621C63B240B69900039B49A /* ViewController+Alerts.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		6662C26E240E111700C622D5 /* RideHistory */ = {
+			isa = PBXGroup;
+			children = (
+				6662C26F240E111700C622D5 /* RideDetailInfoCVC.swift */,
+				6662C270240E111700C622D5 /* RideTableViewCell.swift */,
+				6662C271240E111700C622D5 /* RideTableViewCell.xib */,
+				6662C272240E111700C622D5 /* RideDetailHeaderCRV.swift */,
+				6662C273240E111700C622D5 /* RideDetailInfoCVC.xib */,
+				6662C274240E111700C622D5 /* MonthHistoryTableViewCell.swift */,
+				6662C275240E111700C622D5 /* MonthHistoryTableViewCell.xib */,
+				6662C276240E111700C622D5 /* RideDetailMapCVC.xib */,
+				6662C277240E111700C622D5 /* RideDetailMapCVC.swift */,
+				6662C278240E111700C622D5 /* RideDetailHeaderCRV.xib */,
+			);
+			path = RideHistory;
 			sourceTree = "<group>";
 		};
 		666AC0C923FA216400DEB3E3 /* Controllers */ = {
@@ -247,6 +290,7 @@
 		666AC0CB23FA219500DEB3E3 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				6662C26E240E111700C622D5 /* RideHistory */,
 				5B8DF8B3240C9113006AE846 /* ProfileCollectionViewCell.swift */,
 			);
 			path = Views;
@@ -397,8 +441,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				5B5A71F223EB3FE100B5E2C5 /* LaunchScreen.storyboard in Resources */,
+				6662C27B240E111700C622D5 /* RideTableViewCell.xib in Resources */,
+				6662C280240E111700C622D5 /* RideDetailMapCVC.xib in Resources */,
+				6662C27D240E111700C622D5 /* RideDetailInfoCVC.xib in Resources */,
 				5B5A721623EB414200B5E2C5 /* GoogleService-Info.plist in Resources */,
 				5B5A71EF23EB3FE100B5E2C5 /* Assets.xcassets in Resources */,
+				6662C282240E111700C622D5 /* RideDetailHeaderCRV.xib in Resources */,
+				6662C27F240E111700C622D5 /* MonthHistoryTableViewCell.xib in Resources */,
 				5B5A71EA23EB3FDD00B5E2C5 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -564,12 +613,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				667302B22405FD2500BA015A /* Device.swift in Sources */,
+				6662C26D240E011D00C622D5 /* RideMapViewController.swift in Sources */,
+				6662C281240E111700C622D5 /* RideDetailMapCVC.swift in Sources */,
 				666AC0CD23FA229300DEB3E3 /* PeripheralViewController.swift in Sources */,
 				5B8DF8B2240C901D006AE846 /* ProfilesViewController.swift in Sources */,
 				6621C640240B6D230039B49A /* MainTabBarController.swift in Sources */,
 				5B1BB30D240B450000E235CD /* HomeViewController.swift in Sources */,
+				6662C279240E111700C622D5 /* RideDetailInfoCVC.swift in Sources */,
+				6621C64C240C8B560039B49A /* RideDetailCollectionViewController.swift in Sources */,
+				6662C27A240E111700C622D5 /* RideTableViewCell.swift in Sources */,
 				5B1BB309240B431600E235CD /* LoginViewController.swift in Sources */,
 				5B5A71E723EB3FDD00B5E2C5 /* ViewController.swift in Sources */,
+				6662C27C240E111700C622D5 /* RideDetailHeaderCRV.swift in Sources */,
 				5B5A71E323EB3FDD00B5E2C5 /* AppDelegate.swift in Sources */,
 				6621C635240B69490039B49A /* YearlyHistoryTableViewController.swift in Sources */,
 				6621C63D240B69900039B49A /* DeviceTableViewController.swift in Sources */,
@@ -579,6 +634,7 @@
 				667302B92405FF2600BA015A /* Datagram.swift in Sources */,
 				667302BA2405FF2600BA015A /* Message.swift in Sources */,
 				6621C636240B69490039B49A /* MonthlyHistoryTableViewController.swift in Sources */,
+				6662C27E240E111700C622D5 /* MonthHistoryTableViewCell.swift in Sources */,
 				667302BB2405FF2600BA015A /* MessageReceiver.swift in Sources */,
 				5B5A71E523EB3FDD00B5E2C5 /* SceneDelegate.swift in Sources */,
 				66603F20240B2C3300253B04 /* RideParameters.swift in Sources */,
