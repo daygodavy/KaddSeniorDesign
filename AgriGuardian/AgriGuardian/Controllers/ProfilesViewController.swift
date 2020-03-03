@@ -94,7 +94,7 @@ class ProfilesViewController: UIViewController {
             "modelNumber" : device.modelNumber,
             "serialNumber" : device.serialNumber,
             "atvModel" : device.atvModel,
-            "manufacturer:" : device.manufacturer,
+            "manufacturer" : device.manufacturer,
             "hardwareVersion" : device.hardwareVersion,
             "firmwareVersion" : device.firmwareVersion,
             "uid" : currUID
