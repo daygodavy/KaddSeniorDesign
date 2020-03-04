@@ -266,8 +266,8 @@ extension ProfilesViewController: UICollectionViewDataSource, UICollectionViewDe
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ProfileCollectionViewCell", for: indexPath) as! ProfileCollectionViewCell
         print("=====HIDDEN======: \(cell.selectedToggle.isHidden)")
         if editMode == false {
-            //            navigateToHome(idx: indexPath.section)
-            //            self.selectedIdx = indexPath.item
+            navigateToHome(idx: indexPath.section)
+            self.selectedIdx = indexPath.item
         }
         else {
             // append label representing cell is selected for deletion
