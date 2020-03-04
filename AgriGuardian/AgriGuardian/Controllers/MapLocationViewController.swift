@@ -28,6 +28,10 @@ class MapLocationViewController: UIViewController, CLLocationManagerDelegate, MK
         locationManager.delegate = self;
         self.setupAuth()
         self.setupMap()
+        
+        // TESTING PIN DROP ON GESTURE
+        let longTapGesture = UILongPressGestureRecognizer(target: self, action: #selector(longTap))
+        mapView.addGestureRecognizer(longTapGesture)
     }
     
     // MARK: ACTIONS
@@ -61,7 +65,7 @@ class MapLocationViewController: UIViewController, CLLocationManagerDelegate, MK
     
     //function to add annotation to map view
     func addAnnotationsOnMap(locationToPoint : CLLocation){
-
+        
         let annotation = MKPointAnnotation()
         annotation.coordinate = locationToPoint.coordinate
         let geoCoder = CLGeocoder ()
@@ -75,6 +79,60 @@ class MapLocationViewController: UIViewController, CLLocationManagerDelegate, MK
         })
     }
     
+    // TESTING PIN ON GESTURE
+    @objc func longTap(sender: UIGestureRecognizer){
+        print("long tap")
+        if sender.state == .began {
+            let locationInView = sender.location(in: mapView)
+            let locationOnMap = mapView.convert(locationInView, toCoordinateFrom: mapView)
+            addAnnotation(location: locationOnMap, sender: sender)
+            
+            
+//            let location = sender.location(in: mapView)
+////            let coord = mapView.convert(location, toCoordinateFrom: mapView)
+//            let initCoord = mapView.convert(location, toCoordinateFrom: mapView)
+//            let finalCoord: CLLocation = CLLocation(latitude: initCoord.latitude, longitude: initCoord.longitude)
+//            let geocoder = CLGeocoder()
+//            geocoder.reverseGeocodeLocation(finalCoord) { (placemarks, error) in
+//                if let places = placemarks {
+//                    for place in places {
+//                        print("found placemark \(place.name) at address \(place.postalCode)")
+//                    }
+//                }
+//            }
+        }
+    }
+
+    func addAnnotation(location: CLLocationCoordinate2D, sender: UIGestureRecognizer){
+            let annotation = MKPointAnnotation()
+            annotation.coordinate = location
+        
+        
+
+            let location = sender.location(in: mapView)
+//            let coord = mapView.convert(location, toCoordinateFrom: mapView)
+            let initCoord = mapView.convert(location, toCoordinateFrom: mapView)
+            let finalCoord: CLLocation = CLLocation(latitude: initCoord.latitude, longitude: initCoord.longitude)
+            let geocoder = CLGeocoder()
+            geocoder.reverseGeocodeLocation(finalCoord) { (placemarks, error) in
+                if let places = placemarks {
+                    for place in places {
+                        print("found placemark \(place.name) at address \(place.postalCode)")
+                        annotation.title = place.name
+                        annotation.subtitle = place.postalCode
+                        self.mapView.addAnnotation(annotation)
+                        
+                    }
+                }
+            }
+        
+        
+        
+//            annotation.title = "Some Title"
+//            annotation.subtitle = "Some Subtitle"
+//            self.mapView.addAnnotation(annotation)
+    }
+    
     
     // MARK: DELEGATES
     
@@ -85,14 +143,14 @@ class MapLocationViewController: UIViewController, CLLocationManagerDelegate, MK
         }
         
         for i in newLocation {
-            print("present location : \(i.coordinate.latitude), \(i.coordinate.longitude)")
+//            print("present location : \(i.coordinate.latitude), \(i.coordinate.longitude)")
             locationHistory.append(i)
         }
         
-//        print("===Size===: \(locationHistory.count)")
-//        for j in locationHistory {
-//            print("locHistory: \(j)")
-//        }
+        //        print("===Size===: \(locationHistory.count)")
+        //        for j in locationHistory {
+        //            print("locHistory: \(j)")
+        //        }
         
         if locationHistory.count == 2 {
             let oldCoords = locationHistory[0].coordinate
@@ -109,7 +167,7 @@ class MapLocationViewController: UIViewController, CLLocationManagerDelegate, MK
             mapView.addOverlay(polyline)
         }
         
-//        self.addAnnotationsOnMap(locationToPoint: newLocation[0])
+        //        self.addAnnotationsOnMap(locationToPoint: newLocation[0])
     }
     
     // delegate that draws/traces the path taken
@@ -121,6 +179,38 @@ class MapLocationViewController: UIViewController, CLLocationManagerDelegate, MK
             return pr
         }
         return MKPolylineRenderer()
+    }
+    
+    
+    // TESTING PIN ON GESTURE
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        guard annotation is MKPointAnnotation else { print("no mkpointannotaions"); return nil }
+        
+        let reuseId = "pin"
+        var pinView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseId) as? MKPinAnnotationView
+        
+        if pinView == nil {
+            pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
+            pinView!.canShowCallout = true
+            pinView!.rightCalloutAccessoryView = UIButton(type: .infoDark)
+            pinView!.pinTintColor = UIColor.black
+        }
+        else {
+            pinView!.annotation = annotation
+        }
+        return pinView
+    }
+    
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        print("tapped on pin ")
+    }
+    
+    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+        if control == view.rightCalloutAccessoryView {
+            if let doSomething = view.annotation?.title! {
+                print("do something")
+            }
+        }
     }
     
     
