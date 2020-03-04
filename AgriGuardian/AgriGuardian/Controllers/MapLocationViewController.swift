@@ -21,6 +21,9 @@ class MapLocationViewController: UIViewController, CLLocationManagerDelegate, MK
     var locationManager = CLLocationManager()
     var locationHistory = [CLLocation]()
     
+    var ref: DocumentReference? = nil
+    let db = Firestore.firestore()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -76,12 +79,53 @@ class MapLocationViewController: UIViewController, CLLocationManagerDelegate, MK
     }
     
     
+    func addToRH(loc: CLLocation) {
+        let ref = Firestore.firestore().collection("ridehistory").document("test")
+        ref.setData([
+            "coord" : FieldValue.arrayUnion([GeoPoint.init(latitude: loc.coordinate.latitude, longitude: loc.coordinate.longitude)])
+        ]) { err in
+            if let err = err {
+                print("Error adding document: \(err)")
+            } else {
+                print("Document added with ID: \(ref.documentID)")
+                
+            }
+        }
+        
+    }
+    
+    func updateToRH(loc: CLLocation) {
+        let ref = Firestore.firestore().collection("ridehistory").document("test")
+        ref.updateData([
+            "coord" : FieldValue.arrayUnion([GeoPoint.init(latitude: loc.coordinate.latitude, longitude: loc.coordinate.longitude)])
+        ]) { err in
+            if let err = err {
+                print("Error adding document: \(err)")
+            } else {
+                print("Document added with ID: \(ref.documentID)")
+                
+            }
+        }
+        
+    }
+    
+    
     // MARK: DELEGATES
     
     // delegate that updates current location with new coordinates
     func locationManager(_ manager: CLLocationManager, didUpdateLocations newLocation: [CLLocation]) {
         if locationHistory.count == 2 {
             locationHistory.removeFirst()
+            
+            
+            // TESTING
+            if let loc = newLocation.last {
+                self.updateToRH(loc: loc)
+            }
+        }
+        else {
+            // TESTING CONDITION CLAUSE
+            self.addToRH(loc: newLocation[0])
         }
         
         for i in newLocation {
