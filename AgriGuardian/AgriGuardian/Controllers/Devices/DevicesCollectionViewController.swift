@@ -9,6 +9,7 @@
 import UIKit
 
 private let reuseIdentifier = "Cell"
+private let deviceIdentifier = "DeviceCell"
 
 class DevicesCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
@@ -19,12 +20,23 @@ class DevicesCollectionViewController: UICollectionViewController, UICollectionV
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNavBar()
+        registerFlowLayout()
         self.navigationController?.navigationBar.prefersLargeTitles = true
         self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
+        
+        let nib = UINib(nibName: "DeviceCollectionViewCell", bundle: nil)
+        self.collectionView.register(nib, forCellWithReuseIdentifier: deviceIdentifier)
 
         // Do any additional setup after loading the view.
     }
     // MARK: - Private functions
+    fileprivate func registerFlowLayout() {
+        let layout = UICollectionViewFlowLayout()
+        layout.sectionInset = UIEdgeInsets(top: spacing, left: spacing, bottom: spacing, right: spacing)
+        layout.minimumLineSpacing = spacing
+        layout.minimumInteritemSpacing = spacing
+        self.collectionView.collectionViewLayout = layout
+    }
     private func setupNavBar() {
         self.navigationItem.title = "Devices"
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(didTapAdd))
@@ -58,7 +70,7 @@ class DevicesCollectionViewController: UICollectionViewController, UICollectionV
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: deviceIdentifier, for: indexPath) as! DeviceCollectionViewCell
     
         cell.backgroundColor = .systemGray5
     
