@@ -80,9 +80,12 @@ class MapLocationViewController: UIViewController, CLLocationManagerDelegate, MK
     
     
     func addToRH(loc: CLLocation) {
-        let ref = Firestore.firestore().collection("ridehistory").document("test")
+        let ref = Firestore.firestore().collection("ridehistory").document("test2")
         ref.setData([
-            "coord" : FieldValue.arrayUnion([GeoPoint.init(latitude: loc.coordinate.latitude, longitude: loc.coordinate.longitude)])
+            "coord" : FieldValue.arrayUnion([GeoPoint.init(latitude: loc.coordinate.latitude, longitude: loc.coordinate.longitude)]),
+            "speed" : FieldValue.arrayUnion([loc.speed]),
+            "timestamp" : FieldValue.arrayUnion([loc.timestamp]),
+            "uid" : Auth.auth().currentUser?.uid
         ]) { err in
             if let err = err {
                 print("Error adding document: \(err)")
@@ -95,9 +98,11 @@ class MapLocationViewController: UIViewController, CLLocationManagerDelegate, MK
     }
     
     func updateToRH(loc: CLLocation) {
-        let ref = Firestore.firestore().collection("ridehistory").document("test")
+        let ref = Firestore.firestore().collection("ridehistory").document("test2")
         ref.updateData([
-            "coord" : FieldValue.arrayUnion([GeoPoint.init(latitude: loc.coordinate.latitude, longitude: loc.coordinate.longitude)])
+            "coord" : FieldValue.arrayUnion([GeoPoint.init(latitude: loc.coordinate.latitude, longitude: loc.coordinate.longitude)]),
+            "speed" : FieldValue.arrayUnion([loc.speed]),
+            "timestamp" : FieldValue.arrayUnion([loc.timestamp])
         ]) { err in
             if let err = err {
                 print("Error adding document: \(err)")
