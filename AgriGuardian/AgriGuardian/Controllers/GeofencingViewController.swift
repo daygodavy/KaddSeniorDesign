@@ -190,18 +190,30 @@ class GeofencingViewController: UIViewController, CLLocationManagerDelegate, MKM
         annotation.coordinate = location
         annotation.title = "Some Title"
         annotation.subtitle = "Some Subtitle"
+        print("BEFORE NEW ANNOTATION COUNT: \(self.mapView.annotations.count)")
+//        if self.mapView.annotations.count == 2 {
+//
+//        }
+        if self.mapView.annotations.count > 1 {
+            if let lastAnn = self.mapView.annotations.last {
+                self.mapView.removeAnnotation(lastAnn)
+            }
+        }
+        print("REMOVED LAST ANNOTATION COUNT: \(self.mapView.annotations.count)")
         self.mapView.addAnnotation(annotation)
+        print("ADDED NEW ANNOTATION COUNT: \(self.mapView.annotations.count)")
     }
     
     func confirmPlacemark(location: CLLocationCoordinate2D){
         let alertController = UIAlertController(title: "Enter a radius for your geofence", message: "", preferredStyle: .alert)
         alertController.addTextField { (textField : UITextField!) -> Void in
             textField.placeholder = "Radius (in meters)"
+            textField.keyboardType = .numberPad
         }
         
-        let cancelAction = UIAlertAction(title: "No", style: .default, handler: nil )
+        let cancelAction = UIAlertAction(title: "Cancel", style: .default, handler: nil )
         
-        let saveAction = UIAlertAction(title: "Yes", style: .default, handler: { alert -> Void in
+        let saveAction = UIAlertAction(title: "Save", style: .default, handler: { alert -> Void in
             
             let firstTextField = alertController.textFields![0] as UITextField
             print("textfield: \(firstTextField.text)")
@@ -228,12 +240,14 @@ class GeofencingViewController: UIViewController, CLLocationManagerDelegate, MKM
 //            textField.placeholder = "Radius (in meters)"
 //        }
         
-        let cancelAction = UIAlertAction(title: "Cancel", style: .default, handler: nil )
+        let cancelAction = UIAlertAction(title: "No", style: .default, handler: nil )
         
-        let saveAction = UIAlertAction(title: "Save", style: .default, handler: { alert -> Void in
-            self.mapView.removeAnnotation(self.mapView.annotations[1])
-            self.mapView.removeOverlay(self.mapView.overlays[0])
-            self.confirmPlacemark(location: location)
+        let saveAction = UIAlertAction(title: "Yes", style: .default, handler: { alert -> Void in
+            if let annote = self.mapView.annotations.last, let ol = self.mapView.overlays.last {
+                self.mapView.removeAnnotation(annote)
+                self.mapView.removeOverlay(ol)
+                self.confirmPlacemark(location: location)
+            }
             
         })
         
