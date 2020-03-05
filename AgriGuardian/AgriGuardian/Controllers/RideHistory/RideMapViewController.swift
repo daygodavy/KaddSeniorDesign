@@ -29,7 +29,7 @@ class RideMapViewController: UIViewController, MKMapViewDelegate {
 
         // TESTING
         mapView.delegate = self
-        let initialLoc = CLLocation(latitude: 37.33065643, longitude: -122.03064682)
+        let initialLoc = CLLocation(latitude: 37.33525552, longitude: -122.03254838)
         self.centerMapOnLocation(location: initialLoc)
         self.loadProfiles()
     }
@@ -40,7 +40,7 @@ class RideMapViewController: UIViewController, MKMapViewDelegate {
             if let id = Auth.auth().currentUser?.uid {
                 self.currUID = id
             }
-            let root = Firestore.firestore().collection("ridehistory").document("test")
+            let root = Firestore.firestore().collection("ridehistory").document("test2")
             root.getDocument() {doc, error in
                 if let err = error {
                     print("\(err)")
