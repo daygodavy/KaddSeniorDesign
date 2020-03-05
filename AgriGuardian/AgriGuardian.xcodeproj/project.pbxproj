@@ -13,7 +13,6 @@
 		5B1BB30D240B450000E235CD /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1BB30C240B450000E235CD /* HomeViewController.swift */; };
 		5B5A71E323EB3FDD00B5E2C5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5A71E223EB3FDD00B5E2C5 /* AppDelegate.swift */; };
 		5B5A71E523EB3FDD00B5E2C5 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5A71E423EB3FDD00B5E2C5 /* SceneDelegate.swift */; };
-		5B5A71E723EB3FDD00B5E2C5 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5A71E623EB3FDD00B5E2C5 /* ViewController.swift */; };
 		5B5A71EA23EB3FDD00B5E2C5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B5A71E823EB3FDD00B5E2C5 /* Main.storyboard */; };
 		5B5A71ED23EB3FDD00B5E2C5 /* AgriGuardian.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5B5A71EB23EB3FDD00B5E2C5 /* AgriGuardian.xcdatamodeld */; };
 		5B5A71EF23EB3FE100B5E2C5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5B5A71EE23EB3FE100B5E2C5 /* Assets.xcassets */; };
@@ -50,6 +49,9 @@
 		667302B92405FF2600BA015A /* Datagram.swift in Sources */ = {isa = PBXBuildFile; fileRef = 667302B62405FF2600BA015A /* Datagram.swift */; };
 		667302BA2405FF2600BA015A /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 667302B72405FF2600BA015A /* Message.swift */; };
 		667302BB2405FF2600BA015A /* MessageReceiver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 667302B82405FF2600BA015A /* MessageReceiver.swift */; };
+		66946A5F240F374D00800E0B /* DevicesCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66946A5E240F374D00800E0B /* DevicesCollectionViewController.swift */; };
+		66946A63240F694000800E0B /* DeviceCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66946A61240F694000800E0B /* DeviceCollectionViewCell.swift */; };
+		66946A64240F694000800E0B /* DeviceCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 66946A62240F694000800E0B /* DeviceCollectionViewCell.xib */; };
 		DE74545DB1BF91D578B9B020 /* Pods_AgriGuardianTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 308491F463AA03189AF1C47D /* Pods_AgriGuardianTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -81,7 +83,6 @@
 		5B5A71DF23EB3FDD00B5E2C5 /* AgriGuardian.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AgriGuardian.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5B5A71E223EB3FDD00B5E2C5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5B5A71E423EB3FDD00B5E2C5 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		5B5A71E623EB3FDD00B5E2C5 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		5B5A71E923EB3FDD00B5E2C5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		5B5A71EC23EB3FDD00B5E2C5 /* AgriGuardian.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = AgriGuardian.xcdatamodel; sourceTree = "<group>"; };
 		5B5A71EE23EB3FE100B5E2C5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -123,6 +124,9 @@
 		667302B62405FF2600BA015A /* Datagram.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Datagram.swift; sourceTree = "<group>"; };
 		667302B72405FF2600BA015A /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		667302B82405FF2600BA015A /* MessageReceiver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageReceiver.swift; sourceTree = "<group>"; };
+		66946A5E240F374D00800E0B /* DevicesCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevicesCollectionViewController.swift; sourceTree = "<group>"; };
+		66946A61240F694000800E0B /* DeviceCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceCollectionViewCell.swift; sourceTree = "<group>"; };
+		66946A62240F694000800E0B /* DeviceCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DeviceCollectionViewCell.xib; sourceTree = "<group>"; };
 		72CDA6B62E40929D7489B30A /* Pods-AgriGuardian-AgriGuardianUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AgriGuardian-AgriGuardianUITests.release.xcconfig"; path = "Target Support Files/Pods-AgriGuardian-AgriGuardianUITests/Pods-AgriGuardian-AgriGuardianUITests.release.xcconfig"; sourceTree = "<group>"; };
 		7E3A151E18A68275109273B7 /* Pods-AgriGuardianTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AgriGuardianTests.debug.xcconfig"; path = "Target Support Files/Pods-AgriGuardianTests/Pods-AgriGuardianTests.debug.xcconfig"; sourceTree = "<group>"; };
 		B95C3541C7589A86775711F5 /* Pods_AgriGuardian.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AgriGuardian.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -231,6 +235,7 @@
 			children = (
 				6621C638240B69900039B49A /* AddDeviceViewController.swift */,
 				6621C639240B69900039B49A /* DeviceTableViewController.swift */,
+				66946A5E240F374D00800E0B /* DevicesCollectionViewController.swift */,
 			);
 			path = Devices;
 			sourceTree = "<group>";
@@ -263,13 +268,12 @@
 		666AC0C923FA216400DEB3E3 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				66946A6524108E4800800E0B /* Dashboard */,
 				6621C637240B69900039B49A /* Devices */,
 				6621C63A240B69900039B49A /* Extensions */,
 				6621C632240B69490039B49A /* RideHistory */,
-				5B5A71E623EB3FDD00B5E2C5 /* ViewController.swift */,
 				666AC0CC23FA229300DEB3E3 /* PeripheralViewController.swift */,
 				5B1BB308240B431600E235CD /* LoginViewController.swift */,
-				5B1BB30C240B450000E235CD /* HomeViewController.swift */,
 				6621C63F240B6D230039B49A /* MainTabBarController.swift */,
 				5B8DF8B1240C901D006AE846 /* ProfilesViewController.swift */,
 			);
@@ -290,6 +294,7 @@
 		666AC0CB23FA219500DEB3E3 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				66946A60240F691800800E0B /* Devices */,
 				6662C26E240E111700C622D5 /* RideHistory */,
 				5B8DF8B3240C9113006AE846 /* ProfileCollectionViewCell.swift */,
 			);
@@ -304,6 +309,23 @@
 				667302B82405FF2600BA015A /* MessageReceiver.swift */,
 			);
 			path = BLE;
+			sourceTree = "<group>";
+		};
+		66946A60240F691800800E0B /* Devices */ = {
+			isa = PBXGroup;
+			children = (
+				66946A61240F694000800E0B /* DeviceCollectionViewCell.swift */,
+				66946A62240F694000800E0B /* DeviceCollectionViewCell.xib */,
+			);
+			path = Devices;
+			sourceTree = "<group>";
+		};
+		66946A6524108E4800800E0B /* Dashboard */ = {
+			isa = PBXGroup;
+			children = (
+				5B1BB30C240B450000E235CD /* HomeViewController.swift */,
+			);
+			path = Dashboard;
 			sourceTree = "<group>";
 		};
 		7972145C9AC6A816D97D3155 /* Pods */ = {
@@ -448,6 +470,7 @@
 				5B5A71EF23EB3FE100B5E2C5 /* Assets.xcassets in Resources */,
 				6662C282240E111700C622D5 /* RideDetailHeaderCRV.xib in Resources */,
 				6662C27F240E111700C622D5 /* MonthHistoryTableViewCell.xib in Resources */,
+				66946A64240F694000800E0B /* DeviceCollectionViewCell.xib in Resources */,
 				5B5A71EA23EB3FDD00B5E2C5 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -623,17 +646,18 @@
 				6621C64C240C8B560039B49A /* RideDetailCollectionViewController.swift in Sources */,
 				6662C27A240E111700C622D5 /* RideTableViewCell.swift in Sources */,
 				5B1BB309240B431600E235CD /* LoginViewController.swift in Sources */,
-				5B5A71E723EB3FDD00B5E2C5 /* ViewController.swift in Sources */,
 				6662C27C240E111700C622D5 /* RideDetailHeaderCRV.swift in Sources */,
 				5B5A71E323EB3FDD00B5E2C5 /* AppDelegate.swift in Sources */,
 				6621C635240B69490039B49A /* YearlyHistoryTableViewController.swift in Sources */,
 				6621C63D240B69900039B49A /* DeviceTableViewController.swift in Sources */,
 				5B8DF8B4240C9113006AE846 /* ProfileCollectionViewCell.swift in Sources */,
 				6621C63E240B69900039B49A /* ViewController+Alerts.swift in Sources */,
+				66946A63240F694000800E0B /* DeviceCollectionViewCell.swift in Sources */,
 				66603F22240B308200253B04 /* User.swift in Sources */,
 				667302B92405FF2600BA015A /* Datagram.swift in Sources */,
 				667302BA2405FF2600BA015A /* Message.swift in Sources */,
 				6621C636240B69490039B49A /* MonthlyHistoryTableViewController.swift in Sources */,
+				66946A5F240F374D00800E0B /* DevicesCollectionViewController.swift in Sources */,
 				6662C27E240E111700C622D5 /* MonthHistoryTableViewCell.swift in Sources */,
 				667302BB2405FF2600BA015A /* MessageReceiver.swift in Sources */,
 				5B5A71E523EB3FDD00B5E2C5 /* SceneDelegate.swift in Sources */,
@@ -815,7 +839,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = AgriGuardian/AgriGuardian.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 2J43M5H25R;
+				DEVELOPMENT_TEAM = K3DJPEYB23;
 				INFOPLIST_FILE = AgriGuardian/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -835,7 +859,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = AgriGuardian/AgriGuardian.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 2J43M5H25R;
+				DEVELOPMENT_TEAM = K3DJPEYB23;
 				INFOPLIST_FILE = AgriGuardian/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

@@ -121,7 +121,7 @@ class AddDeviceViewController: FormViewController {
         }
         thisDevice = getDeviceInfo()
         print("success new device")
-        self.performSegue(withIdentifier: "unwindToDevices", sender: self)
+        self.performSegue(withIdentifier: "UnwindToDevices", sender: self)
     }
     @objc private func didTapCancel() {
         if (!validateForm()) {

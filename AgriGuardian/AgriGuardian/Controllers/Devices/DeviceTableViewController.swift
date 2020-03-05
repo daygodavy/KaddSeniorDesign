@@ -71,16 +71,16 @@ class DeviceTableViewController: UITableViewController {
 
         return cell
     }
-    
-    // MARK: - Navigation
-    @IBAction func unwindFromAddDevice(unwindSegue: UIStoryboardSegue) {
-        if unwindSegue.source is AddDeviceViewController {
-            if let sourceVC = unwindSegue.source as? AddDeviceViewController {
-                devices.append(sourceVC.thisDevice)
-            }
-            tableView.reloadData()
-        }
-    }
+//    
+//    // MARK: - Navigation
+//    @IBAction func unwindFromAddDevice(unwindSegue: UIStoryboardSegue) {
+//        if unwindSegue.source is AddDeviceViewController {
+//            if let sourceVC = unwindSegue.source as? AddDeviceViewController {
+//                devices.append(sourceVC.thisDevice)
+//            }
+//            tableView.reloadData()
+//        }
+//    }
 }
 extension DeviceTableViewController: CBCentralManagerDelegate {
     func centralManagerDidUpdateState(_ central: CBCentralManager) {

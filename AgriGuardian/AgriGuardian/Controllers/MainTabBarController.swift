@@ -16,28 +16,26 @@ class MainTabBarController: UITabBarController {
 
         let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
         let historyVC = mainStoryboard.instantiateViewController(identifier: "YearlyHistoryView") as! YearlyHistoryTableViewController
-        let devicesVC = mainStoryboard.instantiateViewController(identifier: "DevicesView") as! DeviceTableViewController
         let settingVC = mainStoryboard.instantiateViewController(identifier: "SettingsView")
-        let homeVC = mainStoryboard.instantiateViewController(identifier: "HomeViewController") as! HomeViewController
+        let homeVC = mainStoryboard.instantiateViewController(identifier: "Dashboard") as! HomeViewController
         
         let historyNC = UINavigationController(rootViewController: historyVC)
-        let devicesNC = UINavigationController(rootViewController: devicesVC)
+     
         let settingsNC = UINavigationController(rootViewController: settingVC)
         let homeNC = UINavigationController(rootViewController: homeVC)
         
         historyNC.navigationBar.prefersLargeTitles = true
-        devicesNC.navigationBar.prefersLargeTitles = true
         settingsNC.navigationBar.prefersLargeTitles = true
         homeNC.navigationBar.prefersLargeTitles = true
         
-        historyNC.tabBarItem = UITabBarItem(title: "Rides", image: nil, tag: 0)
-        devicesNC.tabBarItem = UITabBarItem(title: "Devices", image: nil, tag: 1)
+        homeNC.tabBarItem = UITabBarItem(title: "Home", image: nil, tag: 0)
+        historyNC.tabBarItem = UITabBarItem(title: "Rides", image: nil, tag: 1)
         settingsNC.tabBarItem = UITabBarItem(title: "Settings", image: nil, tag: 2)
-        homeNC.tabBarItem = UITabBarItem(title: "Home", image: nil, tag: 3)
+        
         
         homeVC.currDevice = chosenDevice
         
-        let tabBarList = [historyNC, devicesNC, settingsNC, homeNC]
+        let tabBarList = [homeNC, historyNC, settingsNC]
         self.viewControllers = tabBarList
         
         print("GOT IT: \(chosenDevice.name)")
