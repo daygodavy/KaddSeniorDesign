@@ -26,9 +26,6 @@ class AddDeviceViewController: FormViewController, CLLocationManagerDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // MARK: TESTING
-        setupAuthLoc()
-        
         setupNavBar()
 //        setupForm()
         

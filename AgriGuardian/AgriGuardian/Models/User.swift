@@ -37,4 +37,8 @@ public final class User {
         self.tripHistory = rides
         
     }
+    
+    func getDevices() -> [Device] {
+        return self.devices
+    }
 }

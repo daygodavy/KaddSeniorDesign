@@ -16,11 +16,16 @@ class DevicesCollectionViewController: UICollectionViewController, UICollectionV
     // MARK: - Properties
     fileprivate let spacing: CGFloat = 16.0
     fileprivate var count = [1]
+    var dataManager = DataManager()
+    var user = User()
+    var devices = [Device]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNavBar()
         registerFlowLayout()
+        user = dataManager.loadSampleData()
+        devices = user.getDevices()
         self.navigationController?.navigationBar.prefersLargeTitles = true
         self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
         
@@ -66,13 +71,15 @@ class DevicesCollectionViewController: UICollectionViewController, UICollectionV
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of items
-        return count.count
+        return devices.count
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: deviceIdentifier, for: indexPath) as! DeviceCollectionViewCell
-    
+        
         cell.backgroundColor = .systemGray5
+        cell.nameLabel.text = devices[indexPath.row].getDeviceName()
+        cell.vehicleLabel.text = devices[indexPath.row].getVehicleName()
     
         return cell
     }

@@ -63,6 +63,7 @@
 		6697FE822415DC8100623A89 /* WeekDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6697FE802415DC8100623A89 /* WeekDetailCell.xib */; };
 		6697FE852415DEC300623A89 /* LastLocationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6697FE832415DEC300623A89 /* LastLocationCell.swift */; };
 		6697FE862415DEC300623A89 /* LastLocationCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6697FE842415DEC300623A89 /* LastLocationCell.xib */; };
+		6697FE882415EDBE00623A89 /* TestDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6697FE872415EDBE00623A89 /* TestDataManager.swift */; };
 		DE74545DB1BF91D578B9B020 /* Pods_AgriGuardianTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 308491F463AA03189AF1C47D /* Pods_AgriGuardianTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -149,6 +150,7 @@
 		6697FE802415DC8100623A89 /* WeekDetailCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WeekDetailCell.xib; sourceTree = "<group>"; };
 		6697FE832415DEC300623A89 /* LastLocationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LastLocationCell.swift; sourceTree = "<group>"; };
 		6697FE842415DEC300623A89 /* LastLocationCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LastLocationCell.xib; sourceTree = "<group>"; };
+		6697FE872415EDBE00623A89 /* TestDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestDataManager.swift; sourceTree = "<group>"; };
 		72CDA6B62E40929D7489B30A /* Pods-AgriGuardian-AgriGuardianUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AgriGuardian-AgriGuardianUITests.release.xcconfig"; path = "Target Support Files/Pods-AgriGuardian-AgriGuardianUITests/Pods-AgriGuardian-AgriGuardianUITests.release.xcconfig"; sourceTree = "<group>"; };
 		7E3A151E18A68275109273B7 /* Pods-AgriGuardianTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AgriGuardianTests.debug.xcconfig"; path = "Target Support Files/Pods-AgriGuardianTests/Pods-AgriGuardianTests.debug.xcconfig"; sourceTree = "<group>"; };
 		B95C3541C7589A86775711F5 /* Pods_AgriGuardian.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AgriGuardian.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -207,6 +209,7 @@
 		5B5A71E123EB3FDD00B5E2C5 /* AgriGuardian */ = {
 			isa = PBXGroup;
 			children = (
+				6697FE872415EDBE00623A89 /* TestDataManager.swift */,
 				666AC0CE23FA266700DEB3E3 /* AgriGuardian.entitlements */,
 				666AC0CB23FA219500DEB3E3 /* Views */,
 				666AC0CA23FA218E00DEB3E3 /* Models */,
@@ -698,6 +701,7 @@
 				6621C640240B6D230039B49A /* MainTabBarController.swift in Sources */,
 				5B1BB30D240B450000E235CD /* HomeViewController.swift in Sources */,
 				6662C279240E111700C622D5 /* RideDetailInfoCVC.swift in Sources */,
+				6697FE882415EDBE00623A89 /* TestDataManager.swift in Sources */,
 				6697FE852415DEC300623A89 /* LastLocationCell.swift in Sources */,
 				6621C64C240C8B560039B49A /* RideDetailCollectionViewController.swift in Sources */,
 				6662C27A240E111700C622D5 /* RideTableViewCell.swift in Sources */,

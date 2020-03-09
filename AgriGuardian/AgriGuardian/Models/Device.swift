@@ -63,6 +63,13 @@ class Device {
         self.lastLocation = ""
     }
     
+    func getDeviceName() -> String {
+        return self.name
+    }
+    func getVehicleName() -> String {
+        return self.atvModel
+    }
+    
     func printDevice() {
         print("====================")
         print("name: \(self.name)")
