@@ -14,6 +14,9 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
     
     // MARK: - Properties
     private let reuseIdentifier = "Cell"
+    private let headerId = "DashHeader"
+    private let lastRideId = "LastRideId"
+    private let statId = "StatCell"
     var currDevice = Device()
     fileprivate let spacing: CGFloat = 16.0
 
@@ -25,6 +28,15 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
         
         self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
         self.collectionView.register(UICollectionViewCell.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: reuseIdentifier)
+        let cellNib = UINib(nibName: "LastRideCell", bundle: nil)
+        self.collectionView.register(cellNib, forCellWithReuseIdentifier: lastRideId)
+        
+        let statNib = UINib(nibName: "StatisticsCell", bundle: nil)
+        self.collectionView.register(statNib, forCellWithReuseIdentifier: statId)
+        
+        // regisert main header
+        let headerNib = UINib(nibName: "DashboardHeaderView", bundle: nil)
+        self.collectionView.register(headerNib, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerId)
     }
     
     
@@ -96,6 +108,14 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        if (indexPath.row == 0) {
+            let lastRideCell = collectionView.dequeueReusableCell(withReuseIdentifier: lastRideId, for: indexPath) as! LastRideCell
+            return lastRideCell
+        } else if (indexPath.row == 1) {
+            let statCell = collectionView.dequeueReusableCell(withReuseIdentifier: statId, for: indexPath) as! StatisticsCell
+            statCell.backgroundColor = .systemGray6
+            return statCell
+        }
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) 
     
         cell.backgroundColor = .systemGray5
@@ -104,10 +124,8 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
     }
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         // dequeue header
-        let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: reuseIdentifier, for: indexPath)
-        let label = UILabel()
-        label.text = "Device Name"
-        header.addSubview(label)
+        // dequeue header
+        let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerId, for: indexPath)
         return header
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
