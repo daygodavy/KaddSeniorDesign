@@ -17,6 +17,8 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
     private let headerId = "DashHeader"
     private let lastRideId = "LastRideId"
     private let statId = "StatCell"
+    private let detailId = "DetailCell"
+    private let locationId = "LocationCell"
     var currDevice = Device()
     fileprivate let spacing: CGFloat = 16.0
 
@@ -33,6 +35,12 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
         
         let statNib = UINib(nibName: "StatisticsCell", bundle: nil)
         self.collectionView.register(statNib, forCellWithReuseIdentifier: statId)
+        
+        let detailNib = UINib(nibName: "WeekDetailCell", bundle: nil)
+        self.collectionView.register(detailNib, forCellWithReuseIdentifier: detailId)
+        
+        let locoNib = UINib(nibName: "LastLocationCell", bundle: nil)
+        self.collectionView.register(locoNib, forCellWithReuseIdentifier: locationId)
         
         // regisert main header
         let headerNib = UINib(nibName: "DashboardHeaderView", bundle: nil)
@@ -115,6 +123,14 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
             let statCell = collectionView.dequeueReusableCell(withReuseIdentifier: statId, for: indexPath) as! StatisticsCell
             statCell.backgroundColor = .systemGray6
             return statCell
+        } else if (indexPath.row == 2 || indexPath.row == 3 || indexPath.row == 4) {
+            let detCell = collectionView.dequeueReusableCell(withReuseIdentifier: detailId, for: indexPath) as! WeekDetailCell
+            detCell.backgroundColor = .systemGray6
+            return detCell
+        } else if (indexPath.row == 5) {
+            let locoCell = collectionView.dequeueReusableCell(withReuseIdentifier: locationId, for: indexPath) as! LastLocationCell
+            locoCell.backgroundColor = .systemGray6
+            return locoCell
         }
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) 
     
@@ -129,7 +145,7 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
         return header
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-            return .init(width: view.frame.width, height: 50)
+            return .init(width: view.frame.width, height: 40)
     }
         
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

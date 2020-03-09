@@ -81,7 +81,10 @@
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <connections>
                 <outlet property="bgView" destination="drp-d8-vGE" id="etC-C0-LXG"/>
+                <outlet property="detailLabel" destination="Ae4-wp-uPY" id="lVq-E4-zI7"/>
                 <outlet property="mapView" destination="Idm-SE-YBe" id="lS6-nY-8hk"/>
+                <outlet property="timeLabel" destination="D52-MF-OlW" id="gra-eX-rbd"/>
+                <outlet property="titleLabel" destination="cuv-FF-1eu" id="8ok-lp-GM1"/>
             </connections>
             <point key="canvasLocation" x="137.68115942028987" y="109.82142857142857"/>
         </collectionViewCell>

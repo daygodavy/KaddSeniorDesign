@@ -9,7 +9,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <collectionReusableView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="DashHeader" id="U6b-Vx-4bR">
+        <collectionReusableView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="DashHeader" id="U6b-Vx-4bR" customClass="DashboardHeaderView" customModule="AgriGuardian" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="334" height="40"/>
             <autoresizingMask key="autoresizingMask"/>
             <subviews>
@@ -26,6 +26,9 @@
                 <constraint firstAttribute="trailing" secondItem="VHt-fG-Rpu" secondAttribute="trailing" constant="20" id="suZ-Lt-hlM"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="VXr-Tz-HHm"/>
+            <connections>
+                <outlet property="headerLabel" destination="VHt-fG-Rpu" id="veX-wk-3Wa"/>
+            </connections>
             <point key="canvasLocation" x="147.82608695652175" y="99.776785714285708"/>
         </collectionReusableView>
     </objects>

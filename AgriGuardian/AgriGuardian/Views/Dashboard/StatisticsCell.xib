@@ -19,15 +19,27 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RdC-rR-yHW">
                         <rect key="frame" x="0.0" y="0.0" width="340" height="400"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="This Week" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0rV-Ob-9dA">
-                                <rect key="frame" x="20" y="14" width="301" height="23"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This Week" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0rV-Ob-9dA">
+                                <rect key="frame" x="20" y="16" width="300" height="23"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="19"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bwt-9z-aKL">
+                                <rect key="frame" x="0.0" y="47" width="340" height="353"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="0rV-Ob-9dA" firstAttribute="top" secondItem="RdC-rR-yHW" secondAttribute="top" constant="16" id="4Fj-fK-zJn"/>
+                            <constraint firstAttribute="trailing" secondItem="bwt-9z-aKL" secondAttribute="trailing" id="6uI-cY-rXw"/>
+                            <constraint firstItem="bwt-9z-aKL" firstAttribute="leading" secondItem="RdC-rR-yHW" secondAttribute="leading" id="Q0U-rL-TFu"/>
+                            <constraint firstItem="0rV-Ob-9dA" firstAttribute="leading" secondItem="RdC-rR-yHW" secondAttribute="leading" constant="20" id="RVv-Ay-LzY"/>
+                            <constraint firstAttribute="bottom" secondItem="bwt-9z-aKL" secondAttribute="bottom" id="nak-Um-zFh"/>
+                            <constraint firstAttribute="trailing" secondItem="0rV-Ob-9dA" secondAttribute="trailing" constant="20" id="r9T-ba-0ws"/>
+                            <constraint firstItem="bwt-9z-aKL" firstAttribute="top" secondItem="0rV-Ob-9dA" secondAttribute="bottom" constant="8" id="zAE-t2-hgH"/>
+                        </constraints>
                     </view>
                 </subviews>
             </view>
@@ -38,6 +50,10 @@
                 <constraint firstItem="RdC-rR-yHW" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="hQq-3k-cdt"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <connections>
+                <outlet property="graphView" destination="bwt-9z-aKL" id="KFm-Re-th1"/>
+                <outlet property="titleLabel" destination="0rV-Ob-9dA" id="sjz-Nj-fAc"/>
+            </connections>
             <point key="canvasLocation" x="137.68115942028987" y="109.82142857142857"/>
         </collectionViewCell>
     </objects>

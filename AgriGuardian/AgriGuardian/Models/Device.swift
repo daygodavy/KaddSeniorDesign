@@ -16,6 +16,7 @@ class Device {
     var manufacturer: String
     var firmwareVersion: String
     var hardwareVersion: String
+    var lastLocation: String
     var uid: String
     var devId: String
     
@@ -29,6 +30,8 @@ class Device {
         firmwareVersion = ""
         uid = ""
         devId = ""
+        lastLocation = ""
+        
     }
     
     
@@ -42,6 +45,7 @@ class Device {
         self.firmwareVersion = firmwareVersion
         self.uid = uid
         self.devId = devId
+        self.lastLocation = ""
     }
     
     // Reading data into from Firebase
@@ -55,12 +59,17 @@ class Device {
         self.firmwareVersion = data["firmwareVersion"] as! String
         self.uid = data["uid"] as! String
         self.devId = data["devId"] as! String
+        // TODO: - Davy Add Last Location
+        self.lastLocation = ""
     }
     
     func printDevice() {
         print("====================")
         print("name: \(self.name)")
         print("====================")
+    }
+    func updateLocation(location: String) {
+        self.lastLocation = location
     }
     
 }

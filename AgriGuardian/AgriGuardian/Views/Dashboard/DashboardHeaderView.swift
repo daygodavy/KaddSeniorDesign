@@ -9,7 +9,8 @@
 import UIKit
 
 class DashboardHeaderView: UICollectionReusableView {
-
+    // MARK: - Properties
+    @IBOutlet var headerLabel: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
