@@ -44,7 +44,7 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
     }
     
     private func setupNavBar() {
-        self.navigationItem.title = "Dashboard"
+        self.navigationItem.title = "\nDashboard"
         let devicesButton = UIBarButtonItem(image: UIImage(systemName: "antenna.radiowaves.left.and.right"), style: .plain, target: self, action: #selector(showDevices))
         //self.navigationItem.rightBarButtonItem = addButton
         self.navigationItem.leftBarButtonItem = devicesButton
@@ -92,7 +92,7 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of items
-        return 9
+        return 6
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -115,17 +115,17 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
     }
         
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let numberOfItemsPerRow: CGFloat = 2
+        let numberOfItemsPerRow: CGFloat = 3
         let spacingBetweenCells: CGFloat = spacing
         
-        let totalSpacing = (2 * self.spacing) + ((numberOfItemsPerRow - 1) * spacingBetweenCells)
+        let totalSpacing = (2.1 * self.spacing) + ((numberOfItemsPerRow - 1) * spacingBetweenCells)
         let widthWithSpacing = (view.frame.width - totalSpacing)/numberOfItemsPerRow
         let sizeWithSpacing = CGSize(width: widthWithSpacing, height: widthWithSpacing)
         switch(indexPath.row) {
         case 0:
             return .init(width: view.frame.width - 2 * spacing, height: 150)
         case 1:
-            return sizeWithSpacing
+            return .init(width: view.frame.width - 2 * spacing, height: 400)
         case 2:
             return sizeWithSpacing
         case 3:
@@ -133,12 +133,6 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
         case 4:
             return sizeWithSpacing
         case 5:
-            return sizeWithSpacing
-        case 6:
-            return sizeWithSpacing
-        case 7:
-            return .init(width: view.frame.width - 2 * spacing, height: 200)
-        case 8:
             return .init(width: view.frame.width - 2 * spacing, height: 200)
         default:
             return .init(width: view.frame.width - 2 * spacing, height: 80)

@@ -230,10 +230,10 @@
             </objects>
             <point key="canvasLocation" x="629" y="745"/>
         </scene>
-        <!--View Controller-->
+        <!--Settings View Controller-->
         <scene sceneID="Atd-9A-tcD">
             <objects>
-                <viewController storyboardIdentifier="SettingsView" useStoryboardIdentifierAsRestorationIdentifier="YES" id="vm2-mP-a7h" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SettingsView" useStoryboardIdentifierAsRestorationIdentifier="YES" id="vm2-mP-a7h" customClass="SettingsViewController" customModule="AgriGuardian" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Eby-lc-WkQ">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
