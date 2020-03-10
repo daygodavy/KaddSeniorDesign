@@ -20,6 +20,9 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
     private let detailId = "DetailCell"
     private let locationId = "LocationCell"
     var currDevice = Device()
+    var user = User()
+    var dataManager = DataManager()
+    
     fileprivate let spacing: CGFloat = 16.0
 
     
@@ -27,6 +30,9 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
         super.viewDidLoad()
         self.setupNavBar()
         registerFlowLayout()
+        user = dataManager.loadSampleData()
+        currDevice = loadCurrentDevice()
+        
         
         self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
         self.collectionView.register(UICollectionViewCell.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: reuseIdentifier)
@@ -47,7 +53,12 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
         self.collectionView.register(headerNib, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerId)
     }
     
-    
+    private func loadCurrentDevice() -> Device {
+        if currDevice.name.isEmpty {
+            return user.currentDevice
+        }
+        return currDevice
+    }
     @objc func SignOutButtonPressed(_ sender: Any) {
         print("attempting to signout")
         self.userLogout()
@@ -65,7 +76,8 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
     
     private func setupNavBar() {
         self.navigationItem.title = "\nDashboard"
-        let devicesButton = UIBarButtonItem(image: UIImage(systemName: "antenna.radiowaves.left.and.right"), style: .plain, target: self, action: #selector(showDevices))
+        let image = UIImage(named: "menu-icon")?.withRenderingMode(.alwaysOriginal)
+        let devicesButton = UIBarButtonItem(image: image, style: .plain, target: self, action: #selector(showDevices))
         //self.navigationItem.rightBarButtonItem = addButton
         self.navigationItem.leftBarButtonItem = devicesButton
     }
@@ -74,15 +86,8 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
     
     fileprivate func userLogout() {
         GIDSignIn.sharedInstance().signOut()
-        //        GIDSignIn.sharedInstance().
-        //        let firebaseAuth = Auth.auth()
-        //        do {
-        //            print("DO")
-        //          try firebaseAuth.signOut()
-        //        } catch let signOutError as NSError {
-        //          print ("Error signing out: %@", signOutError)
-        //        }
     }
+    
     @objc fileprivate func showDevices() {
         let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = mainStoryboard.instantiateViewController(identifier: "DeviceMenu") as! DevicesCollectionViewController
@@ -139,9 +144,8 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
         return cell
     }
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        // dequeue header
-        // dequeue header
-        let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerId, for: indexPath)
+        let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerId, for: indexPath) as! DashboardHeaderView
+        header.headerLabel.text = "\(currDevice.name) | \(currDevice.atvModel)"
         return header
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {

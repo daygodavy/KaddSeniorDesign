@@ -30,7 +30,7 @@ class ProfilesViewController: UIViewController {
         self.profilesCollectionView.dataSource = self
         
         // load device profiles from firebase
-        self.loadProfiles()
+        //self.loadProfiles()
     }
     
     @IBAction func addVehicleButtonPressed(_ sender: Any) {
@@ -80,31 +80,31 @@ class ProfilesViewController: UIViewController {
     }
     
     
-    
-    func loadProfiles() {
-        if let id = Auth.auth().currentUser?.uid {
-            self.currUID = id
-        }
-        let root = Firestore.firestore().collection("devices").whereField("uid", isEqualTo: self.currUID)
-        print(currUID)
-        root.getDocuments() {data, error in
-            if let err = error {
-                print("\(err)")
-            }
-            if let deviceDocs = data?.documents {
-                for devices in deviceDocs {
-                    let dev = Device(data: devices.data())
-                    self.profiles.append(dev)
-                    // STOP UNDOING HERE!!!!!!
-                    self.isSelected.append(false)
-                    
-                    self.profilesCollectionView.reloadData()
-                }
-                self.profilesCollectionView.reloadData()
-            }
-        }
-    }
-    
+//
+//    func loadProfiles() {
+//        if let id = Auth.auth().currentUser?.uid {
+//            self.currUID = id
+//        }
+//        let root = Firestore.firestore().collection("devices").whereField("uid", isEqualTo: self.currUID)
+//        print(currUID)
+//        root.getDocuments() {data, error in
+//            if let err = error {
+//                print("\(err)")
+//            }
+//            if let deviceDocs = data?.documents {
+//                for devices in deviceDocs {
+//                    let dev = Device(data: devices.data())
+//                    self.profiles.append(dev)
+//                    // STOP UNDOING HERE!!!!!!
+//                    self.isSelected.append(false)
+//
+//                    self.profilesCollectionView.reloadData()
+//                }
+//                self.profilesCollectionView.reloadData()
+//            }
+//        }
+//    }
+//
     func createDeviceProfile(name: String) {
         let newVehicle = Device.init()
         newVehicle.name = name

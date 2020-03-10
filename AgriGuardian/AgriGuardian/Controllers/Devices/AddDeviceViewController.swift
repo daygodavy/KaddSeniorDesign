@@ -134,7 +134,8 @@ class AddDeviceViewController: FormViewController, CLLocationManagerDelegate {
         else {
             fatalError("Unexpectedly found nil unwrapping devive data")
         }
-        let newDevice = Device(name: nameRow.value!, modelNumber: modelNumber, serialNumber: serialNumber, atvModel: vehicleRow.value!, manufacturer: manufacturer, hardwareVersion: hardwareVersion, firmwareVersion: firmwareVersion, uid: "", devId: "")
+//        let newDevice = Device(name: nameRow.value!, modelNumber: modelNumber, serialNumber: serialNumber, atvModel: vehicleRow.value!, manufacturer: manufacturer, hardwareVersion: hardwareVersion, firmwareVersion: firmwareVersion, uid: "", devId: "")
+        let newDevice = Device()
         return newDevice
     }
     

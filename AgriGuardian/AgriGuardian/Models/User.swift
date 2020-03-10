@@ -14,8 +14,8 @@ public final class User {
     var phoneNumber: String
     var emailAddress: String
     var uid: String
-    var tripHistory: [Ride]
     var devices: [Device]
+    var currentDevice: Device
     
     init() {
         self.firstName = ""
@@ -23,22 +23,24 @@ public final class User {
         self.phoneNumber = ""
         self.emailAddress = ""
         self.uid = ""
-        self.tripHistory = [Ride]()
         self.devices = [Device]()
+        self.currentDevice = Device()
     }
     
-    init(firstName: String, lastName: String, phoneNumber: String, uid: String, emailAddress: String, devices: [Device], rides: [Ride]) {
+    init(firstName: String, lastName: String, phoneNumber: String, uid: String, emailAddress: String, devices: [Device], currentDevice: Device) {
         self.firstName = firstName
         self.lastName = lastName
         self.phoneNumber = phoneNumber
         self.emailAddress = emailAddress
         self.uid = uid
         self.devices = devices
-        self.tripHistory = rides
-        
+        self.currentDevice = currentDevice
     }
     
     func getDevices() -> [Device] {
         return self.devices
+    }
+    func setCurrentDevice(withDevice: Device) {
+        self.currentDevice = withDevice
     }
 }

@@ -49,6 +49,13 @@ class DevicesCollectionViewController: UICollectionViewController, UICollectionV
         self.navigationItem.rightBarButtonItem = addButton
         self.navigationItem.leftBarButtonItem = cancelButton
     }
+    private func navigateToDashboard(withDeviceAt index: Int) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let MainTabBarController = storyboard.instantiateViewController(withIdentifier: "MainTabBarController") as! MainTabBarController
+        MainTabBarController.chosenDevice = devices[index]
+        MainTabBarController.modalPresentationStyle = .fullScreen
+        self.present(MainTabBarController, animated: true, completion: nil)
+    }
     
     @objc private func closeMenu() {
         self.dismiss(animated: true, completion: nil)
@@ -62,7 +69,6 @@ class DevicesCollectionViewController: UICollectionViewController, UICollectionV
 
 
     // MARK: UICollectionViewDataSource
-
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1
@@ -83,8 +89,14 @@ class DevicesCollectionViewController: UICollectionViewController, UICollectionV
     
         return cell
     }
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return .init(width: view.frame.width - 2 * spacing, height: 80)
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        user.setCurrentDevice(withDevice: devices[indexPath.row])
+        navigateToDashboard(withDeviceAt: indexPath.row)
     }
 
     

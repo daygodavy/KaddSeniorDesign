@@ -19,6 +19,7 @@ class Device {
     var lastLocation: String
     var uid: String
     var devId: String
+    var rideHistory: [Ride]
     
     init() {
         name = ""
@@ -31,11 +32,12 @@ class Device {
         uid = ""
         devId = ""
         lastLocation = ""
+        rideHistory = [Ride]()
         
     }
     
     
-    init(name: String, modelNumber: String, serialNumber: String, atvModel: String, manufacturer: String, hardwareVersion: String, firmwareVersion: String, uid: String, devId: String) {
+    init(name: String, modelNumber: String, serialNumber: String, atvModel: String, manufacturer: String, hardwareVersion: String, firmwareVersion: String, uid: String, devId: String, rideHistory: [Ride]) {
         self.name = name
         self.modelNumber = modelNumber
         self.serialNumber = serialNumber
@@ -45,23 +47,25 @@ class Device {
         self.firmwareVersion = firmwareVersion
         self.uid = uid
         self.devId = devId
+        // fix later
         self.lastLocation = ""
+        self.rideHistory = rideHistory
     }
     
-    // Reading data into from Firebase
-    init(data: [String: Any]) {
-        self.name = data["name"] as! String
-        self.modelNumber = data["modelNumber"] as! String
-        self.serialNumber = data["serialNumber"] as! String
-        self.atvModel = data["atvModel"] as! String
-        self.manufacturer = data["manufacturer"] as! String
-        self.hardwareVersion = data["hardwareVersion"] as! String
-        self.firmwareVersion = data["firmwareVersion"] as! String
-        self.uid = data["uid"] as! String
-        self.devId = data["devId"] as! String
-        // TODO: - Davy Add Last Location
-        self.lastLocation = ""
-    }
+//    // Reading data into from Firebase
+//    init(data: [String: Any]) {
+//        self.name = data["name"] as! String
+//        self.modelNumber = data["modelNumber"] as! String
+//        self.serialNumber = data["serialNumber"] as! String
+//        self.atvModel = data["atvModel"] as! String
+//        self.manufacturer = data["manufacturer"] as! String
+//        self.hardwareVersion = data["hardwareVersion"] as! String
+//        self.firmwareVersion = data["firmwareVersion"] as! String
+//        self.uid = data["uid"] as! String
+//        self.devId = data["devId"] as! String
+//        // TODO: - Davy Add Last Location
+//        self.lastLocation = ""
+//    }
     
     func getDeviceName() -> String {
         return self.name
