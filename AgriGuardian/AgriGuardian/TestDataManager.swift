@@ -8,20 +8,69 @@
 import Foundation
 import UIKit
 import MapKit
+import Firebase
 
 class DataManager {
+    var ref: DocumentReference? = nil
+    let db = Firestore.firestore()
+    // MARK: LOADING DATA FROM FIREBASE
+    // TODO: make sure for case
+    func loadDevices() -> [Device]{
+        var userDevices: [Device] = []
+        var currUID: String = ""
+        if let id = Auth.auth().currentUser?.uid {
+            currUID = id
+        }
+        let root = db.collection("devices")
+        print("CURRUID: \(currUID)")
+        root.getDocuments() {(data, error) in
+            print("retriving documents")
+            if let err = error {
+                print("\(err)")
+            }
+            print("SKIP")
+            if let deviceDocs = data?.documents {
+                print("DEVICES COUNT: \(deviceDocs.count)")
+                for devices in deviceDocs {
+                    let dev = Device(data: devices.data())
+                    
+                    // ===== TEMPORARY HARDCODING RIDEHISTORY =====
+                    let rides = self.loadRides()
+                    dev.rideHistory = rides
+                    // ============================================
+
+                    userDevices.append(dev)
+                }
+            }
+        }
+        print("NUM USER DEVICES \(userDevices.count)")
+        return userDevices
+    }
+    
+    func loadDevices_tempUser() -> User {
+        let devices = loadDevices()
+        let user = User(firstName: "Johnny", lastName: "Farmer", phoneNumber: "7147824460", uid: "u0001", emailAddress: "jfarmer@kadd.com", devices: devices, currentDevice: devices[0])
+        
+        return user
+    }
+    
+    
+    
+    
+    
+    // MARK: HARDCODED SAMPLE DATA BELOW, SCRAP AFTER FIREBASE INTEGRATION
     
     func loadSampleData() -> User {
         return loadUser()
     }
 
     func loadUser() -> User {
-        let devices = loadDevices()
+        let devices = loadDevs()
         let user = User(firstName: "Johnny", lastName: "Farmer", phoneNumber: "7147824460", uid: "u0001", emailAddress: "jfarmer@kadd.com", devices: devices, currentDevice: devices[0])
         
         return user
     }
-     func loadDevices() -> [Device] {
+     func loadDevs() -> [Device] {
         let rides = loadRides()
         
         var device1 = Device(name: "iKadd Device", modelNumber: "A1", serialNumber: "A16DB9663", atvModel: "FOURTRAX RECON 4x4", manufacturer: "Honda", hardwareVersion: "1.0.0", firmwareVersion: "1.1.0", uid: "u0001", devId: "d0001", rideHistory: rides, gfT: false, gfR: 0, gfC: CLLocation.init())

@@ -30,8 +30,15 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
         super.viewDidLoad()
         self.setupNavBar()
         registerFlowLayout()
-        user = dataManager.loadSampleData()
+        
+        // TEMP DATA HARDCODED
+//        user = dataManager.loadSampleData()
+//        currDevice = loadCurrentDevice()
+        
+        // REAL DEVICE DATA, ALL OTHER DATA TEMP (USER AND RIDE HISTORY)
+        user = dataManager.loadDevices_tempUser()
         currDevice = loadCurrentDevice()
+        
         
         
         self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
@@ -59,6 +66,7 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
         }
         return currDevice
     }
+    
     @objc func SignOutButtonPressed(_ sender: Any) {
         print("attempting to signout")
         self.userLogout()

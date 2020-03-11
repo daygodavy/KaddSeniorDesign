@@ -250,8 +250,6 @@ class AddDeviceViewController: FormViewController, CLLocationManagerDelegate {
             }
         }
     }
-    
-    
 }
 
 

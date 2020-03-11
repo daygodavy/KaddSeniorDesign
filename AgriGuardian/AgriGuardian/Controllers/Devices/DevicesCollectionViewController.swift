@@ -24,8 +24,15 @@ class DevicesCollectionViewController: UICollectionViewController, UICollectionV
         super.viewDidLoad()
         setupNavBar()
         registerFlowLayout()
-        user = dataManager.loadSampleData()
-        devices = user.getDevices()
+        
+        
+        // LOAD DATA FROM FIREBASE HERE
+        
+//        user = dataManager.loadSampleData()
+//        devices = user.getDevices()
+        
+        
+        
         self.navigationController?.navigationBar.prefersLargeTitles = true
         self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
         
