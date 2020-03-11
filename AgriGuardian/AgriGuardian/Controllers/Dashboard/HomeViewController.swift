@@ -9,6 +9,7 @@
 import UIKit
 import GoogleSignIn
 import FirebaseAuth
+import Firebase
 
 class HomeViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
@@ -19,15 +20,24 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
     private let statId = "StatCell"
     private let detailId = "DetailCell"
     private let locationId = "LocationCell"
+    var devices: [Device] = []
     var currDevice = Device()
     var user = User()
     var dataManager = DataManager()
+    
+    var ref: DocumentReference? = nil
+    let db = Firestore.firestore()
+    
+    var activityView = UIActivityIndicatorView()
+    
+
     
     fileprivate let spacing: CGFloat = 16.0
 
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.showActivityIndicator()
         self.setupNavBar()
         registerFlowLayout()
         
@@ -35,12 +45,25 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
 //        user = dataManager.loadSampleData()
 //        currDevice = loadCurrentDevice()
         
+        self.load()
+        
         // REAL DEVICE DATA, ALL OTHER DATA TEMP (USER AND RIDE HISTORY)
-        user = dataManager.loadDevices_tempUser()
-        currDevice = loadCurrentDevice()
+        dataManager.loadDevices_tempUser { (user) in
+            self.user = user
+            self.currDevice = self.loadCurrentDevice()
+            self.collectionView.reloadData()
+            self.activityView.stopAnimating()
+        }
+//        user = dataManager.loadDevices_tempUser()
+//        currDevice = loadCurrentDevice()
         
+//        self.load()
+//        self.loadUserInfo()
         
-        
+
+    }
+    
+    func load() {
         self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
         self.collectionView.register(UICollectionViewCell.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: reuseIdentifier)
         let cellNib = UINib(nibName: "LastRideCell", bundle: nil)
@@ -58,12 +81,86 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
         // regisert main header
         let headerNib = UINib(nibName: "DashboardHeaderView", bundle: nil)
         self.collectionView.register(headerNib, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerId)
+        
+//        self.collectionView.reloadData()
+        
+        print("USER DEVICE COUNT: \(self.user.devices.count)")
+        
     }
+    
+    func showActivityIndicator() {
+        self.activityView.style = .large
+        activityView.center = self.view.center
+        self.view.addSubview(activityView)
+        activityView.startAnimating()
+    }
+    
+    
+    
+    // =========================================================
+    func loadUserInfo() {
+        self.user = User.init()
+        
+        var currUID: String = ""
+        if let id = Auth.auth().currentUser?.uid {
+            currUID = id
+        }
+        print("CURRUID: \(currUID)")
+        let root = db.collection("devices").whereField("uid", isEqualTo: currUID)
+        root.getDocuments() {(data, error) in
+            print("retriving documents")
+            if let err = error {
+                print("\(err)")
+                //                completion(err)
+            }
+            print("SKIP")
+            if let deviceDocs = data?.documents {
+                print("DEVICES COUNT: \(deviceDocs.count)")
+                for devices in deviceDocs {
+                    let dev = Device(data: devices.data())
+                    
+                    // ===== TEMPORARY HARDCODING RIDEHISTORY =====
+//                    let rides = self.loadRides()
+//                    dev.rideHistory = rides
+                    // ============================================
+                    
+                    self.devices.append(dev)
+                }
+                //print("NUM USER DEVICES2 \(userDevices.count)")
+                // completion(userDevices)
+                self.user = User(firstName: "Johnny", lastName: "Farmer", phoneNumber: "7147824460", uid: "u0001", emailAddress: "jfarmer@kadd.com", devices: self.devices, currentDevice: self.devices[0])
+                print("END OF QUERY: \(self.devices)")
+                self.currDevice = self.loadCurrentDevice()
+                self.collectionView.reloadData()
+            }
+        }
+    }
+    
+//     func loadRides() -> [Ride] {
+//        var tempRides = [Ride]()
+//        for _ in 0..<4 {
+//            let ride = loadGPSData(csvFile: "gps_2020_03_09", ofType: "csv")
+//            tempRides.append(ride)
+//        }
+//        return tempRides
+//    }
+//
+    
+    
+    
+    
+    
+    
+    
+    // =========================================================
+    
     
     private func loadCurrentDevice() -> Device {
         if currDevice.name.isEmpty {
+            print("YES \(user)")
             return user.currentDevice
         }
+        print("NO \(currDevice)")
         return currDevice
     }
     
@@ -154,6 +251,9 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerId, for: indexPath) as! DashboardHeaderView
         header.headerLabel.text = "\(currDevice.name) | \(currDevice.atvModel)"
+        print("CURR DEVICE: \(self.currDevice.atvModel)")
+        print("CURR DEVICE: \(self.currDevice)")
+        print("HEADER DEFINED: \(header.headerLabel.text)")
         return header
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {

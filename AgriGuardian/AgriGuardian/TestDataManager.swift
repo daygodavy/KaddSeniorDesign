@@ -13,20 +13,25 @@ import Firebase
 class DataManager {
     var ref: DocumentReference? = nil
     let db = Firestore.firestore()
+    
+    
+    
+    
     // MARK: LOADING DATA FROM FIREBASE
     // TODO: make sure for case
-    func loadDevices() -> [Device]{
+    func loadDevices(completion: @escaping ([Device]) -> Void){
         var userDevices: [Device] = []
         var currUID: String = ""
         if let id = Auth.auth().currentUser?.uid {
             currUID = id
         }
-        let root = db.collection("devices")
         print("CURRUID: \(currUID)")
+        let root = db.collection("devices").whereField("uid", isEqualTo: currUID)
         root.getDocuments() {(data, error) in
             print("retriving documents")
             if let err = error {
                 print("\(err)")
+//                completion(err)
             }
             print("SKIP")
             if let deviceDocs = data?.documents {
@@ -41,17 +46,27 @@ class DataManager {
 
                     userDevices.append(dev)
                 }
+                completion(userDevices)
             }
         }
-        print("NUM USER DEVICES \(userDevices.count)")
-        return userDevices
+//        print("NUM USER DEVICES \(userDevices.count)")
     }
     
-    func loadDevices_tempUser() -> User {
-        let devices = loadDevices()
-        let user = User(firstName: "Johnny", lastName: "Farmer", phoneNumber: "7147824460", uid: "u0001", emailAddress: "jfarmer@kadd.com", devices: devices, currentDevice: devices[0])
+    
+    
+    func loadDevices_tempUser(completion: @escaping (User) -> Void) {
+        var user: User = User.init()
+        var devices: [Device] = []
+        loadDevices { userDevices in
+            devices = userDevices
+            user = User(firstName: "Johnny", lastName: "Farmer", phoneNumber: "7147824460", uid: "u0001", emailAddress: "jfarmer@kadd.com", devices: devices, currentDevice: devices[0])
+            completion(user)
+            
+        }
         
-        return user
+        //        let user = User(firstName: "Johnny", lastName: "Farmer", phoneNumber: "7147824460", uid: "u0001", emailAddress: "jfarmer@kadd.com", devices: devices, currentDevice: devices[0])
+        
+        //        return user
     }
     
     
@@ -101,7 +116,7 @@ class DataManager {
         do {
             let contents = try String(contentsOfFile: filepath, encoding: .utf8)
             let rows = contents.components(separatedBy: "\n")
-            print(rows.count)
+//            print(rows.count)
             for item in rows {
                 // split row into tokens
                 // timestamp, latitude, longitude, speed, altitude, sat
@@ -110,7 +125,7 @@ class DataManager {
                     print("IN HEREEEEEEE")
                     continue
                 }
-                print(tokens)
+//                print(tokens)
                 guard let latitude = Double(tokens[1]) else {
                     fatalError("Unexpectedly found nil trying to convert latitude to Double value")
                 }
@@ -155,7 +170,7 @@ class DataManager {
     }
     
     func formatDateFromData(date: String) -> Date  {
-        print(date)
+//        print(date)
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd HH:mm:ss.SSS"
         let thisDate = formatter.date(from: date)
