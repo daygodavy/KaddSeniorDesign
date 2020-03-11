@@ -20,9 +20,9 @@ class AddDeviceViewController: FormViewController, CLLocationManagerDelegate {
     let modelNumber = "A1"
     let serialNumber = "AAKS776WJW8P00"
     let manufacturer = "Kadd Inc."
-//    var gfCenter: CLLocation = CLLocation()
     var locationManager: CLLocationManager!
     var currLoc: CLLocation = CLLocation()
+    var gfRad: String = ""
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -66,11 +66,35 @@ class AddDeviceViewController: FormViewController, CLLocationManagerDelegate {
                 row.placeholder = "Enter Vehicle Model"
                 row.add(rule: RuleRequired())
             }
+
+        
+        form +++ Section("Geofence Settings")
+            <<< IntRow() { row in
+                row.tag = "GFRadiusRow"
+                row.title = "Geofencing Radius"
+                row.placeholder = "Enter radius (meters) for geofence"
+                row.add(ruleSet: RuleSet<Int>())
+            }.onCellHighlightChanged({ (cell, row) in
+                if row.isHighlighted == false {
+                    if let val = self.form.rowBy(tag: "GFRadiusRow")?.baseValue   {
+                        self.gfRad = "\(val)"
+
+                    }
+                }
+            })
+
             <<< LocationRow(){ row in
-                row.tag = "GeofenceRow"
-                row.title = "Geofencing Range"
+                row.updateCell()
+                row.tag = "GFCenterRow"
+                row.title = "Geofencing Center"
                 row.value = currLoc
-            }
+                row.value2 = gfRad
+            }.onCellSelection({ (cell, row) in
+                row.value2 = self.gfRad
+            })
+            
+            
+            
              +++ Section("About")
              <<< TextRow() { row in
                  row.title = "Manufacturer"
@@ -165,7 +189,6 @@ class AddDeviceViewController: FormViewController, CLLocationManagerDelegate {
 
 // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-            
     }
     
     
@@ -193,7 +216,6 @@ public final class LocationRow: OptionsRow<PushSelectorCell<CLLocation>>, Presen
             fmt.minimumFractionDigits = 4
             let latitude = fmt.string(from: NSNumber(value: location.coordinate.latitude))!
             let longitude = fmt.string(from: NSNumber(value: location.coordinate.longitude))!
-            print("LAT-LON: \(latitude), \(longitude)")
             return  "\(latitude), \(longitude)"
         }
     }
@@ -231,6 +253,7 @@ public class MapViewController : UIViewController, TypedRowControllerType, MKMap
 
     public var row: RowOf<CLLocation>!
     public var onDismissCallback: ((UIViewController) -> ())?
+    
 
     lazy var mapView : MKMapView = { [unowned self] in
         let v = MKMapView(frame: self.view.bounds)
@@ -253,8 +276,9 @@ public class MapViewController : UIViewController, TypedRowControllerType, MKMap
         return v
         }()
 
-    let width: CGFloat = 10.0
-    let height: CGFloat = 5.0
+
+    var width: CGFloat = 0
+    var height: CGFloat = 0
 
     lazy var ellipse: UIBezierPath = { [unowned self] in
         let ellipse = UIBezierPath(ovalIn: CGRect(x: 0, y: 0, width: self.width, height: self.height))
@@ -264,9 +288,15 @@ public class MapViewController : UIViewController, TypedRowControllerType, MKMap
 
     lazy var ellipsisLayer: CAShapeLayer = { [unowned self] in
         let layer = CAShapeLayer()
+
+        if let rad = row.value2, let formatRad = Double(rad) {
+            self.width = CGFloat(formatRad)
+            self.height = CGFloat(formatRad)
+        }
+        
         layer.bounds = CGRect(x: 0, y: 0, width: self.width, height: self.height)
         layer.path = self.ellipse.cgPath
-        layer.fillColor = UIColor.gray.cgColor
+        layer.fillColor = UIColor.clear.cgColor
         layer.fillRule = .nonZero
         layer.lineCap = .butt
         layer.lineDashPattern = nil
@@ -274,7 +304,7 @@ public class MapViewController : UIViewController, TypedRowControllerType, MKMap
         layer.lineJoin = .miter
         layer.lineWidth = 1.0
         layer.miterLimit = 10.0
-        layer.strokeColor = UIColor.gray.cgColor
+        layer.strokeColor = UIColor.red.cgColor
         return layer
         }()
 
