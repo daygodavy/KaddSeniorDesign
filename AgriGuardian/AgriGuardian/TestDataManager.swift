@@ -28,14 +28,10 @@ class DataManager {
         print("CURRUID: \(currUID)")
         let root = db.collection("devices").whereField("uid", isEqualTo: currUID)
         root.getDocuments() {(data, error) in
-            print("retriving documents")
             if let err = error {
                 print("\(err)")
-//                completion(err)
             }
-            print("SKIP")
             if let deviceDocs = data?.documents {
-                print("DEVICES COUNT: \(deviceDocs.count)")
                 for devices in deviceDocs {
                     let dev = Device(data: devices.data())
                     
@@ -49,7 +45,6 @@ class DataManager {
                 completion(userDevices)
             }
         }
-//        print("NUM USER DEVICES \(userDevices.count)")
     }
     
     
@@ -63,10 +58,6 @@ class DataManager {
             completion(user)
             
         }
-        
-        //        let user = User(firstName: "Johnny", lastName: "Farmer", phoneNumber: "7147824460", uid: "u0001", emailAddress: "jfarmer@kadd.com", devices: devices, currentDevice: devices[0])
-        
-        //        return user
     }
     
     

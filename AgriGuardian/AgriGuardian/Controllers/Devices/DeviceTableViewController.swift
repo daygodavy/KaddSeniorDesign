@@ -28,7 +28,6 @@ class DeviceTableViewController: UITableViewController {
         self.title = "Devices"
         setupNavBar()
         centralManager = CBCentralManager(delegate: self, queue: nil)
-
     }
     // MARK: - Private functions
     private func setupNavBar() {

@@ -29,6 +29,13 @@ class DevicesCollectionViewController: UICollectionViewController, UICollectionV
         // LOAD DATA FROM FIREBASE HERE
         
 //        user = dataManager.loadSampleData()
+        dataManager.loadDevices_tempUser { (user) in
+            self.user = user
+//            self.currDevice = self.loadCurrentDevice()
+            self.devices = user.getDevices()
+            self.collectionView.reloadData()
+//            self.activityView.stopAnimating()
+        }
 //        devices = user.getDevices()
         
         
