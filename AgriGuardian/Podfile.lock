@@ -309,6 +309,7 @@ PODS:
   - nanopb/decode (0.3.9011)
   - nanopb/encode (0.3.9011)
   - PromisesObjC (1.2.8)
+  - ScrollableGraphView (4.0.6)
 
 DEPENDENCIES:
   - Eureka
@@ -321,6 +322,7 @@ DEPENDENCIES:
   - Firebase/Storage
   - FirebaseFirestoreSwift
   - GoogleSignIn
+  - ScrollableGraphView
 
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
@@ -352,6 +354,7 @@ SPEC REPOS:
     - leveldb-library
     - nanopb
     - PromisesObjC
+    - ScrollableGraphView
 
 SPEC CHECKSUMS:
   abseil: 18063d773f5366ff8736a050fe035a28f635fd27
@@ -382,7 +385,8 @@ SPEC CHECKSUMS:
   leveldb-library: 55d93ee664b4007aac644a782d11da33fba316f7
   nanopb: 18003b5e52dab79db540fe93fe9579f399bd1ccd
   PromisesObjC: c119f3cd559f50b7ae681fa59dc1acd19173b7e6
+  ScrollableGraphView: 4af35d4ea9ecdec665d34a74da51da161ddff8ac
 
-PODFILE CHECKSUM: e13b5ca3084180d7ec528339af1f635728760c02
+PODFILE CHECKSUM: 1ced3c3c12d685a648d4ca46b2e2df05883a3346
 
 COCOAPODS: 1.8.4

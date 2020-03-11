@@ -32,7 +32,7 @@ class MainTabBarController: UITabBarController {
         historyNC.tabBarItem = UITabBarItem(title: "Rides", image: nil, tag: 1)
         settingsNC.tabBarItem = UITabBarItem(title: "Settings", image: nil, tag: 2)
         
-        
+        // pass data to view controllers
         homeVC.currDevice = chosenDevice
         
         let tabBarList = [homeNC, historyNC, settingsNC]

@@ -52,6 +52,10 @@
                 <constraint firstAttribute="trailing" secondItem="2QV-dK-7wT" secondAttribute="trailing" constant="20" id="tFN-iQ-k3r"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <connections>
+                <outlet property="nameLabel" destination="Mcc-q4-ihv" id="T6J-af-XFA"/>
+                <outlet property="vehicleLabel" destination="KX0-0Y-rKv" id="04F-Jc-yMC"/>
+            </connections>
             <point key="canvasLocation" x="137.68115942028987" y="140.625"/>
         </collectionViewCell>
     </objects>

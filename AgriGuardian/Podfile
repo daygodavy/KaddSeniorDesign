@@ -9,6 +9,8 @@ target 'AgriGuardian' do
 
   # Pods for forms
   pod 'Eureka'
+  # Pods for graphs
+  pod 'ScrollableGraphView'
   # Pods for AgriGuardian
   pod 'Firebase'
   pod 'Firebase/Analytics'

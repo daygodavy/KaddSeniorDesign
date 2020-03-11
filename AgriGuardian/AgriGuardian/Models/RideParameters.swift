@@ -13,11 +13,13 @@ public class Ride {
     
     var terrain: [TerrainPoint]
     var locations: [CLLocation]
+    var totalTime: TimeInterval
     var didRollover: Bool
     
     init() {
         terrain = [TerrainPoint]()
         locations = [CLLocation]()
+        totalTime = TimeInterval()
         didRollover = false
     }
     
@@ -27,6 +29,9 @@ public class Ride {
     
     func addTerrainPoint(point: TerrainPoint) {
         self.terrain.append(point)
+    }
+    func setTotalTime(time: TimeInterval) {
+        self.totalTime = time
     }
     
 }

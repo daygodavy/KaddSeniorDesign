@@ -9,6 +9,10 @@
 import UIKit
 
 class DeviceCollectionViewCell: UICollectionViewCell {
+    // MARK: - Properties
+    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var vehicleLabel: UILabel!
+    
 
     override func awakeFromNib() {
         super.awakeFromNib()
