@@ -19,24 +19,32 @@ class DevicesCollectionViewController: UICollectionViewController, UICollectionV
     var dataManager = DataManager()
     var user = User()
     var devices = [Device]()
+    var activityView = UIActivityIndicatorView()
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.showActivityIndicator()
         setupNavBar()
         registerFlowLayout()
+        collectionView.dataSource = self
+        print("VIEWDIDLOAD TRIGGERED")
         
         
         // LOAD DATA FROM FIREBASE HERE
         
 //        user = dataManager.loadSampleData()
-        dataManager.loadDevices_tempUser { (user) in
-            self.user = user
-//            self.currDevice = self.loadCurrentDevice()
-            self.devices = user.getDevices()
-            self.collectionView.reloadData()
-//            self.activityView.stopAnimating()
-        }
+//        dataManager.loadDevices_tempUser { (user) in
+//            self.user = user
+////            self.currDevice = self.loadCurrentDevice()
+//            self.devices = user.getDevices()
+//            self.collectionView.dataSource = self
+//            self.collectionView.delegate = self
+//            self.collectionView.reloadData()
+////            self.activityView.stopAnimating()
+//        }
 //        devices = user.getDevices()
+        self.loadData()
         
         
         
@@ -47,7 +55,29 @@ class DevicesCollectionViewController: UICollectionViewController, UICollectionV
         self.collectionView.register(nib, forCellWithReuseIdentifier: deviceIdentifier)
 
         // Do any additional setup after loading the view.
+        self.collectionView.reloadData()
     }
+    
+    func loadData() {
+        dataManager.loadDevices_tempUser { (user) in
+            self.user = user
+            //            self.currDevice = self.loadCurrentDevice()
+            self.devices = user.getDevices()
+            self.collectionView.dataSource = self
+            self.collectionView.delegate = self
+            self.collectionView.reloadData()
+            self.activityView.stopAnimating()
+        }
+    }
+    
+    func showActivityIndicator() {
+        self.activityView.style = .large
+        activityView.center = self.view.center
+        self.view.addSubview(activityView)
+        activityView.startAnimating()
+    }
+    
+    
     // MARK: - Private functions
     fileprivate func registerFlowLayout() {
         let layout = UICollectionViewFlowLayout()
@@ -120,8 +150,12 @@ class DevicesCollectionViewController: UICollectionViewController, UICollectionV
             if let sourceVC = unwindSegue.source as? AddDeviceViewController {
                 count.append(1)
             }
-            collectionView.reloadData()
+//            self.loadData()
+//            collectionView.reloadData()
         }
+        self.showActivityIndicator()
+        self.loadData()
+        print("UNWINDED FROM ADD DEVICE VC")
     }
 
 

@@ -113,7 +113,6 @@ class DataManager {
                 // timestamp, latitude, longitude, speed, altitude, sat
                 let tokens = item.components(separatedBy: ",")
                 if tokens.count < 5 {
-                    print("IN HEREEEEEEE")
                     continue
                 }
 //                print(tokens)

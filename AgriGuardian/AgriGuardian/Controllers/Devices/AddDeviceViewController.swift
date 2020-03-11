@@ -167,7 +167,14 @@ class AddDeviceViewController: FormViewController, CLLocationManagerDelegate {
             fatalError("Unexpectedly found nil unwrapping devive data")
         }
         
-        let newDevice = Device(name: nameRow.value!, modelNumber: modelNumber, serialNumber: serialNumber, atvModel: vehicleRow.value!, manufacturer: manufacturer, hardwareVersion: hardwareVersion, firmwareVersion: firmwareVersion, uid: "", devId: "", rideHistory: [], gfT: geoToggle.value!, gfR: Double(geoRad.value!), gfC: geoCenter.value!)
+        var rad: Int = 0
+        if geoRad.value != nil {
+            rad = geoRad.value!
+        }
+        else {
+            rad = 0
+        }
+        let newDevice = Device(name: nameRow.value!, modelNumber: modelNumber, serialNumber: serialNumber, atvModel: vehicleRow.value!, manufacturer: manufacturer, hardwareVersion: hardwareVersion, firmwareVersion: firmwareVersion, uid: "", devId: "", rideHistory: [], gfT: geoToggle.value!, gfR: Double(rad), gfC: geoCenter.value!)
 //        let newDevice = Device()
         return newDevice
     }
@@ -188,7 +195,7 @@ class AddDeviceViewController: FormViewController, CLLocationManagerDelegate {
         
         // pass the device object in unwind segue to show on the devices table/collection view
         
-        self.performSegue(withIdentifier: "UnwindToDevices", sender: self)
+//        self.performSegue(withIdentifier: "UnwindToDevices", sender: self)
     }
     @objc private func didTapCancel() {
         if (!validateForm()) {
@@ -231,6 +238,11 @@ class AddDeviceViewController: FormViewController, CLLocationManagerDelegate {
             } else {
                 print("Document added with ID: \(ref.documentID)")
                 self.addToUserDevice(id: ref.documentID)
+                
+                
+                
+                self.performSegue(withIdentifier: "UnwindToDevices", sender: self)
+                
             }
         }
         
