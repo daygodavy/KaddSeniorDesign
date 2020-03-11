@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import MapKit
 
 class Device {
     var name: String
@@ -16,10 +17,13 @@ class Device {
     var manufacturer: String
     var firmwareVersion: String
     var hardwareVersion: String
-    var lastLocation: String
+    var lastLocation: String //Should this be CLLocation
     var uid: String
     var devId: String
     var rideHistory: [Ride]
+    var gfToggle: Bool
+    var gfRadius: Double
+    var gfCenter: CLLocation
     
     init() {
         name = ""
@@ -33,11 +37,13 @@ class Device {
         devId = ""
         lastLocation = ""
         rideHistory = [Ride]()
-        
+        gfToggle = false
+        gfRadius = 0
+        gfCenter = CLLocation()
     }
     
     
-    init(name: String, modelNumber: String, serialNumber: String, atvModel: String, manufacturer: String, hardwareVersion: String, firmwareVersion: String, uid: String, devId: String, rideHistory: [Ride]) {
+    init(name: String, modelNumber: String, serialNumber: String, atvModel: String, manufacturer: String, hardwareVersion: String, firmwareVersion: String, uid: String, devId: String, rideHistory: [Ride], gfT: Bool, gfR: Double, gfC: CLLocation) {
         self.name = name
         self.modelNumber = modelNumber
         self.serialNumber = serialNumber
@@ -50,6 +56,9 @@ class Device {
         // fix later
         self.lastLocation = ""
         self.rideHistory = rideHistory
+        self.gfToggle = gfT
+        self.gfRadius = gfR
+        self.gfCenter = gfC
     }
     
 //    // Reading data into from Firebase

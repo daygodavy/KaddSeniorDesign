@@ -24,10 +24,10 @@ class DataManager {
      func loadDevices() -> [Device] {
         let rides = loadRides()
         
-        var device1 = Device(name: "iKadd Device", modelNumber: "A1", serialNumber: "A16DB9663", atvModel: "FOURTRAX RECON 4x4", manufacturer: "Honda", hardwareVersion: "1.0.0", firmwareVersion: "1.1.0", uid: "u0001", devId: "d0001", rideHistory: rides)
-        var device2 = Device(name: "Rincon Kadd", modelNumber: "A2", serialNumber: "A26DB9663", atvModel: "FOURTRAX RINCON", manufacturer: "Honda", hardwareVersion: "1.1.0", firmwareVersion: "1.0.0", uid: "u0001", devId: "d0010", rideHistory: rides)
-        var device3 = Device(name: "Griz-ly", modelNumber: "A3", serialNumber: "A36DB9663", atvModel: "Grizzly EPS XT-R", manufacturer: "Yamaha", hardwareVersion: "1.0.0", firmwareVersion: "1.1.0", uid: "u0101", devId: "d0101", rideHistory: rides)
-        var device4 = Device(name: "King Kadd", modelNumber: "A4", serialNumber: "A46DB9663", atvModel: "KingQuad 750AXi Camo", manufacturer: "Suzuki", hardwareVersion: "1.0.0", firmwareVersion: "1.0.0", uid: "u1000", devId: "d1000", rideHistory: rides)
+        var device1 = Device(name: "iKadd Device", modelNumber: "A1", serialNumber: "A16DB9663", atvModel: "FOURTRAX RECON 4x4", manufacturer: "Honda", hardwareVersion: "1.0.0", firmwareVersion: "1.1.0", uid: "u0001", devId: "d0001", rideHistory: rides, gfT: false, gfR: 0, gfC: CLLocation.init())
+        var device2 = Device(name: "Rincon Kadd", modelNumber: "A2", serialNumber: "A26DB9663", atvModel: "FOURTRAX RINCON", manufacturer: "Honda", hardwareVersion: "1.1.0", firmwareVersion: "1.0.0", uid: "u0001", devId: "d0010", rideHistory: rides, gfT: false, gfR: 0, gfC: CLLocation.init())
+        var device3 = Device(name: "Griz-ly", modelNumber: "A3", serialNumber: "A36DB9663", atvModel: "Grizzly EPS XT-R", manufacturer: "Yamaha", hardwareVersion: "1.0.0", firmwareVersion: "1.1.0", uid: "u0101", devId: "d0101", rideHistory: rides, gfT: false, gfR: 0, gfC: CLLocation.init())
+        var device4 = Device(name: "King Kadd", modelNumber: "A4", serialNumber: "A46DB9663", atvModel: "KingQuad 750AXi Camo", manufacturer: "Suzuki", hardwareVersion: "1.0.0", firmwareVersion: "1.0.0", uid: "u1000", devId: "d1000", rideHistory: rides, gfT: false, gfR: 0, gfC: CLLocation.init())
         
         let testDevices = [device1, device2, device3, device4]
         
@@ -57,7 +57,11 @@ class DataManager {
                 // split row into tokens
                 // timestamp, latitude, longitude, speed, altitude, sat
                 let tokens = item.components(separatedBy: ",")
-                
+                if tokens.count < 5 {
+                    print("IN HEREEEEEEE")
+                    continue
+                }
+                print(tokens)
                 guard let latitude = Double(tokens[1]) else {
                     fatalError("Unexpectedly found nil trying to convert latitude to Double value")
                 }
@@ -94,7 +98,7 @@ class DataManager {
     }
     
     func getEndTime(rowsInFile: [String]) -> Date {
-        let lastIndex = rowsInFile.count - 1
+        let lastIndex = rowsInFile.count - 2
         let lastRow = rowsInFile[lastIndex]
         let tokens = lastRow.components(separatedBy: ",")
         let date = formatDateFromData(date: tokens[0])
@@ -102,6 +106,7 @@ class DataManager {
     }
     
     func formatDateFromData(date: String) -> Date  {
+        print(date)
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd HH:mm:ss.SSS"
         let thisDate = formatter.date(from: date)
