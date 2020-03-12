@@ -118,7 +118,7 @@ class DataManager {
         do {
             let contents = try String(contentsOfFile: filepath, encoding: .utf8)
             let rows = contents.components(separatedBy: "\n")
-            print(rows.count)
+//            print(rows.count)
             for item in rows {
                 // split row into tokens
                 // timestamp, latitude, longitude, speed, altitude, sat
@@ -156,9 +156,9 @@ class DataManager {
             let rideTime = endTime.timeIntervalSince(startTime)
             
             thisRide.setTotalTime(time: rideTime)
-            print(rideTime.description)
+//            print(rideTime.description)
             thisRide.setMileage(mileage: mileage)
-            print(rideDate.description)
+//            print(rideDate.description)
             thisRide.setDate(date: rideDate)
          } catch {
              fatalError("Unable to load file contents")
@@ -181,7 +181,7 @@ class DataManager {
     func getStartTime(rowsInFile: [String]) -> Date {
         let firstRow = rowsInFile[0]
         let tokens = firstRow.components(separatedBy: ",")
-        print("First Row Time: \(tokens[0])")
+//        print("First Row Time: \(tokens[0])")
         let date = formatDateFromData(data: tokens[0])
         return date
     }
@@ -190,7 +190,7 @@ class DataManager {
         let lastIndex = rowsInFile.count - 2
         let lastRow = rowsInFile[lastIndex]
         let tokens = lastRow.components(separatedBy: ",")
-        print("Last Row Time: \(tokens[0])")
+//        print("Last Row Time: \(tokens[0])")
 
         let date = formatDateFromData(data: tokens[0])
         
@@ -205,7 +205,7 @@ class DataManager {
         formatter.timeZone = TimeZone(secondsFromGMT: 0)
 
         if let thisDate = formatter.date(from: temp2) {
-            print(thisDate.description)
+//            print(thisDate.description)
             return thisDate
         } else {
             fatalError("Unable to convert date to Date()")
