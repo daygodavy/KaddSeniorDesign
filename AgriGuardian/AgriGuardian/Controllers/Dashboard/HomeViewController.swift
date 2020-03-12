@@ -31,6 +31,11 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
         self.setupNavBar()
         registerFlowLayout()
         user = dataManager.loadSampleData()
+        
+        let rides = dataManager.loadRides()
+        let history = dataManager.organizeUserRides(rides: rides)
+        print("success")
+        
         currDevice = loadCurrentDevice()
         
         

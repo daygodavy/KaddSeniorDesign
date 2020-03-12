@@ -14,24 +14,76 @@ public class Ride {
     var terrain: [TerrainPoint]
     var locations: [CLLocation]
     var totalTime: TimeInterval
+    var mileage: Double
     var didRollover: Bool
+    var rideDate: Date
     
     init() {
-        terrain = [TerrainPoint]()
+        terrain = [TerrainPoint] ()
         locations = [CLLocation]()
         totalTime = TimeInterval()
         didRollover = false
+        mileage = 0.0
+        rideDate = Date()
     }
     
     func addLocation(location: CLLocation) {
         self.locations.append(location)
     }
-    
     func addTerrainPoint(point: TerrainPoint) {
         self.terrain.append(point)
     }
     func setTotalTime(time: TimeInterval) {
         self.totalTime = time
+    }
+    func setMileage(mileage: Double) {
+        self.mileage = mileage
+    }
+    func setDate(date: Date) {
+        self.rideDate = date
+    }
+    func printDate() {
+        print(self.rideDate.description)
+    }
+    func getTime() -> String {
+        return String(self.totalTime)
+    }
+    func getMileage() -> String {
+        return String(self.mileage)
+    }
+    func getTopSpeed() -> String {
+        let points = self.locations
+        let topSpeedLoco = points.max { a, b in a.speed < b.speed }
+        if let topSpeed =  topSpeedLoco?.speed {
+            return String(topSpeed)
+        } else {
+            fatalError("Unable to get top speed")
+        }
+    }
+    func getAvgSpeed() -> String {
+        var sum: Double = 0.0
+        for loc in self.locations {
+            let speed = loc.speed
+            sum += speed
+        }
+        let avg = sum / Double(self.locations.count)
+        return String(avg)
+    }
+    func getRideCity(completion: @escaping (String) -> Void) {
+        let geoCoder = CLGeocoder()
+        let startingPoint = self.locations[0]
+        var thisCity = ""
+        geoCoder.reverseGeocodeLocation(startingPoint) { (placemark, error) in
+            guard let marker = placemark?.first else {
+                fatalError("Cannot find placemarker in getRideCity()")
+            }
+            if let city = marker.subAdministrativeArea {
+                thisCity = city
+            } else {
+                thisCity = "Unknown"
+            }
+            completion(thisCity)
+        }
     }
     
 }

@@ -11,6 +11,8 @@ import UIKit
 
 class RideDetailCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
+    var thisRide = Ride()
+    
     // MARK: - Properties
     fileprivate let cellID = "InfoCell"
     fileprivate let tempID = "cellID"
@@ -56,16 +58,16 @@ class RideDetailCollectionViewController: UICollectionViewController, UICollecti
         switch(indexPath.row) {
         case 0:
             cell.titleLabel.text = "Total Time"
-            cell.valueLabel.text = "00:00:00"
+            cell.valueLabel.text = thisRide.getTime()
             cell.iconLabel.image = UIImage(systemName: "clock")
         case 1:
             cell.titleLabel.text = "Avg. Speed"
-            cell.valueLabel.text = "00.00"
+            cell.valueLabel.text = thisRide.getAvgSpeed()
             cell.iconLabel.image = UIImage(systemName: "speedometer")
 
         case 2:
             cell.titleLabel.text = "Miles"
-            cell.valueLabel.text = "000.0"
+            cell.valueLabel.text = thisRide.getMileage()
             cell.iconLabel.image = UIImage(systemName: "circle")
 
         case 3:
@@ -75,7 +77,7 @@ class RideDetailCollectionViewController: UICollectionViewController, UICollecti
 
         case 4:
             cell.titleLabel.text = "Top Speed"
-            cell.valueLabel.text = "000.00"
+            cell.valueLabel.text = thisRide.getTopSpeed()
             cell.iconLabel.image = UIImage(systemName: "gauge.badge.plus")
         case 5:
             cell.titleLabel.text = "Stops"
@@ -140,7 +142,12 @@ class RideDetailCollectionViewController: UICollectionViewController, UICollecti
     }
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         // dequeue header
-        let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerID, for: indexPath) 
+        let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerID, for: indexPath) as! RideDetailHeaderCRV
+//        header.locationLabel.text = thisRide.getRideCity()
+        thisRide.getRideCity { thisCity in
+            header.locationLabel.text = "📍 \(thisCity)"
+        }
+        
         return header
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {

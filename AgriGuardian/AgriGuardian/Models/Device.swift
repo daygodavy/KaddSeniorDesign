@@ -19,7 +19,7 @@ class Device {
     var lastLocation: String
     var uid: String
     var devId: String
-    var rideHistory: [Ride]
+    var rideHistory: RideHistory
     
     init() {
         name = ""
@@ -32,12 +32,12 @@ class Device {
         uid = ""
         devId = ""
         lastLocation = ""
-        rideHistory = [Ride]()
+        rideHistory = RideHistory()
         
     }
     
     
-    init(name: String, modelNumber: String, serialNumber: String, atvModel: String, manufacturer: String, hardwareVersion: String, firmwareVersion: String, uid: String, devId: String, rideHistory: [Ride]) {
+    init(name: String, modelNumber: String, serialNumber: String, atvModel: String, manufacturer: String, hardwareVersion: String, firmwareVersion: String, uid: String, devId: String, rideHistory: RideHistory) {
         self.name = name
         self.modelNumber = modelNumber
         self.serialNumber = serialNumber
