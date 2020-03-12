@@ -27,7 +27,8 @@ class AddDeviceViewController: FormViewController, CLLocationManagerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNavBar()
-        setupForm()
+//        setupForm()
+        setupAuthLoc()
         
         self.title = "Add Device"
     }
