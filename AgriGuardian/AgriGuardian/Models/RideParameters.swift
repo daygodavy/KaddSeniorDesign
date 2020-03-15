@@ -19,26 +19,65 @@ public class Ride {
     var rideDate: Date
     
     init() {
-        terrain = [TerrainPoint] ()
+        terrain = [TerrainPoint]()
         locations = [CLLocation]()
         totalTime = TimeInterval()
         didRollover = false
         mileage = 0.0
         rideDate = Date()
     }
-    
+    /**
+        Set Method for Ride locations attribute. Adds a new location point to this ride's current array of CLLocations
+     - Parameter location: CLLocation representation of a single GPS cooridate
+     - Authors: Daniel Weatrowski
+     - Version: 1.0
+     - Date: March 15, 2020
+     - Returns: No Return value
+     */
     func addLocation(location: CLLocation) {
         self.locations.append(location)
     }
+    /**
+        Set Method for Ride terrains attribute. Adds a new terrain point to this ride's current array of TerrainPoints
+     - Parameter point: TerrainPoint representation of a single IMU cooridate
+     - Authors: Daniel Weatrowski
+     - Version: 1.0
+     - Date: March 15, 2020
+     - Returns: No Return value
+     */
     func addTerrainPoint(point: TerrainPoint) {
         self.terrain.append(point)
     }
+    /**
+        Set Method for Ride time attribute. Sets the total time attribute for single ride
+     - Parameter time: TimeInterval (Double) representation of the total time
+     - Authors: Daniel Weatrowski
+     - Version: 1.0
+     - Date: March 15, 2020
+     - Returns: No Return value
+     */
     func setTotalTime(time: TimeInterval) {
         self.totalTime = time
     }
+    /**
+        Set Method for Ride mileage attribute. Sets the total mileage attribute for single ride
+     - Parameter mileage: Total mileage of a Ride as a Double
+     - Authors: Daniel Weatrowski
+     - Version: 1.0
+     - Date: March 15, 2020
+     - Returns: No Return value
+     */
     func setMileage(mileage: Double) {
         self.mileage = mileage
     }
+    /**
+        Set Method for Ride date attribute. Sets the date for which a single ride took place.
+     - Parameter date: Date in which the current ride took place
+     - Authors: Daniel Weatrowski
+     - Version: 1.0
+     - Date: March 15, 2020
+     - Returns: No Return value
+     */
     func setDate(date: Date) {
         self.rideDate = date
     }
