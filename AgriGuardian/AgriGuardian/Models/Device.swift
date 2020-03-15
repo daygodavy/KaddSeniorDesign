@@ -21,10 +21,14 @@ class Device {
     var lastLocation: String //Should this be CLLocation
     var uid: String
     var devId: String
+
+    var rideHistory: RideHistory
+
     var rideHistory: [Ride]
     var gfToggle: Bool
     var gfRadius: Double
     var gfCenter: CLLocation
+
     
     init() {
         name = ""
@@ -37,11 +41,11 @@ class Device {
         uid = ""
         devId = ""
         lastLocation = ""
-        rideHistory = [Ride]()
-        gfToggle = false
-        gfRadius = 0
-        gfCenter = CLLocation()
+        rideHistory = RideHistory()
+        
     }
+    
+
     
     
     init(name: String, modelNumber: String, serialNumber: String, atvModel: String, manufacturer: String, hardwareVersion: String, firmwareVersion: String, uid: String, devId: String, rideHistory: [Ride], gfT: Bool, gfR: Double, gfC: CLLocation) {

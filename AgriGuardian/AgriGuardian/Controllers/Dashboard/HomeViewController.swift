@@ -40,7 +40,19 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
         self.showActivityIndicator()
         self.setupNavBar()
         registerFlowLayout()
+
+        // TESTDATA BRANCH
+        user = dataManager.loadSampleData()
         
+        let rides = dataManager.loadRides()
+        let history = dataManager.organizeUserRides(rides: rides)
+        print("success")
+        
+        currDevice = loadCurrentDevice()
+        // TESTDATA BRANCH
+        
+      
+        // DAVY BRANCH
         // TEMP DATA HARDCODED
 //        user = dataManager.loadSampleData()
 //        currDevice = loadCurrentDevice()
@@ -54,6 +66,7 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
             self.collectionView.reloadData()
             self.activityView.stopAnimating()
         }
+       // DAVY BRANCH
 
     }
     

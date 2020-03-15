@@ -32,6 +32,7 @@ class AddDeviceViewController: FormViewController, CLLocationManagerDelegate {
         setupNavBar()
         setupAuthLoc()
 //        setupForm()
+        setupAuthLoc()
         
         self.title = "Add Device"
     }

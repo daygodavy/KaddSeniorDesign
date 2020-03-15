@@ -78,6 +78,12 @@
                 <constraint firstItem="MtR-fh-M5P" firstAttribute="top" secondItem="U6b-Vx-4bR" secondAttribute="top" constant="20" symbolic="YES" id="y0W-hg-f5y"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="VXr-Tz-HHm"/>
+            <connections>
+                <outlet property="deviceLabel" destination="0c4-Dj-KcJ" id="7id-Ev-DdG"/>
+                <outlet property="locationLabel" destination="SFW-no-JuY" id="TWZ-wU-2gv"/>
+                <outlet property="timeRangeLabel" destination="2EY-3F-Sll" id="M5g-80-MY8"/>
+                <outlet property="vehicleLabel" destination="nFy-DD-iEn" id="xZA-z3-kwX"/>
+            </connections>
             <point key="canvasLocation" x="137.68115942028987" y="119.86607142857142"/>
         </collectionReusableView>
     </objects>
