@@ -10,23 +10,27 @@ import UIKit
 import Eureka
 import CoreLocation
 import MapKit
+import Firebase
 
 class AddDeviceViewController: FormViewController, CLLocationManagerDelegate {
     
     // MARK: - Properties
+    var ref: DocumentReference? = nil
+    let db = Firestore.firestore()
     var thisDevice = Device()
     let hardwareVersion = "1.0.0"
     let firmwareVersion = "1.0.0"
     let modelNumber = "A1"
     let serialNumber = "AAKS776WJW8P00"
     let manufacturer = "Kadd Inc."
-//    var gfCenter: CLLocation = CLLocation()
     var locationManager: CLLocationManager!
     var currLoc: CLLocation = CLLocation()
+    var gfRad: String = ""
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNavBar()
+        setupAuthLoc()
 //        setupForm()
         setupAuthLoc()
         
@@ -64,11 +68,39 @@ class AddDeviceViewController: FormViewController, CLLocationManagerDelegate {
                 row.placeholder = "Enter Vehicle Model"
                 row.add(rule: RuleRequired())
             }
-            <<< LocationRow(){ row in
-                row.tag = "GeofenceRow"
-                row.title = "Geofencing Range"
-                row.value = currLoc
+
+        
+        form +++ Section("Geofence Settings")
+            <<< SwitchRow { row in
+                row.tag = "GFToggleRow"
+                row.title = "Enable Geofence?"
+                row.value = false
             }
+            <<< IntRow() { row in
+                row.tag = "GFRadiusRow"
+                row.title = "Geofencing Radius"
+                row.placeholder = "Enter radius (meters) for geofence"
+                row.add(ruleSet: RuleSet<Int>())
+            }.onCellHighlightChanged({ (cell, row) in
+                if row.isHighlighted == false {
+                    if let val = self.form.rowBy(tag: "GFRadiusRow")?.baseValue   {
+                        self.gfRad = "\(val)"
+
+                    }
+                }
+            })
+            <<< LocationRow(){ row in
+                row.updateCell()
+                row.tag = "GFCenterRow"
+                row.title = "Geofencing Center"
+                row.value = currLoc
+                row.value2 = gfRad
+            }.onCellSelection({ (cell, row) in
+                row.value2 = self.gfRad
+            })
+            
+            
+            
              +++ Section("About")
              <<< TextRow() { row in
                  row.title = "Manufacturer"
@@ -131,12 +163,20 @@ class AddDeviceViewController: FormViewController, CLLocationManagerDelegate {
         return true
     }
     private func getDeviceInfo() -> Device {
-        guard let nameRow: TextRow = form.rowBy(tag: "NameRow"), let vehicleRow: TextRow = form.rowBy(tag: "ATVModelRow")
+        guard let nameRow: TextRow = form.rowBy(tag: "NameRow"), let vehicleRow: TextRow = form.rowBy(tag: "ATVModelRow"), let geoToggle: SwitchRow = form.rowBy(tag: "GFToggleRow"), let geoRad: IntRow = form.rowBy(tag: "GFRadiusRow"), let geoCenter: LocationRow = form.rowBy(tag: "GFCenterRow")
         else {
             fatalError("Unexpectedly found nil unwrapping devive data")
         }
-//        let newDevice = Device(name: nameRow.value!, modelNumber: modelNumber, serialNumber: serialNumber, atvModel: vehicleRow.value!, manufacturer: manufacturer, hardwareVersion: hardwareVersion, firmwareVersion: firmwareVersion, uid: "", devId: "")
-        let newDevice = Device()
+        
+        var rad: Int = 0
+        if geoRad.value != nil {
+            rad = geoRad.value!
+        }
+        else {
+            rad = 0
+        }
+        let newDevice = Device(name: nameRow.value!, modelNumber: modelNumber, serialNumber: serialNumber, atvModel: vehicleRow.value!, manufacturer: manufacturer, hardwareVersion: hardwareVersion, firmwareVersion: firmwareVersion, uid: "", devId: "", rideHistory: [], gfT: geoToggle.value!, gfR: Double(rad), gfC: geoCenter.value!)
+//        let newDevice = Device()
         return newDevice
     }
     
@@ -150,7 +190,13 @@ class AddDeviceViewController: FormViewController, CLLocationManagerDelegate {
         }
         thisDevice = getDeviceInfo()
         print("success new device")
-        self.performSegue(withIdentifier: "UnwindToDevices", sender: self)
+        
+        // save device to Firebase
+        self.addToDevice(device: thisDevice)
+        
+        // pass the device object in unwind segue to show on the devices table/collection view
+        
+//        self.performSegue(withIdentifier: "UnwindToDevices", sender: self)
     }
     @objc private func didTapCancel() {
         if (!validateForm()) {
@@ -164,12 +210,70 @@ class AddDeviceViewController: FormViewController, CLLocationManagerDelegate {
 
 // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-            
     }
     
     
+// MARK: - STORING DEVICE OBJECT INTO FIREBASE
+    func addToDevice(device: Device) {
+        let currUID: String = Auth.auth().currentUser!.uid
+        let gfGeoPoint: GeoPoint = GeoPoint.init(latitude: device.gfCenter.coordinate.latitude, longitude: device.gfCenter.coordinate.longitude)
+        let ref = Firestore.firestore().collection("devices").document()
+        ref.setData([
+            "name" : device.name,
+            "modelNumber" : device.modelNumber,
+            "serialNumber" : device.serialNumber,
+            "atvModel" : device.atvModel,
+            "manufacturer" : device.manufacturer,
+            "hardwareVersion" : device.hardwareVersion,
+            "firmwareVersion" : device.firmwareVersion,
+            "lastLocation" : "",
+            "uid" : currUID,
+            "devId" : ref.documentID,
+            "rideHistory" : [],
+            "gfToggle" : device.gfToggle,
+            "gfRadius" : device.gfRadius,
+            "gfCenter" : gfGeoPoint
+        ]) { err in
+            if let err = err {
+                print("Error adding document: \(err)")
+            } else {
+                print("Document added with ID: \(ref.documentID)")
+                self.addToUserDevice(id: ref.documentID)
+                
+                
+                
+                self.performSegue(withIdentifier: "UnwindToDevices", sender: self)
+                
+            }
+        }
+        
+    }
     
+    func addToUserDevice(id: String) {
+        if let uid = Auth.auth().currentUser?.uid {
+            let ref = db.collection("users").document(uid)
+            ref.updateData([
+                "Devices" : FieldValue.arrayUnion([id])
+            ]) {err in
+                if let err = err {
+                    print("Error adding document: \(err)")
+                } else {
+                    print("Successfully updated users.device: \(ref.documentID)")
+                }
+            }
+        }
+    }
 }
+
+
+
+
+
+
+
+
+
+
 //MARK: LocationRow
 public final class LocationRow: OptionsRow<PushSelectorCell<CLLocation>>, PresenterRowType, RowType {
     
@@ -192,7 +296,6 @@ public final class LocationRow: OptionsRow<PushSelectorCell<CLLocation>>, Presen
             fmt.minimumFractionDigits = 4
             let latitude = fmt.string(from: NSNumber(value: location.coordinate.latitude))!
             let longitude = fmt.string(from: NSNumber(value: location.coordinate.longitude))!
-            print("LAT-LON: \(latitude), \(longitude)")
             return  "\(latitude), \(longitude)"
         }
     }
@@ -230,6 +333,7 @@ public class MapViewController : UIViewController, TypedRowControllerType, MKMap
 
     public var row: RowOf<CLLocation>!
     public var onDismissCallback: ((UIViewController) -> ())?
+    
 
     lazy var mapView : MKMapView = { [unowned self] in
         let v = MKMapView(frame: self.view.bounds)
@@ -252,8 +356,9 @@ public class MapViewController : UIViewController, TypedRowControllerType, MKMap
         return v
         }()
 
-    let width: CGFloat = 10.0
-    let height: CGFloat = 5.0
+
+    var width: CGFloat = 0
+    var height: CGFloat = 0
 
     lazy var ellipse: UIBezierPath = { [unowned self] in
         let ellipse = UIBezierPath(ovalIn: CGRect(x: 0, y: 0, width: self.width, height: self.height))
@@ -263,9 +368,15 @@ public class MapViewController : UIViewController, TypedRowControllerType, MKMap
 
     lazy var ellipsisLayer: CAShapeLayer = { [unowned self] in
         let layer = CAShapeLayer()
+
+        if let rad = row.value2, let formatRad = Double(rad) {
+            self.width = CGFloat(formatRad)
+            self.height = CGFloat(formatRad)
+        }
+        
         layer.bounds = CGRect(x: 0, y: 0, width: self.width, height: self.height)
         layer.path = self.ellipse.cgPath
-        layer.fillColor = UIColor.gray.cgColor
+        layer.fillColor = UIColor.clear.cgColor
         layer.fillRule = .nonZero
         layer.lineCap = .butt
         layer.lineDashPattern = nil
@@ -273,7 +384,7 @@ public class MapViewController : UIViewController, TypedRowControllerType, MKMap
         layer.lineJoin = .miter
         layer.lineWidth = 1.0
         layer.miterLimit = 10.0
-        layer.strokeColor = UIColor.gray.cgColor
+        layer.strokeColor = UIColor.red.cgColor
         return layer
         }()
 

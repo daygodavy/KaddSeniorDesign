@@ -8,27 +8,84 @@
 import Foundation
 import UIKit
 import MapKit
+import Firebase
 
 class DataManager {
+    var ref: DocumentReference? = nil
+    let db = Firestore.firestore()
+    
+    
+    
+    
+    // MARK: LOADING DATA FROM FIREBASE
+    // TODO: make sure for case
+    func loadDevices(completion: @escaping ([Device]) -> Void){
+        var userDevices: [Device] = []
+        var currUID: String = ""
+        if let id = Auth.auth().currentUser?.uid {
+            currUID = id
+        }
+        print("CURRUID: \(currUID)")
+        let root = db.collection("devices").whereField("uid", isEqualTo: currUID)
+        root.getDocuments() {(data, error) in
+            if let err = error {
+                print("\(err)")
+            }
+            if let deviceDocs = data?.documents {
+                for devices in deviceDocs {
+                    let dev = Device(data: devices.data())
+                    
+                    // ===== TEMPORARY HARDCODING RIDEHISTORY =====
+                    let rides = self.loadRides()
+                    dev.rideHistory = rides
+                    // ============================================
+
+                    userDevices.append(dev)
+                }
+                completion(userDevices)
+            }
+        }
+    }
+    
+    
+    
+    func loadDevices_tempUser(completion: @escaping (User) -> Void) {
+        var user: User = User.init()
+        var devices: [Device] = []
+        loadDevices { userDevices in
+            devices = userDevices
+            user = User(firstName: "Johnny", lastName: "Farmer", phoneNumber: "7147824460", uid: "u0001", emailAddress: "jfarmer@kadd.com", devices: devices, currentDevice: devices[0])
+            completion(user)
+            
+        }
+    }
+    
+    
+    
+    
+    
+    // MARK: HARDCODED SAMPLE DATA BELOW, SCRAP AFTER FIREBASE INTEGRATION
     
     func loadSampleData() -> User {
         return loadUser()
     }
 
     func loadUser() -> User {
-        let devices = loadDevices()
+        let devices = loadDevs()
         let user = User(firstName: "Johnny", lastName: "Farmer", phoneNumber: "7147824460", uid: "u0001", emailAddress: "jfarmer@kadd.com", devices: devices, currentDevice: devices[0])
         
         return user
     }
-     func loadDevices() -> [Device] {
+     func loadDevs() -> [Device] {
         let rides = loadRides()
         let history = organizeUserRides(rides: rides)
         
+
         var device1 = Device(name: "iKadd Device", modelNumber: "A1", serialNumber: "A16DB9663", atvModel: "FOURTRAX RECON 4x4", manufacturer: "Honda", hardwareVersion: "1.0.0", firmwareVersion: "1.1.0", uid: "u0001", devId: "d0001", rideHistory: history)
         var device2 = Device(name: "Rincon Kadd", modelNumber: "A2", serialNumber: "A26DB9663", atvModel: "FOURTRAX RINCON", manufacturer: "Honda", hardwareVersion: "1.1.0", firmwareVersion: "1.0.0", uid: "u0001", devId: "d0010", rideHistory: history)
         var device3 = Device(name: "Griz-ly", modelNumber: "A3", serialNumber: "A36DB9663", atvModel: "Grizzly EPS XT-R", manufacturer: "Yamaha", hardwareVersion: "1.0.0", firmwareVersion: "1.1.0", uid: "u0101", devId: "d0101", rideHistory: history)
         var device4 = Device(name: "King Kadd", modelNumber: "A4", serialNumber: "A46DB9663", atvModel: "KingQuad 750AXi Camo", manufacturer: "Suzuki", hardwareVersion: "1.0.0", firmwareVersion: "1.0.0", uid: "u1000", devId: "d1000", rideHistory: history)
+
         
         let testDevices = [device1, device2, device3, device4]
         
@@ -126,6 +183,7 @@ class DataManager {
                 if tokens.count < 5 {
                     break
                 }
+
                 guard let latitude = Double(tokens[1]) else {
                     fatalError("Unexpectedly found nil trying to convert latitude to Double value")
                 }
@@ -197,6 +255,7 @@ class DataManager {
         return date
     }
     
+
     func formatDateFromData(data: String) -> Date  {
         let temp = data.dropLast(2)
         let temp2 = String(temp)

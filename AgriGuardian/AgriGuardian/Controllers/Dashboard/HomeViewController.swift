@@ -9,6 +9,7 @@
 import UIKit
 import GoogleSignIn
 import FirebaseAuth
+import Firebase
 
 class HomeViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
@@ -19,17 +20,28 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
     private let statId = "StatCell"
     private let detailId = "DetailCell"
     private let locationId = "LocationCell"
+    var devices: [Device] = []
     var currDevice = Device()
     var user = User()
     var dataManager = DataManager()
+    
+    var ref: DocumentReference? = nil
+    let db = Firestore.firestore()
+    
+    var activityView = UIActivityIndicatorView()
+    
+
     
     fileprivate let spacing: CGFloat = 16.0
 
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.showActivityIndicator()
         self.setupNavBar()
         registerFlowLayout()
+
+        // TESTDATA BRANCH
         user = dataManager.loadSampleData()
         
         let rides = dataManager.loadRides()
@@ -37,8 +49,28 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
         print("success")
         
         currDevice = loadCurrentDevice()
+        // TESTDATA BRANCH
         
+      
+        // DAVY BRANCH
+        // TEMP DATA HARDCODED
+//        user = dataManager.loadSampleData()
+//        currDevice = loadCurrentDevice()
         
+        self.loadNibs()
+        
+        // REAL DEVICE DATA, ALL OTHER DATA TEMP (USER AND RIDE HISTORY)
+        dataManager.loadDevices_tempUser { (user) in
+            self.user = user
+            self.currDevice = self.loadCurrentDevice()
+            self.collectionView.reloadData()
+            self.activityView.stopAnimating()
+        }
+       // DAVY BRANCH
+
+    }
+    
+    func loadNibs() {
         self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
         self.collectionView.register(UICollectionViewCell.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: reuseIdentifier)
         let cellNib = UINib(nibName: "LastRideCell", bundle: nil)
@@ -56,14 +88,29 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
         // regisert main header
         let headerNib = UINib(nibName: "DashboardHeaderView", bundle: nil)
         self.collectionView.register(headerNib, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerId)
+        
+//        self.collectionView.reloadData()
+        
+        
     }
+    
+    func showActivityIndicator() {
+        self.activityView.style = .large
+        activityView.center = self.view.center
+        self.view.addSubview(activityView)
+        activityView.startAnimating()
+    }
+    
     
     private func loadCurrentDevice() -> Device {
         if currDevice.name.isEmpty {
+            print("YES \(user)")
             return user.currentDevice
         }
+        print("NO \(currDevice)")
         return currDevice
     }
+    
     @objc func SignOutButtonPressed(_ sender: Any) {
         print("attempting to signout")
         self.userLogout()
