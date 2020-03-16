@@ -1,8 +1,9 @@
 //
-//  TestDataManager.swift
-//  
+//  FirebaseManager.swift
+//  AgriGuardian
 //
-//  Created by Daniel Weatrowski on 3/8/20.
+//  Created by Davy Chuon on 3/15/20.
+//  Copyright © 2020 Team Kadd. All rights reserved.
 //
 
 import Foundation
@@ -10,7 +11,7 @@ import UIKit
 import MapKit
 import Firebase
 
-class DataManager {
+class FirebaseManager {
     var ref: DocumentReference? = nil
     let db = Firestore.firestore()
     
@@ -39,7 +40,7 @@ class DataManager {
                     let rides = self.loadRides()
                     dev.rideHistory = rides
                     // ============================================
-
+                    
                     userDevices.append(dev)
                 }
                 completion(userDevices)
@@ -69,23 +70,23 @@ class DataManager {
     func loadSampleData() -> User {
         return loadUser()
     }
-
+    
     func loadUser() -> User {
         let devices = loadDevs()
         let user = User(firstName: "Johnny", lastName: "Farmer", phoneNumber: "7147824460", uid: "u0001", emailAddress: "jfarmer@kadd.com", devices: devices, currentDevice: devices[0])
         
         return user
     }
-     func loadDevs() -> [Device] {
+    func loadDevs() -> [Device] {
         let rides = loadRides()
         let history = organizeUserRides(rides: rides)
         
-
+        
         var device1 = Device(name: "iKadd Device", modelNumber: "A1", serialNumber: "A16DB9663", atvModel: "FOURTRAX RECON 4x4", manufacturer: "Honda", hardwareVersion: "1.0.0", firmwareVersion: "1.1.0", uid: "u0001", devId: "d0001", rideHistory: rides, gfT: false, gfR: 0, gfC: CLLocation.init())
         var device2 = Device(name: "Rincon Kadd", modelNumber: "A2", serialNumber: "A26DB9663", atvModel: "FOURTRAX RINCON", manufacturer: "Honda", hardwareVersion: "1.1.0", firmwareVersion: "1.0.0", uid: "u0001", devId: "d0010", rideHistory: rides, gfT: false, gfR: 0, gfC: CLLocation.init())
         var device3 = Device(name: "Griz-ly", modelNumber: "A3", serialNumber: "A36DB9663", atvModel: "Grizzly EPS XT-R", manufacturer: "Yamaha", hardwareVersion: "1.0.0", firmwareVersion: "1.1.0", uid: "u0101", devId: "d0101", rideHistory: rides, gfT: false, gfR: 0, gfC: CLLocation.init())
         var device4 = Device(name: "King Kadd", modelNumber: "A4", serialNumber: "A46DB9663", atvModel: "KingQuad 750AXi Camo", manufacturer: "Suzuki", hardwareVersion: "1.0.0", firmwareVersion: "1.0.0", uid: "u1000", devId: "d1000", rideHistory: rides, gfT: false, gfR: 0, gfC: CLLocation.init())
-
+        
         
         let testDevices = [device1, device2, device3, device4]
         
@@ -100,7 +101,7 @@ class DataManager {
         yearFormatter.dateFormat = "yyyy"
         let monthFormatter = DateFormatter()
         monthFormatter.dateFormat = "MM"
-
+        
         // sort rides by date
         let sortedRidesbyDate = rides.sorted { $0.rideDate < $1.rideDate }
         
@@ -123,8 +124,8 @@ class DataManager {
                 // check if month already exists in scope of year
                 if (!months.contains(tempRideMonth) && currYear.yearName == year) {
                     // add month to history
-//                    months.append(tempRideMonth)
-//                    tempRideYear.addMonth(newMonth: tempRideMonth)
+                    //                    months.append(tempRideMonth)
+                    //                    tempRideYear.addMonth(newMonth: tempRideMonth)
                     history.addMonth(yearIndex: y, newMonth: tempRideMonth)
                 }
                 for m in 0..<history.getMonths(yearIndex: y).count {
@@ -140,7 +141,7 @@ class DataManager {
         return history
     }
     
-     func loadRides() -> [Ride] {
+    func loadRides() -> [Ride] {
         var tempRides = [Ride]()
         for i in 0..<4 {
             let ride = loadGPSData(csvFile: "gps_2020_03_09", ofType: "csv")
@@ -175,7 +176,7 @@ class DataManager {
         do {
             let contents = try String(contentsOfFile: filepath, encoding: .utf8)
             let rows = contents.components(separatedBy: "\n")
-//            print(rows.count)
+            //            print(rows.count)
             for item in rows {
                 // split row into tokens
                 // timestamp, latitude, longitude, speed, altitude, sat
@@ -183,7 +184,7 @@ class DataManager {
                 if tokens.count < 5 {
                     break
                 }
-
+                
                 guard let latitude = Double(tokens[1]) else {
                     fatalError("Unexpectedly found nil trying to convert latitude to Double value")
                 }
@@ -195,7 +196,7 @@ class DataManager {
                 let date = formatDateFromData(data: tokens[0])
                 let speed = CLLocationSpeed(string: tokens[3])
                 let altitude = CLLocationDistance(string: tokens[4])!
-
+                
                 let location = CLLocation(coordinate: coordinate, altitude: altitude, horizontalAccuracy: 0, verticalAccuracy: 0, course: -1, speed: speed!, timestamp: date)
                 
                 if (mileage == 0.0) {
@@ -214,32 +215,32 @@ class DataManager {
             let rideTime = endTime.timeIntervalSince(startTime)
             
             thisRide.setTotalTime(time: rideTime)
-//            print(rideTime.description)
+            //            print(rideTime.description)
             thisRide.setMileage(mileage: mileage)
-//            print(rideDate.description)
+            //            print(rideDate.description)
             thisRide.setDate(date: rideDate)
-         } catch {
-             fatalError("Unable to load file contents")
-         }
+        } catch {
+            fatalError("Unable to load file contents")
+        }
         thisRide.printDate()
         return thisRide
     }
-
+    
     func getDistanceBetweenCoordinates(prev: CLLocationCoordinate2D, curr: CLLocationCoordinate2D) -> Double {
         if (prev.longitude == 0.0 && prev.latitude == 0.0) {
             return 0.0
         }
         let prevLocation = CLLocation(latitude: prev.latitude, longitude: prev.longitude)
         let currLocation = CLLocation(latitude: curr.latitude, longitude: curr.longitude)
-       
+        
         return currLocation.distance(from: prevLocation)
-       
+        
     }
     
     func getStartTime(rowsInFile: [String]) -> Date {
         let firstRow = rowsInFile[0]
         let tokens = firstRow.components(separatedBy: ",")
-//        print("First Row Time: \(tokens[0])")
+        //        print("First Row Time: \(tokens[0])")
         let date = formatDateFromData(data: tokens[0])
         return date
     }
@@ -248,23 +249,23 @@ class DataManager {
         let lastIndex = rowsInFile.count - 2
         let lastRow = rowsInFile[lastIndex]
         let tokens = lastRow.components(separatedBy: ",")
-//        print("Last Row Time: \(tokens[0])")
-
+        //        print("Last Row Time: \(tokens[0])")
+        
         let date = formatDateFromData(data: tokens[0])
         
         return date
     }
     
-
+    
     func formatDateFromData(data: String) -> Date  {
         let temp = data.dropLast(2)
         let temp2 = String(temp)
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd HH:mm:ss.SSS"
         formatter.timeZone = TimeZone(secondsFromGMT: 0)
-
+        
         if let thisDate = formatter.date(from: temp2) {
-//            print(thisDate.description)
+            //            print(thisDate.description)
             return thisDate
         } else {
             fatalError("Unable to convert date to Date()")
