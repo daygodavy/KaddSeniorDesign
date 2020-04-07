@@ -85,16 +85,20 @@ public class Ride {
         print(self.rideDate.description)
     }
     func getTime() -> String {
-        return String(self.totalTime)
+        return self.totalTime.stringFromTimeInterval()
     }
     func getMileage() -> String {
-        return String(self.mileage)
+        let meters = Measurement(value: self.mileage, unit: UnitLength.meters)
+        let mileage = meters.converted(to: UnitLength.miles)
+        return String(format: "%.2f", mileage.value)
     }
     func getTopSpeed() -> String {
         let points = self.locations
         let topSpeedLoco = points.max { a, b in a.speed < b.speed }
         if let topSpeed =  topSpeedLoco?.speed {
-            return String(topSpeed)
+            let mps = Measurement(value: topSpeed, unit: UnitSpeed.metersPerSecond)
+            let mph = mps.converted(to: UnitSpeed.milesPerHour)
+            return String(format: "%.2f", mph.value)
         } else {
             fatalError("Unable to get top speed")
         }
@@ -106,7 +110,9 @@ public class Ride {
             sum += speed
         }
         let avg = sum / Double(self.locations.count)
-        return String(avg)
+        let mps = Measurement(value: avg, unit: UnitSpeed.metersPerSecond)
+        let mph = mps.converted(to: UnitSpeed.milesPerHour)
+        return String(format: "%.2f", mph.value)
     }
     func getRideCity(completion: @escaping (String) -> Void) {
         let geoCoder = CLGeocoder()
