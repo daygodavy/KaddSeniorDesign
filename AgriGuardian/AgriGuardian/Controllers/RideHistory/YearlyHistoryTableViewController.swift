@@ -9,10 +9,18 @@
 import UIKit
 
 class YearlyHistoryTableViewController: UITableViewController {
+    var dataManager = DataManager()
+    var user = User()
+    var rideHistory = RideHistory()
+    var devices = [Device]()
+    var currDevice = Device()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNavBar()
+        user = dataManager.loadSampleData()
+        currDevice = user.currentDevice
+        rideHistory = currDevice.rideHistory
         let nib = UINib(nibName: "MonthHistoryTableViewCell", bundle: nil)
         self.tableView.register(nib, forCellReuseIdentifier: "MonthCell")
     }
@@ -25,18 +33,18 @@ class YearlyHistoryTableViewController: UITableViewController {
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 4
+        return rideHistory.getYears().count
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 12
+        return rideHistory.getMonths(yearIndex: section).count
     }
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 120
     }
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return "Year Header"
+        return rideHistory.getYearName(yearIndex: section)
     }
 
     
@@ -46,8 +54,9 @@ class YearlyHistoryTableViewController: UITableViewController {
     }
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        let vc = mainStoryboard.instantiateViewController(withIdentifier: "MonthlyHistoryView")
+        let vc = mainStoryboard.instantiateViewController(withIdentifier: "MonthlyHistoryView") as! MonthlyHistoryTableViewController
         vc.title = "Sec: \(indexPath.section) Row: \(indexPath.row)"
+        vc.thisRideMonth = rideHistory.getMonth(yearIndex: indexPath.section, monthIndex: indexPath.row)
         navigationController?.pushViewController(vc, animated: true)
     }
     
