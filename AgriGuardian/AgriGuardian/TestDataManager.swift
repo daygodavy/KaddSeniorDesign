@@ -55,8 +55,15 @@ class DataManager {
         var devices: [Device] = []
         loadDevices { userDevices in
             devices = userDevices
-            user = User(firstName: "Johnny", lastName: "Farmer", phoneNumber: "7147824460", uid: "u0001", emailAddress: "jfarmer@kadd.com", devices: devices, currentDevice: devices[0])
-            completion(user)
+            if devices.count == 0 {
+                user = User(firstName: "Johnny", lastName: "Farmer", phoneNumber: "7147824460", uid: "u0001", emailAddress: "jfarmer@kadd.com", devices: devices, currentDevice: Device.init())
+                completion(user)
+                
+            }
+            else {
+                user = User(firstName: "Johnny", lastName: "Farmer", phoneNumber: "7147824460", uid: "u0001", emailAddress: "jfarmer@kadd.com", devices: devices, currentDevice: devices[0])
+                completion(user)
+            }
             
         }
     }
