@@ -24,7 +24,7 @@ class Device {
 
     var rideHistory: RideHistory
 
-    var rideHistory: [Ride]
+    var rides: [Ride]
     var gfToggle: Bool
     var gfRadius: Double
     var gfCenter: CLLocation
@@ -42,13 +42,16 @@ class Device {
         devId = ""
         lastLocation = ""
         rideHistory = RideHistory()
-        
+        rides = []
+        gfToggle = false
+        gfRadius = 0.0
+        gfCenter = CLLocation.init()
     }
     
 
     
     
-    init(name: String, modelNumber: String, serialNumber: String, atvModel: String, manufacturer: String, hardwareVersion: String, firmwareVersion: String, uid: String, devId: String, rideHistory: [Ride], gfT: Bool, gfR: Double, gfC: CLLocation) {
+    init(name: String, modelNumber: String, serialNumber: String, atvModel: String, manufacturer: String, hardwareVersion: String, firmwareVersion: String, uid: String, devId: String, rideHistory: RideHistory, rides: [Ride], gfT: Bool, gfR: Double, gfC: CLLocation) {
         self.name = name
         self.modelNumber = modelNumber
         self.serialNumber = serialNumber
@@ -61,6 +64,7 @@ class Device {
         // fix later
         self.lastLocation = ""
         self.rideHistory = rideHistory
+        self.rides = rides
         self.gfToggle = gfT
         self.gfRadius = gfR
         self.gfCenter = gfC
@@ -79,7 +83,9 @@ class Device {
         self.devId = data["devId"] as! String
         // TODO: - Davy Add Last Location
         self.lastLocation = data["lastLocation"] as! String // SHOULD THIS BE STRING??
-        self.rideHistory = data["rideHistory"] as! Array // CHANGE THIS
+        self.rides = data["rideHistory"] as! Array // CHANGE THIS
+        // reinitialize the below variable for ridehistory... TEMP
+        self.rideHistory = RideHistory()
         self.gfToggle = data["gfToggle"] as! Bool
         self.gfRadius = data["gfRadius"] as! Double
         let gfGeoPoint: GeoPoint = data["gfCenter"] as! GeoPoint

@@ -32,7 +32,7 @@ class AddDeviceViewController: FormViewController, CLLocationManagerDelegate {
         setupNavBar()
         setupAuthLoc()
 //        setupForm()
-        setupAuthLoc()
+//        setupAuthLoc()
         
         self.title = "Add Device"
     }
@@ -175,7 +175,7 @@ class AddDeviceViewController: FormViewController, CLLocationManagerDelegate {
         else {
             rad = 0
         }
-        let newDevice = Device(name: nameRow.value!, modelNumber: modelNumber, serialNumber: serialNumber, atvModel: vehicleRow.value!, manufacturer: manufacturer, hardwareVersion: hardwareVersion, firmwareVersion: firmwareVersion, uid: "", devId: "", rideHistory: [], gfT: geoToggle.value!, gfR: Double(rad), gfC: geoCenter.value!)
+        let newDevice = Device(name: nameRow.value!, modelNumber: modelNumber, serialNumber: serialNumber, atvModel: vehicleRow.value!, manufacturer: manufacturer, hardwareVersion: hardwareVersion, firmwareVersion: firmwareVersion, uid: "", devId: "", rideHistory: RideHistory(), rides: [], gfT: geoToggle.value!, gfR: Double(rad), gfC: geoCenter.value!)
 //        let newDevice = Device()
         return newDevice
     }
