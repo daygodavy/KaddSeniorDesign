@@ -13,6 +13,7 @@ import FirebaseAuth
 class LoginViewController: UIViewController, GIDSignInDelegate {
     var ref: DocumentReference? = nil
     let db = Firestore.firestore()
+    let fbManager = FirebaseManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,8 +56,17 @@ class LoginViewController: UIViewController, GIDSignInDelegate {
                 print("Login Successful")
                 print("UID: \(Auth.auth().currentUser?.uid)")
                 if let uid = Auth.auth().currentUser?.uid, let email = Auth.auth().currentUser?.email {
-                    self.createUser(uid: uid, email: email)
-                    self.navigateToHome()
+                    
+                    
+                    // check if user exists
+                    self.fbManager.checkUser { check in
+                        // if user doesn't exist, create in db
+                        if check == false{
+                            self.fbManager.createUser(email: email, uid: uid)
+                        }
+                        self.navigateToHome()
+                    }
+                       
                 }
                 // START ACTIVITY INDICATOR HERE
                 
@@ -66,23 +76,39 @@ class LoginViewController: UIViewController, GIDSignInDelegate {
         }
     }
     
-    func createUser(uid: String, email: String) {
-        // first check if uid already exists before creating user in db
-        
-        // create user in db
-        ref = db.collection("users").document(uid)
-        ref?.setData([
-            "Email" : email,
-            "Devices" : []
-        ]) { err in
-            if let err = err {
-                print("Error adding document: \(err)")
-            } else {
-                print("Document added with ID: \(self.ref!.documentID)")
-            }
-        }
-        
-    }
+
+    
+//    func getUser(uid: String, email: String) {
+//        // first check if uid already exists before creating user in db
+//
+//        // create user in db
+//        ref = db.collection("users").document(uid)
+//        ref?.getDocument { (snap, err) in
+//
+//            if (snap?.exists)! {
+//                // pull user
+//            }
+//            else {
+//                // create new user
+//            }
+//
+//        }
+//
+//        ref?.setData([
+//            "currentDevice" : "",
+//            "Email" : email,
+//            "firstName" : "",
+//            "lastName" : "",
+//            "Devices" : []
+//        ]) { err in
+//            if let err = err {
+//                print("Error adding document: \(err)")
+//            } else {
+//                print("Document added with ID: \(self.ref!.documentID)")
+//            }
+//        }
+//
+//    }
     
     
     

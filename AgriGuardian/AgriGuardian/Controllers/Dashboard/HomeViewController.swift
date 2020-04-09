@@ -24,6 +24,7 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
     var currDevice = Device()
     var user = User()
     var dataManager = DataManager()
+    var fbManager = FirebaseManager()
     
     var ref: DocumentReference? = nil
     let db = Firestore.firestore()
@@ -60,13 +61,21 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
         self.loadNibs()
         
         // REAL DEVICE DATA, ALL OTHER DATA TEMP (USER AND RIDE HISTORY)
-        dataManager.loadDevices_tempUser { (user) in
+//        dataManager.loadDevices_tempUser { (user) in
+//            self.user = user
+//            self.currDevice = self.loadCurrentDevice()
+//            self.collectionView.reloadData()
+//            self.activityView.stopAnimating()
+//        }
+
+        fbManager.loadUserProfile { (user) in
             self.user = user
             self.currDevice = self.loadCurrentDevice()
             self.collectionView.reloadData()
             self.activityView.stopAnimating()
         }
-       // DAVY BRANCH
+    
+        // DAVY BRANCH
 
     }
     
@@ -132,12 +141,24 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
         let devicesButton = UIBarButtonItem(image: image, style: .plain, target: self, action: #selector(showDevices))
         //self.navigationItem.rightBarButtonItem = addButton
         self.navigationItem.leftBarButtonItem = devicesButton
+        
+        let signoutImg = UIImage(systemName: "clear")
+        let signoutButton = UIBarButtonItem(image: signoutImg, style: .plain, target: self, action: #selector(userLogout))
+        self.navigationItem.rightBarButtonItem = signoutButton
     }
     
 
     
-    fileprivate func userLogout() {
+    @objc fileprivate func userLogout() {
+        do {
+            try Auth.auth().signOut()
+        }
+        catch {
+            print("ERROR ON AUTH SIGNOUT")
+        }
         GIDSignIn.sharedInstance().signOut()
+        
+        self.goToHome()
     }
     
     @objc fileprivate func showDevices() {

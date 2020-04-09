@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Firebase
 
 public final class User {
     var firstName: String
@@ -35,6 +36,18 @@ public final class User {
         self.uid = uid
         self.devices = devices
         self.currentDevice = currentDevice
+    }
+    
+    // Reading data into from Firebase
+    init(data: [String: Any]) {
+        self.firstName = data["firstName"] as! String
+        self.lastName = data["lastName"] as! String
+        self.phoneNumber = data["phoneNumber"] as! String
+        self.emailAddress = data["email"] as! String
+        self.uid = Auth.auth().currentUser!.uid // check this and below
+        self.devices = [Device]()
+        self.currentDevice = Device()
+        self.currentDevice.name = data["currentDevice"] as! String
     }
     
     func getDevices() -> [Device] {
