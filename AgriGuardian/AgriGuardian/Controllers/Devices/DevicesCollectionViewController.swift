@@ -8,6 +8,7 @@
 
 import UIKit
 
+
 private let reuseIdentifier = "Cell"
 private let deviceIdentifier = "DeviceCell"
 
@@ -17,6 +18,7 @@ class DevicesCollectionViewController: UICollectionViewController, UICollectionV
     fileprivate let spacing: CGFloat = 16.0
     fileprivate var count = [1]
     var dataManager = DataManager()
+    var fbManager = FirebaseManager()
     var user = User()
     var devices = [Device]()
     var activityView = UIActivityIndicatorView()
@@ -140,6 +142,7 @@ class DevicesCollectionViewController: UICollectionViewController, UICollectionV
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         user.setCurrentDevice(withDevice: devices[indexPath.row])
+        fbManager.setCurrDevice(currDev: devices[indexPath.row].name)
         navigateToDashboard(withDeviceAt: indexPath.row)
     }
 

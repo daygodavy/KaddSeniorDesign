@@ -50,24 +50,12 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
         print("success")
         
         currDevice = loadCurrentDevice()
-        // TESTDATA BRANCH
-        
-      
-        // DAVY BRANCH
-        // TEMP DATA HARDCODED
-//        user = dataManager.loadSampleData()
-//        currDevice = loadCurrentDevice()
+    
         
         self.loadNibs()
         
-        // REAL DEVICE DATA, ALL OTHER DATA TEMP (USER AND RIDE HISTORY)
-//        dataManager.loadDevices_tempUser { (user) in
-//            self.user = user
-//            self.currDevice = self.loadCurrentDevice()
-//            self.collectionView.reloadData()
-//            self.activityView.stopAnimating()
-//        }
 
+        // reads user profile data from firebase
         fbManager.loadUserProfile { (user) in
             self.user = user
             self.currDevice = self.loadCurrentDevice()
@@ -75,7 +63,6 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
             self.activityView.stopAnimating()
         }
     
-        // DAVY BRANCH
 
     }
     

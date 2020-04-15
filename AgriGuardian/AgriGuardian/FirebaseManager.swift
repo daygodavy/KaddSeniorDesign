@@ -58,10 +58,7 @@ class FirebaseManager {
             getDevices(uid: uid) { devices in
                 currUser.devices = devices
             }
-            // get rides into each device
-//            getRides(uid: uid) { rides in
-//                // load rides into ridehistory or whatever for the user's devices
-//            }
+            
         completion(currUser)
         }
     }
@@ -84,25 +81,80 @@ class FirebaseManager {
             if let err = error {
                 print("\(err)")
             }
-            if let deviceDocs = data?.documents {
+            else if let deviceDocs = data?.documents {
                 for devices in deviceDocs {
                     let dev = Device(data: devices.data())
                     
-                    // ===== TEMPORARY HARDCODING RIDEHISTORY =====
-                    let rides = self.loadRides()
-                    //                    dev.rideHistory = rides
-                    dev.rides = rides
-                    // ============================================
+//                    // ===== TEMPORARY HARDCODING RIDEHISTORY =====
+//                    let rides = self.loadRides()
+//                    //                    dev.rideHistory = rides
+//                    dev.rides = rides
+//                    // ============================================
                     
-                    userDevices.append(dev)
+                    
+                    // get all rides for this device
+                    self.getRides(devId: dev.devId) { (rides) in
+                        dev.rides = rides
+                        userDevices.append(dev)
+                    }
+                    
                 }
                 completion(userDevices)
             }
         }
     }
     
-    func getRides(uid: String, completion: @escaping (User) -> Void) {
-        
+    func getRides(devId: String, completion: @escaping ([Ride]) -> Void) {
+        var tempRides = [Ride]()
+        let root = db.collection("ridehistory").whereField("dev_id", isEqualTo: devId)
+        root.getDocuments() {(data, error) in
+            if let err = error {
+                print("\(err)")
+            }
+            else if let rideDocs = data?.documents {
+                for rides in rideDocs {
+                    let ride = Ride(data: rides.data())
+                    tempRides.append(ride)
+                }
+                completion(tempRides)
+            }
+            
+        }
+//        for i in 0..<4 {
+//            let ride = loadGPSData(csvFile: "gps_2020_03_09", ofType: "csv")
+//            if (i == 2) {
+//                let dateStr = "2020-02-22 19:25:46.757433"
+//                let date = formatDateFromData(data: dateStr)
+//                ride.setDate(date: date)
+//            }
+//            if (i == 3) {
+//                let dateStr = "2016-06-22 19:25:46.757433"
+//                let date = formatDateFromData(data: dateStr)
+//                ride.setDate(date: date)
+//            }
+//            if (i == 1) {
+//                let dateStr = "2019-04-20 19:25:46.757433"
+//                let date = formatDateFromData(data: dateStr)
+//                ride.setDate(date: date)
+//            }
+//            tempRides.append(ride)
+//        }
+//        completion(tempRides)
+    }
+    
+    
+    // ======= SHOULD THIS INCLUDE NAME AND VEHICLE MODEL ========
+    func setCurrDevice(currDev: String) {
+        ref = db.collection("users").document(Auth.auth().currentUser!.uid)
+        ref?.updateData([
+            "currentDevice" : currDev
+        ]) { err in
+            if let err = err {
+                print("Error adding document: \(err)")
+            } else {
+                print("Document added with ID: \(self.ref!.documentID)")
+            }
+        }
     }
     
     // ==================================================================================

@@ -8,15 +8,21 @@
 
 import Foundation
 import CoreLocation
+import Firebase
 
 public class Ride {
     
     var terrain: [TerrainPoint]
-    var locations: [CLLocation]
+    var locations: [CLLocation] // will hold coords, timestamps, velocities, altitudes
     var totalTime: TimeInterval
     var mileage: Double
     var didRollover: Bool
     var rideDate: Date
+    
+    var devId: String
+    var devIdx: Int
+    // left out satellines & terrain points
+
     
     init() {
         terrain = [TerrainPoint]()
@@ -25,7 +31,46 @@ public class Ride {
         didRollover = false
         mileage = 0.0
         rideDate = Date()
+        devId = ""
+        devIdx = 0
     }
+    
+    
+    // Reading data into from Firebase
+    init(data: [String: Any]) {
+        self.locations = [CLLocation]()
+        
+        let tempAlts: [Double] = data["altitudes"] as! [Double]
+        let tempGPs: [GeoPoint] = data["coordinates"] as! [GeoPoint]
+        let tempVels: [Double] = data["velocities"] as! [Double]
+        let tempTimes: [Timestamp] = data["gps_timestamps"] as! [Timestamp]
+        
+        for (idx, gp) in tempGPs.enumerated() {
+            let point = CLLocationCoordinate2D.init(latitude: gp.latitude, longitude: gp.longitude)
+            let alt = CLLocationDistance.init(tempAlts[idx])
+            let vel = CLLocationSpeed.init(tempVels[idx])
+            let time: Date = tempTimes[idx].dateValue()
+            
+            let tempAcc = CLLocationAccuracy.init()
+            
+            // DEFAULT ACCURACY AND COURSE SET FOR NOW......
+            let currLocation = CLLocation.init(coordinate: point, altitude: alt, horizontalAccuracy: tempAcc, verticalAccuracy: tempAcc, course: 0, speed: vel, timestamp: time)
+
+            self.locations.append(currLocation)
+        }
+        
+        // CHECK ABOVE
+//        self.devId = data["dev_id"] as! String
+        self.devIdx = data["index"] as! Int
+        self.devId = data["dev_id"] as! String
+        
+        self.terrain = [TerrainPoint]()
+        self.totalTime = TimeInterval()
+        self.didRollover = false
+        self.mileage = 0.0
+        self.rideDate = Date()
+    }
+    
     /**
         Set Method for Ride locations attribute. Adds a new location point to this ride's current array of CLLocations
      - Parameter location: CLLocation representation of a single GPS cooridate
@@ -138,6 +183,7 @@ public class TerrainPoint {
     var y: Double
     var z: Double
     var rollover: Bool
+//    var timestamp: [Date]
     
     init() {
         x = 0.0
