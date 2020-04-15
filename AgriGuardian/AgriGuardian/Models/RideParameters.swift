@@ -39,11 +39,17 @@ public class Ride {
     // Reading data into from Firebase
     init(data: [String: Any]) {
         self.locations = [CLLocation]()
+        self.mileage = 0.0
+        self.rideDate = Date()
+        terrain = [TerrainPoint]()
+        totalTime = TimeInterval()
         
         let tempAlts: [Double] = data["altitudes"] as! [Double]
         let tempGPs: [GeoPoint] = data["coordinates"] as! [GeoPoint]
         let tempVels: [Double] = data["velocities"] as! [Double]
         let tempTimes: [Timestamp] = data["gps_timestamps"] as! [Timestamp]
+        var prevPoint: CLLocation = CLLocation.init()
+        var currPoint: CLLocation = CLLocation.init()
         
         for (idx, gp) in tempGPs.enumerated() {
             let point = CLLocationCoordinate2D.init(latitude: gp.latitude, longitude: gp.longitude)
@@ -57,19 +63,29 @@ public class Ride {
             let currLocation = CLLocation.init(coordinate: point, altitude: alt, horizontalAccuracy: tempAcc, verticalAccuracy: tempAcc, course: 0, speed: vel, timestamp: time)
 
             self.locations.append(currLocation)
+            
+            
+            // computing mileage
+            if idx > 0 {
+                currPoint = currLocation
+                self.mileage += currPoint.distance(from: prevPoint)
+            }
+            prevPoint = currLocation
         }
         
-        // CHECK ABOVE
-//        self.devId = data["dev_id"] as! String
+    
         self.devIdx = data["index"] as! Int
         self.devId = data["dev_id"] as! String
+        self.didRollover = data["did_rollover"] as! Bool
         
-        self.terrain = [TerrainPoint]()
-        self.totalTime = TimeInterval()
-        self.didRollover = false
-        self.mileage = 0.0
-        self.rideDate = Date()
+        
+        if let begin = self.locations.first, let end = self.locations.last {
+            self.rideDate = begin.timestamp
+            self.totalTime = end.timestamp.timeIntervalSince(begin.timestamp)
+        }
+    
     }
+
     
     /**
         Set Method for Ride locations attribute. Adds a new location point to this ride's current array of CLLocations
