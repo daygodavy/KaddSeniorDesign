@@ -11,6 +11,7 @@ import Eureka
 import CoreLocation
 import MapKit
 import Firebase
+import CoreBluetooth
 
 class AddDeviceViewController: FormViewController, CLLocationManagerDelegate {
     
@@ -20,19 +21,22 @@ class AddDeviceViewController: FormViewController, CLLocationManagerDelegate {
     var thisDevice = Device()
     let hardwareVersion = "1.0.0"
     let firmwareVersion = "1.0.0"
-    let modelNumber = "A1"
-    let serialNumber = "AAKS776WJW8P00"
+    var modelNumber = "A1"
+    var serialNumber = "AAKS776WJW8P00"
     let manufacturer = "Kadd Inc."
     var locationManager: CLLocationManager!
     var currLoc: CLLocation = CLLocation()
     var gfRad: String = ""
+    
+    // BLE
+    var kaddService: CBUUID = CBUUID(string: "27cf08c1-076a-41af-becd-02ed6f6109b9")
+    var kaddCharacteristic: CBCharacteristic!
+    var kaddPeripheral: CBPeripheral!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNavBar()
         setupAuthLoc()
-//        setupForm()
-//        setupAuthLoc()
         
         self.title = "Add Device"
     }
@@ -193,6 +197,15 @@ class AddDeviceViewController: FormViewController, CLLocationManagerDelegate {
         
         // save device to Firebase
         self.addToDevice(device: thisDevice)
+        // TODO: Get userid here
+        let uid = "uid"
+        
+        // write back info to pi
+        let tokens = thisDevice.name + "," + uid + "," + "\(thisDevice.gfCenter)" + "," + "\(thisDevice.gfRadius)"
+        let data = Data(tokens.utf8)
+        
+        let ack = Data("ACK".utf8)
+        kaddPeripheral.writeValue(ack, for: kaddCharacteristic, type: .withResponse)
         
         // pass the device object in unwind segue to show on the devices table/collection view
         
