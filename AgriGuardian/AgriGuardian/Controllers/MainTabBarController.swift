@@ -16,7 +16,7 @@ class MainTabBarController: UITabBarController {
 
         let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
         let historyVC = mainStoryboard.instantiateViewController(identifier: "YearlyHistoryView") as! YearlyHistoryTableViewController
-        let settingVC = mainStoryboard.instantiateViewController(identifier: "SettingsView")
+        let settingVC = mainStoryboard.instantiateViewController(identifier: "SettingsView") as! SettingsViewController
         let homeVC = mainStoryboard.instantiateViewController(identifier: "Dashboard") as! HomeViewController
         
         let historyNC = UINavigationController(rootViewController: historyVC)

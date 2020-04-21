@@ -7,71 +7,72 @@
 //
 
 import UIKit
-import Eureka
 
-class SettingsViewController: FormViewController {
+class SettingsViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.tableView.delegate = self
+        self.tableView.dataSource = self
         setupNavBar()
-        buildForm()
+      
 
         // Do any additional setup after loading the view.
     }
     
-    fileprivate func buildForm() {
-        form +++ Section("General")
-              <<< TextRow() { row in
-                  row.title = "Account"
-              }
-            <<< TextRow() { row in
-                row.title = "Farm Info"
-            }
-             <<< TextRow() { row in
-                 row.title = "Members"
-             }
-             <<< SwitchRow() { row in
-                  row.title = "Automatic (iOS)"
-              }
-            <<< SwitchRow() { row in
-                row.title = "Dark Mode"
-            }
-            <<< SwitchRow() { row in
-                row.title = "iCloud Sync"
-            }
-
-            +++ Section("Security")
-                <<< SwitchRow() { row in
-                    row.title = "Use Face ID"
-                }
-                  <<< TextRow() { row in
-                      row.title = "Data Usage"
-                  }
-                <<< TextRow() { row in
-                    row.title = "Research Purpose"
-                }
-                <<< TextRow() { row in
-                    row.title = "Privacy Policy"
-                }
-
-            form +++ Section("About")
-                <<< TextRow() { row in
-                    row.title = "Info"
-                }
-                <<< EmailRow() { row in
-                     row.title = "Feedback"
-                    row.value = "info@kadd.com"
-                 }
-                <<< URLRow() { row in
-                     row.title = "Website"
-                     row.value = URL(string: "https://kadd.io")
-                 }
-                <<< TextRow() { row in
-                     row.title = "Rate Agriguardian"
-                 }
-                
- 
-    }
+//    fileprivate func buildForm() {
+//        form +++ Section("General")
+//              <<< TextRow() { row in
+//                  row.title = "Account"
+//              }
+//            <<< TextRow() { row in
+//                row.title = "Farm Info"
+//            }
+//             <<< TextRow() { row in
+//                 row.title = "Members"
+//             }
+//             <<< SwitchRow() { row in
+//                  row.title = "Automatic (iOS)"
+//              }
+//            <<< SwitchRow() { row in
+//                row.title = "Dark Mode"
+//            }
+//            <<< SwitchRow() { row in
+//                row.title = "iCloud Sync"
+//            }
+//
+//            +++ Section("Security")
+//                <<< SwitchRow() { row in
+//                    row.title = "Use Face ID"
+//                }
+//                  <<< TextRow() { row in
+//                      row.title = "Data Usage"
+//                  }
+//                <<< TextRow() { row in
+//                    row.title = "Research Purpose"
+//                }
+//                <<< TextRow() { row in
+//                    row.title = "Privacy Policy"
+//                }
+//
+//            form +++ Section("About")
+//                <<< TextRow() { row in
+//                    row.title = "Info"
+//                }
+//                <<< EmailRow() { row in
+//                     row.title = "Feedback"
+//                    row.value = "info@kadd.com"
+//                 }
+//                <<< URLRow() { row in
+//                     row.title = "Website"
+//                     row.value = URL(string: "https://kadd.io")
+//                 }
+//                <<< TextRow() { row in
+//                     row.title = "Rate Agriguardian"
+//                 }
+//
+//
+//    }
     private func setupNavBar() {
         self.navigationItem.title = "Settings"
         self.navigationController?.navigationItem.largeTitleDisplayMode = .never
@@ -80,7 +81,26 @@ class SettingsViewController: FormViewController {
 //        self.navigationItem.rightBarButtonItem = doneButton
 //        self.navigationItem.leftBarButtonItem = cancelButton
     }
+    private func segueToAccountView() {
+        let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = mainStoryboard.instantiateViewController(withIdentifier: "AccountView")
+        vc.title = "Account Info"
+        navigationController?.pushViewController(vc, animated: true)
+    }
     
+    // MARK: - Table view data source
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        switch (indexPath.section) {
+        case 0:
+            // General
+            if (indexPath.row == 0) {
+            // Account row - segue to account view
+                segueToAccountView()
+            }
+        default:
+            break
+        }
+    }
 
     /*
     // MARK: - Navigation
@@ -93,3 +113,4 @@ class SettingsViewController: FormViewController {
     */
 
 }
+
