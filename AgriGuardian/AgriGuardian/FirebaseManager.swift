@@ -95,6 +95,7 @@ class FirebaseManager {
                     // get all rides for this device
                     self.getRides(devId: dev.devId) { (rides) in
                         dev.rides = rides
+                        dev.setRideHistory(history: self.getRideHistory(rides: rides))
                         userDevices.append(dev)
                     }
                     
@@ -120,26 +121,11 @@ class FirebaseManager {
             }
             
         }
-//        for i in 0..<4 {
-//            let ride = loadGPSData(csvFile: "gps_2020_03_09", ofType: "csv")
-//            if (i == 2) {
-//                let dateStr = "2020-02-22 19:25:46.757433"
-//                let date = formatDateFromData(data: dateStr)
-//                ride.setDate(date: date)
-//            }
-//            if (i == 3) {
-//                let dateStr = "2016-06-22 19:25:46.757433"
-//                let date = formatDateFromData(data: dateStr)
-//                ride.setDate(date: date)
-//            }
-//            if (i == 1) {
-//                let dateStr = "2019-04-20 19:25:46.757433"
-//                let date = formatDateFromData(data: dateStr)
-//                ride.setDate(date: date)
-//            }
-//            tempRides.append(ride)
-//        }
-//        completion(tempRides)
+
+    }
+    
+    func getRideHistory(rides: [Ride]) -> RideHistory {
+         return organizeUserRides(rides: rides)
     }
     
     

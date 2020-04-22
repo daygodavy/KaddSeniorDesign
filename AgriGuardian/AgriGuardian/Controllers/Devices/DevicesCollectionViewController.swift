@@ -170,7 +170,7 @@ class DevicesCollectionViewController: UICollectionViewController, UICollectionV
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         user.setCurrentDevice(withDevice: devices[indexPath.row])
-        fbManager.setCurrDevice(currDev: devices[indexPath.row].name)
+        fbManager.setCurrDevice(currDev: devices[indexPath.row].devId)
         navigateToDashboard(withDeviceAt: indexPath.row)
     }
 

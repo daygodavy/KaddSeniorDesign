@@ -43,22 +43,23 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
         registerFlowLayout()
 
         // TESTDATA BRANCH
-        user = dataManager.loadSampleData()
-        
-        let rides = dataManager.loadRides()
-        let history = dataManager.organizeUserRides(rides: rides)
-        print("success")
-        
-        currDevice = loadCurrentDevice()
-    
-        
-        self.loadNibs()
+//        user = dataManager.loadSampleData()
+//
+//        let rides = dataManager.loadRides()
+//        let history = dataManager.organizeUserRides(rides: rides)
+//        print("success")
+//
+//        currDevice = loadCurrentDevice()
+//
+//
+//        self.loadNibs()
         
 
         // reads user profile data from firebase
         fbManager.loadUserProfile { (user) in
             self.user = user
             self.currDevice = self.loadCurrentDevice()
+            self.loadNibs()
             self.collectionView.reloadData()
             self.activityView.stopAnimating()
         }

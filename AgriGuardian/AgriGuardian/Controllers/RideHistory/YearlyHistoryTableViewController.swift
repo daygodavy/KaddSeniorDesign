@@ -10,6 +10,7 @@ import UIKit
 
 class YearlyHistoryTableViewController: UITableViewController {
     var dataManager = DataManager()
+    var fbManager = FirebaseManager()
     var user = User()
     var rideHistory = RideHistory()
     var devices = [Device]()
@@ -18,11 +19,17 @@ class YearlyHistoryTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNavBar()
-        user = dataManager.loadSampleData()
-        currDevice = user.currentDevice
-        rideHistory = currDevice.rideHistory
-        let nib = UINib(nibName: "MonthHistoryTableViewCell", bundle: nil)
-        self.tableView.register(nib, forCellReuseIdentifier: "MonthCell")
+//        user = dataManager.loadSampleData()
+//        currDevice = user.currentDevice
+//        rideHistory = currDevice.rideHistory
+        fbManager.loadUserProfile { currUser in
+            self.user = currUser
+            self.currDevice = self.user.currentDevice // must string match devId to find it
+            self.rideHistory = self.currDevice.rideHistory
+            let nib = UINib(nibName: "MonthHistoryTableViewCell", bundle: nil)
+            self.tableView.register(nib, forCellReuseIdentifier: "MonthCell")
+            self.tableView.reloadData()
+        }
     }
     // MARK: - Private functions
     private func setupNavBar() {
