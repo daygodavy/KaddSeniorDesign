@@ -23,15 +23,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         
         // Checks if the user has logged in before (without logging out since login) to autologin by directly presenting home view
-//        if Auth.auth().currentUser != nil && Auth.auth().currentUser?.isEmailVerified == true {
-//            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-//            if let windowScene = scene as? UIWindowScene {
-//                self.window = UIWindow(windowScene: windowScene)
-//                let initialVC = storyboard.instantiateViewController(withIdentifier: "MainTabBarController") as? MainTabBarController
-//                self.window!.rootViewController = initialVC
-//                self.window!.makeKeyAndVisible()
-//            }
-//        }
+        if Auth.auth().currentUser != nil && Auth.auth().currentUser?.isEmailVerified == true {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            if let windowScene = scene as? UIWindowScene {
+                self.window = UIWindow(windowScene: windowScene)
+                let initialVC = storyboard.instantiateViewController(withIdentifier: "MainTabBarController") as? MainTabBarController
+                self.window!.rootViewController = initialVC
+                self.window!.makeKeyAndVisible()
+            }
+        }
     }
 
 
