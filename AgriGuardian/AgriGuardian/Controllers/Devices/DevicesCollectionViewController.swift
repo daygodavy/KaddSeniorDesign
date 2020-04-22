@@ -281,7 +281,7 @@ extension DevicesCollectionViewController: CBPeripheralDelegate {
             
             // TODO: Pass Model and Serial number through segue and add to device info
             
-            print("success")
+//            print("success")
 //            print("Writing to peripheral")
 //            let ack = Data("ACK".utf8)
 //            peripheral.writeValue(ack, for: characteristic, type: .withResponse)

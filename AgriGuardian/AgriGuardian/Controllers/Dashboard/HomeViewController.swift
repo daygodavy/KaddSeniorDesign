@@ -55,13 +55,24 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
 //        self.loadNibs()
         
 
+        print("1START")
         // reads user profile data from firebase
         fbManager.loadUserProfile { (user) in
+            print("2START")
             self.user = user
-            self.currDevice = self.loadCurrentDevice()
+            // below empty because laoduserprofile reads are too slow..
+            print("user email: \(user.emailAddress)")
+            print("user currDev: \(user.currentDevice.name)")
+            self.currDevice = self.loadCurrentDevice() // not pulling correctly
+            print("currDev name: \(self.currDevice.name)")
+            print("currDev devId: \(self.currDevice.devId)")
+            
+            print("2user email: \(user.emailAddress)")
+            print("2user currDev: \(user.currentDevice.name)")
             self.loadNibs()
             self.collectionView.reloadData()
             self.activityView.stopAnimating()
+            print("DONE")
         }
     
 

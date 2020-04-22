@@ -143,7 +143,7 @@ class DataManager {
                     }
                 }
             }
-            print("success")
+//            print("success")
         }
         return history
     }
