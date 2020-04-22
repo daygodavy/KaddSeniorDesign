@@ -42,121 +42,13 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
         self.setupNavBar()
         registerFlowLayout()
 
-        // TESTDATA BRANCH
-//        user = dataManager.loadSampleData()
-//
-//        let rides = dataManager.loadRides()
-//        let history = dataManager.organizeUserRides(rides: rides)
-//        print("success")
-//
-//        currDevice = loadCurrentDevice()
-//
-//
-//        self.loadNibs()
-        
 
-        print("1START")
-        // reads user profile data from firebase
-//        fbManager.loadUserProfile { (user) in
-//            print("2START")
-//            self.user = user
-//            // below empty because laoduserprofile reads are too slow..
-//            print("user email: \(user.emailAddress)")
-//            print("user currDev: \(user.currentDevice.name)")
-//            self.currDevice = self.loadCurrentDevice() // not pulling correctly
-//            print("currDev name: \(self.currDevice.name)")
-//            print("currDev devId: \(self.currDevice.devId)")
-//
-//            print("2user email: \(user.emailAddress)")
-//            print("2user currDev: \(user.currentDevice.name)")
-//            self.loadNibs()
-//            self.collectionView.reloadData()
-//            self.activityView.stopAnimating()
-//            print("DONE")
-//        }
-        
-        
-        
-        
-        
-//        if let uid = Auth.auth().currentUser?.uid {
-//            self.fbManager.getUser(uid: uid) { (currUser) in
-//                self.user = currUser
-//                self.fbManager.getDevices(uid: uid) { (currDevs) in
-//                    self.user.devices = currDevs
-//
-//                    self.currDevice = self.loadCurrentDevice()
-//                    print("currDev name: \(self.currDevice.name)")
-//                    print("currDev devId: \(self.currDevice.devId)")
-//
-//                    self.loadNibs()
-//                    self.collectionView.reloadData()
-//                    self.activityView.stopAnimating()
-//                }
-//                print("user email: \(self.user.emailAddress)")
-//                print("user currDev: \(self.user.currentDevice.name)")
-//            }
-//            self.loadNibs()
-//        }
-        
-//        var tempDevs: [Device] = []
-//        for dev in self.user.devices {
-//            fbManager.getRides(devId: dev.devId) { (rides) in
-//                dev.rides = rides
-//                dev.setRideHistory(history: self.fbManager.getRideHistory(rides: rides))
-//                tempDevs.append(dev)
-//                self.user.devices = tempDevs
-//                print("APPENDING TEMP DEV")
-//            }
-//            print("NEXT DEV")
-//        }
-        
-        
         self.loadNibs()
         self.collectionView.reloadData()
         self.activityView.stopAnimating()
-        print("HOME VC user email: \(self.user.emailAddress)")
-        print("HOME VC")
-        print("HOME VC user currDev: \(self.user.currentDevice.name)")
-        print("HOME VC currDev: \(self.currDevice.name)")
-    
-        
-        
-        
-        
-//        self.loadRidesPerDevice {
-//            self.loadNibs()
-//            self.collectionView.reloadData()
-//            self.activityView.stopAnimating()
-//            print("HOME VC user email: \(self.user.emailAddress)")
-//            print("HOME VC user currDev id: \(self.user.currentDevice.devId)")
-//            print("HOME VC currDev id: \(self.currDevice.devId)")
-//            print("HOME VC currDev name: \(self.currDevice.name)")
-//        }
-//        self.loadNibs()
 
     }
     
-    func loadRidesPerDevice(completion: () -> ()) {
-        var tempDevs: [Device] = []
-        for dev in self.user.devices{
-            fbManager.getRides(devId: dev.devId) { (rides) in
-                dev.rides = rides
-                dev.setRideHistory(history: self.fbManager.getRideHistory(rides: rides))
-                tempDevs.append(dev)
-                self.user.devices = tempDevs
-                print("APPENDING TEMP DEV")
-            }
-            print("NEXT DEV")
-//            if i == self.user.devices.count {
-//                print("RIDES COMPLETED")
-//                completion()
-//            }
-        }
-        
-        print("RIDES COMPLETED")
-        completion()
-    }
     
     
     func loadNibs() {

@@ -43,11 +43,8 @@ class MainTabBarController: UITabBarController {
                 self.user = currUser
                 self.fbManager.getDevices(uid: uid) { (currDevs) in
                     self.user.devices = currDevs
-                    print("1USER DEVICE COUNT \(currDevs)")
                     
                     self.chosenDevice = self.loadCurrDev(devId: self.user.currentDevice.devId)
-                    print("currDev name: \(self.chosenDevice.name)")
-                    print("currDev devId: \(self.chosenDevice.devId)")
 //                    self.user.currentDevice = self.chosenDevice
                     
                     // load ride history ONLY for the current device
@@ -76,42 +73,26 @@ class MainTabBarController: UITabBarController {
                     
                     
                 }
-                print("user email: \(self.user.emailAddress)")
-                print("user currDev: \(self.user.currentDevice.name)")
             }
         }
         // ========================================================================
-        
-        
-//        // pass data to view controllers
-//        homeVC.currDevice = chosenDevice
-        
-//        let tabBarList = [homeNC, historyNC, settingsNC]
-//        self.viewControllers = tabBarList
-        print("GOT IT: \(chosenDevice.name)")
         
     }
     
     
     func loadCurrDev(devId: String) -> Device {
-        print("LOADING THIS CURR DEV: \(devId)")
         if !devId.isEmpty {
-            print("devId IS NOT EMPTY")
-            print("2USER DEVICE COUNT \(self.user.devices.count)")
             // is devId exists, set current Device
             for dev in self.user.devices {
                 if devId == dev.devId {
-                    print("FOUND CURRENT DEV: \(devId)")
                     return dev
                 }
             }
         }
         else if user.devices.count > 0 {
-            print("devId IS EMPTY but dev exists")
             return user.devices.first!
         }
         // if the user has no current device set.. no current device so set to default?
-        print("devId IS EMPTY")
         return Device()
     }
     

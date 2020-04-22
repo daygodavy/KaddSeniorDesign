@@ -57,10 +57,7 @@ class FirebaseManager {
             // get user's devices
             getDevices(uid: uid) { devices in
                 currUser.devices = devices
-                print("PROFILE DEVICES LOADED")
-                print(currUser.devices.count)
             }
-        print("PROFILE LOADED")
         completion(currUser)
         }
     }
@@ -87,13 +84,6 @@ class FirebaseManager {
                 for devices in deviceDocs {
                     let dev = Device(data: devices.data())
                     
-//                    // ===== TEMPORARY HARDCODING RIDEHISTORY =====
-//                    let rides = self.loadRides()
-//                    //                    dev.rideHistory = rides
-//                    dev.rides = rides
-//                    // ============================================
-                    
-                    print("This dev: \(dev.devId)")
                     // get all rides for this device
 //                    self.getRides(devId: dev.devId) { (rides) in
 //                        dev.rides = rides
@@ -104,7 +94,6 @@ class FirebaseManager {
                     userDevices.append(dev)
                     
                 }
-                print("GET DEVICES: \(userDevices.count)")
                 completion(userDevices)
             }
         }
@@ -122,7 +111,6 @@ class FirebaseManager {
                     let ride = Ride(data: rides.data())
                     tempRides.append(ride)
                 }
-                print("GET RIDES: \(tempRides.count)")
                 completion(tempRides)
             }
             

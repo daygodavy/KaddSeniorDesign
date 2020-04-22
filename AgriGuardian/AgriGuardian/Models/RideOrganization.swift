@@ -108,11 +108,6 @@ public final class RideMonth: Equatable {
         self.rides.append(ride)
     }
     
-    
-//    func getMonthLabel() -> String {
-//
-//    }
-    
     func getMileageLabel() -> String {
         let meters = Measurement(value: self.mileage, unit: UnitLength.meters)
         let mileage = meters.converted(to: UnitLength.miles)

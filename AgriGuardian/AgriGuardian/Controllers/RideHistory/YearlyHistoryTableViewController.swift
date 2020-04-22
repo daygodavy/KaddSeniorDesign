@@ -27,10 +27,6 @@ class YearlyHistoryTableViewController: UITableViewController {
         let nib = UINib(nibName: "MonthHistoryTableViewCell", bundle: nil)
         self.tableView.register(nib, forCellReuseIdentifier: "MonthCell")
         self.tableView.reloadData()
-
-        print("HOME VC user email: \(self.user.emailAddress)")
-        print("HOME VC user currDev id: \(self.user.currentDevice.devId)")
-        
         
     }
     // MARK: - Private functions
@@ -46,7 +42,6 @@ class YearlyHistoryTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print("11111111111111111")
         // #warning Incomplete implementation, return the number of rows
         return rideHistory.getMonths(yearIndex: section).count
     }
@@ -54,7 +49,6 @@ class YearlyHistoryTableViewController: UITableViewController {
         return 120
     }
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        print("2222222222222222222")
         self.sectionIdx = section
         return rideHistory.getYearName(yearIndex: section)
     }
@@ -62,14 +56,11 @@ class YearlyHistoryTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MonthCell") as! MonthHistoryTableViewCell
-        print("return cell!!!!")
-//        rideHistory.getMonthName(yearIndex: <#T##Int#>, monthIndex: <#T##Int#>)
         cell.monthLabel.text! = "\(rideHistory.getMonthName(yearIndex: self.sectionIdx, monthIndex: indexPath.item)): "
         cell.rideCountLabel.text! = "Rides -  \(String(rideHistory.years[self.sectionIdx].months[indexPath.item].rides.count))"
         cell.timeLabel.text! = rideHistory.years[self.sectionIdx].months[indexPath.item].getTimeLabel()
         cell.mileageLabel.text! = rideHistory.years[self.sectionIdx].months[indexPath.item].getMileageLabel()
         cell.incidentLabel.text! = String(rideHistory.years[self.sectionIdx].months[indexPath.item].rollovers)
-//        cell.timeLabel.text! = rideHistory.
         return cell
     }
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
