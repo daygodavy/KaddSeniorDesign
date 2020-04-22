@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 class YearlyHistoryTableViewController: UITableViewController {
     var dataManager = DataManager()
@@ -22,14 +23,39 @@ class YearlyHistoryTableViewController: UITableViewController {
 //        user = dataManager.loadSampleData()
 //        currDevice = user.currentDevice
 //        rideHistory = currDevice.rideHistory
-        fbManager.loadUserProfile { currUser in
-            self.user = currUser
-            self.currDevice = self.user.currentDevice // must string match devId to find it
-            self.rideHistory = self.currDevice.rideHistory
-            let nib = UINib(nibName: "MonthHistoryTableViewCell", bundle: nil)
-            self.tableView.register(nib, forCellReuseIdentifier: "MonthCell")
-            self.tableView.reloadData()
+//        fbManager.loadUserProfile { currUser in
+//            self.user = currUser
+//            self.currDevice = self.user.currentDevice // must string match devId to find it
+//            self.rideHistory = self.currDevice.rideHistory
+//            let nib = UINib(nibName: "MonthHistoryTableViewCell", bundle: nil)
+//            self.tableView.register(nib, forCellReuseIdentifier: "MonthCell")
+//            self.tableView.reloadData()
+//        }
+        
+        if let uid = Auth.auth().currentUser?.uid {
+            self.fbManager.getUser(uid: uid) { (currUser) in
+                self.user = currUser
+                self.fbManager.getDevices(uid: uid) { (currDevs) in
+                    self.user.devices = currDevs
+                    
+//                    self.currDevice = self.loadCurrentDevice()
+                    print("currDev name: \(self.currDevice.name)")
+                    print("currDev devId: \(self.currDevice.devId)")
+                    
+                    self.currDevice = self.user.currentDevice
+                    self.rideHistory = self.currDevice.rideHistory
+                    let nib = UINib(nibName: "MonthHistoryTableViewCell", bundle: nil)
+                    self.tableView.register(nib, forCellReuseIdentifier: "MonthCell")
+                    self.tableView.reloadData()
+                    
+                }
+                print("user email: \(self.user.emailAddress)")
+                print("user currDev: \(self.user.currentDevice.name)")
+            }
         }
+        
+        
+        
     }
     // MARK: - Private functions
     private func setupNavBar() {

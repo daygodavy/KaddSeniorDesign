@@ -95,12 +95,13 @@ class FirebaseManager {
                     
                     print("This dev: \(dev.devId)")
                     // get all rides for this device
-                    self.getRides(devId: dev.devId) { (rides) in
-                        dev.rides = rides
-                        dev.setRideHistory(history: self.getRideHistory(rides: rides))
-                        userDevices.append(dev)
-                        print("Appending dev: \(userDevices.count)")
-                    }
+//                    self.getRides(devId: dev.devId) { (rides) in
+//                        dev.rides = rides
+//                        dev.setRideHistory(history: self.getRideHistory(rides: rides))
+//                        userDevices.append(dev)
+//                        print("Appending dev: \(userDevices.count)")
+//                    }
+                    userDevices.append(dev)
                     
                 }
                 print("GET DEVICES: \(userDevices.count)")

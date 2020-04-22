@@ -7,9 +7,13 @@
 //
 
 import UIKit
+import Firebase
 
 class MainTabBarController: UITabBarController {
     var chosenDevice = Device()
+    var fbManager = FirebaseManager()
+    var user = User()
+//    var currDevice = Device()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,14 +36,70 @@ class MainTabBarController: UITabBarController {
         historyNC.tabBarItem = UITabBarItem(title: "Rides", image: nil, tag: 1)
         settingsNC.tabBarItem = UITabBarItem(title: "Settings", image: nil, tag: 2)
         
-        // pass data to view controllers
-        homeVC.currDevice = chosenDevice
         
-        let tabBarList = [homeNC, historyNC, settingsNC]
-        self.viewControllers = tabBarList
+        // ========================================================================
+        if let uid = Auth.auth().currentUser?.uid {
+            self.fbManager.getUser(uid: uid) { (currUser) in
+                self.user = currUser
+                self.fbManager.getDevices(uid: uid) { (currDevs) in
+                    self.user.devices = currDevs
+                    print("1USER DEVICE COUNT \(currDevs)")
+                    
+                    self.chosenDevice = self.loadCurrDev(devId: self.user.currentDevice.devId)
+                    print("currDev name: \(self.chosenDevice.name)")
+                    print("currDev devId: \(self.chosenDevice.devId)")
+                    self.user.currentDevice = self.chosenDevice
+                    
+//                    self.loadNibs()
+//                    self.collectionView.reloadData()
+//                    self.activityView.stopAnimating()
+                    
+                    
+                    // pass data to view controllers
+                    homeVC.currDevice = self.chosenDevice
+                    
+                    homeVC.user = self.user
+                    let tabBarList = [homeNC, historyNC, settingsNC]
+                    self.viewControllers = tabBarList
+                }
+                print("user email: \(self.user.emailAddress)")
+                print("user currDev: \(self.user.currentDevice.name)")
+            }
+        }
+        // ========================================================================
+        
+        
+//        // pass data to view controllers
+//        homeVC.currDevice = chosenDevice
+        
+//        let tabBarList = [homeNC, historyNC, settingsNC]
+//        self.viewControllers = tabBarList
         
         print("GOT IT: \(chosenDevice.name)")
         
+    }
+    
+    
+    func loadCurrDev(devId: String) -> Device {
+        print("LOADING THIS CURR DEV: \(devId)")
+        if !devId.isEmpty {
+            print("devId IS NOT EMPTY")
+            print("2USER DEVICE COUNT \(self.user.devices.count)")
+            // is devId exists, set current Device
+            for dev in self.user.devices {
+                if devId == dev.devId {
+                    print("FOUND CURRENT DEV: \(devId)")
+                    return dev
+                }
+            }
+        }
+        else if user.devices.count > 0 {
+            print("devId IS EMPTY but dev exists")
+            return user.devices.first!
+        }
+        // if the user has no current device set.. no current device so set to default?
+        print("devId IS EMPTY")
+        return Device()
     }
     
 

@@ -47,7 +47,7 @@ public final class User {
         self.uid = Auth.auth().currentUser!.uid // check this and below
         self.devices = [Device]()
         self.currentDevice = Device()
-        self.currentDevice.name = data["currentDevice"] as! String
+        self.currentDevice.devId = data["currentDevice"] as! String
     }
     
     func getDevices() -> [Device] {
