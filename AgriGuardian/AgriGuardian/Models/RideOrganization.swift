@@ -71,25 +71,29 @@ public final class RideMonth: Equatable {
     var rides: [Ride]
     var mileage: Double
     var time: TimeInterval
+    var rollovers: Int
     
     init() {
         monthName = ""
         rides = [Ride]()
         mileage = 0.0
         time = 0.0
+        rollovers = 0
     }
     init(monthName: String) {
         self.monthName = monthName
         rides = [Ride]()
         mileage = 0.0
         time = 0.0
+        rollovers = 0
     }
     
-    init(monthName: String, rides: [Ride], mileage: Double, time: Double) {
+    init(monthName: String, rides: [Ride], mileage: Double, time: Double, rollovers: Int) {
         self.monthName = monthName
         self.rides = rides
         self.mileage = mileage
         self.time = time
+        self.rollovers = rollovers
     }
     public static func ==(lhs:RideMonth, rhs:RideMonth) -> Bool {
         return lhs.monthName == rhs.monthName
@@ -102,6 +106,21 @@ public final class RideMonth: Equatable {
     }
     func addRide(ride: Ride) {
         self.rides.append(ride)
+    }
+    
+    
+//    func getMonthLabel() -> String {
+//
+//    }
+    
+    func getMileageLabel() -> String {
+        let meters = Measurement(value: self.mileage, unit: UnitLength.meters)
+        let mileage = meters.converted(to: UnitLength.miles)
+        return String(format: "%.2f", mileage.value)
+    }
+    
+    func getTimeLabel() -> String {
+        return self.time.stringFromTimeInterval()
     }
     
 }

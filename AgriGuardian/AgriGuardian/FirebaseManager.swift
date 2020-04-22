@@ -202,38 +202,9 @@ class FirebaseManager {
         }
     }
     
-    
-    
-    
-    
-    // MARK: HARDCODED SAMPLE DATA BELOW, SCRAP AFTER FIREBASE INTEGRATION
-    
-    func loadSampleData() -> User {
-        return loadUser()
-    }
 
-    func loadUser() -> User {
-        let devices = loadDevs()
-        let user = User(firstName: "Johnny", lastName: "Farmer", phoneNumber: "7147824460", uid: "u0001", emailAddress: "jfarmer@kadd.com", devices: devices, currentDevice: devices[0])
-        
-        return user
-    }
-     func loadDevs() -> [Device] {
-        let rides = loadRides()
-        let history = organizeUserRides(rides: rides)
-        
+    
 
-        var device1 = Device(name: "iKadd Device", modelNumber: "A1", serialNumber: "A16DB9663", atvModel: "FOURTRAX RECON 4x4", manufacturer: "Honda", hardwareVersion: "1.0.0", firmwareVersion: "1.1.0", uid: "u0001", devId: "d0001", rideHistory: history, rides: [], gfT: false, gfR: 0, gfC: CLLocation.init())
-        var device2 = Device(name: "Rincon Kadd", modelNumber: "A2", serialNumber: "A26DB9663", atvModel: "FOURTRAX RINCON", manufacturer: "Honda", hardwareVersion: "1.1.0", firmwareVersion: "1.0.0", uid: "u0001", devId: "d0010", rideHistory: history, rides: [], gfT: false, gfR: 0, gfC: CLLocation.init())
-        var device3 = Device(name: "Griz-ly", modelNumber: "A3", serialNumber: "A36DB9663", atvModel: "Grizzly EPS XT-R", manufacturer: "Yamaha", hardwareVersion: "1.0.0", firmwareVersion: "1.1.0", uid: "u0101", devId: "d0101", rideHistory: history, rides: [], gfT: false, gfR: 0, gfC: CLLocation.init())
-        var device4 = Device(name: "King Kadd", modelNumber: "A4", serialNumber: "A46DB9663", atvModel: "KingQuad 750AXi Camo", manufacturer: "Suzuki", hardwareVersion: "1.0.0", firmwareVersion: "1.0.0", uid: "u1000", devId: "d1000", rideHistory: history, rides: [], gfT: false, gfR: 0, gfC: CLLocation.init())
-
-        
-        let testDevices = [device1, device2, device3, device4]
-        
-        return testDevices
-        
-    }
     
     func organizeUserRides(rides: [Ride]) -> RideHistory {
         var history = RideHistory()
@@ -241,7 +212,7 @@ class FirebaseManager {
         let yearFormatter = DateFormatter()
         yearFormatter.dateFormat = "yyyy"
         let monthFormatter = DateFormatter()
-        monthFormatter.dateFormat = "MM"
+        monthFormatter.dateFormat = "MMMM"
 
         // sort rides by date
         let sortedRidesbyDate = rides.sorted { $0.rideDate < $1.rideDate }
@@ -269,11 +240,24 @@ class FirebaseManager {
 //                    tempRideYear.addMonth(newMonth: tempRideMonth)
                     history.addMonth(yearIndex: y, newMonth: tempRideMonth)
                 }
+                
+                
                 for m in 0..<history.getMonths(yearIndex: y).count {
                     let monthName = history.getMonthName(yearIndex: y, monthIndex: m)
                     // compare current month name with ride month
                     if (monthName == month) {
                         history.addRide(yearIndex: y, monthIndex: m, newRide: ride)
+                        
+                        // add total time of ride to month
+                        history.years[y].months[m].time += ride.totalTime
+                        
+                        // add total milage of ride to month
+                        history.years[y].months[m].mileage += ride.mileage
+                        
+                        // add total rollovers of ride to month
+                        if ride.didRollover {
+                            history.years[y].months[m].rollovers += 1
+                        }
                     }
                 }
             }

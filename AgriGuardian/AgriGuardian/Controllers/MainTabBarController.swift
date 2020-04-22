@@ -50,17 +50,8 @@ class MainTabBarController: UITabBarController {
                     print("currDev devId: \(self.chosenDevice.devId)")
 //                    self.user.currentDevice = self.chosenDevice
                     
-
-                    
-                    
-//                    // pass data to view controllers
-//                    homeVC.currDevice = self.chosenDevice
-//
-//                    homeVC.user = self.user
-//                    let tabBarList = [homeNC, historyNC, settingsNC]
-//                    self.viewControllers = tabBarList
-                    
                     // load ride history ONLY for the current device
+                    // ACCOMMODATE FOR WHEN ThERE ARE NO RIDES AVAILABLE...
                     self.fbManager.getRides(devId: self.chosenDevice.devId) { (rides) in
                         self.chosenDevice.rides = rides
                         let history = self.fbManager.getRideHistory(rides: rides)
@@ -97,7 +88,6 @@ class MainTabBarController: UITabBarController {
         
 //        let tabBarList = [homeNC, historyNC, settingsNC]
 //        self.viewControllers = tabBarList
-        
         print("GOT IT: \(chosenDevice.name)")
         
     }
