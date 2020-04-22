@@ -49,6 +49,8 @@
 		6662C281240E111700C622D5 /* RideDetailMapCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6662C277240E111700C622D5 /* RideDetailMapCVC.swift */; };
 		6662C282240E111700C622D5 /* RideDetailHeaderCRV.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6662C278240E111700C622D5 /* RideDetailHeaderCRV.xib */; };
 		666AC0CD23FA229300DEB3E3 /* PeripheralViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 666AC0CC23FA229300DEB3E3 /* PeripheralViewController.swift */; };
+		666CC514244FDAE500222841 /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 666CC513244FDAE500222841 /* AccountViewController.swift */; };
+		666CC516244FE26800222841 /* ManageDevicesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 666CC515244FE26800222841 /* ManageDevicesViewController.swift */; };
 		667302B22405FD2500BA015A /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = 667302B12405FD2500BA015A /* Device.swift */; };
 		667302B92405FF2600BA015A /* Datagram.swift in Sources */ = {isa = PBXBuildFile; fileRef = 667302B62405FF2600BA015A /* Datagram.swift */; };
 		667302BA2405FF2600BA015A /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 667302B72405FF2600BA015A /* Message.swift */; };
@@ -142,6 +144,8 @@
 		6662C278240E111700C622D5 /* RideDetailHeaderCRV.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RideDetailHeaderCRV.xib; sourceTree = "<group>"; };
 		666AC0CC23FA229300DEB3E3 /* PeripheralViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeripheralViewController.swift; sourceTree = "<group>"; };
 		666AC0CE23FA266700DEB3E3 /* AgriGuardian.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AgriGuardian.entitlements; sourceTree = "<group>"; };
+		666CC513244FDAE500222841 /* AccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
+		666CC515244FE26800222841 /* ManageDevicesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageDevicesViewController.swift; sourceTree = "<group>"; };
 		667302B12405FD2500BA015A /* Device.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Device.swift; sourceTree = "<group>"; };
 		667302B62405FF2600BA015A /* Datagram.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Datagram.swift; sourceTree = "<group>"; };
 		667302B72405FF2600BA015A /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
@@ -377,6 +381,8 @@
 			isa = PBXGroup;
 			children = (
 				66946A6824109D7F00800E0B /* SettingsViewController.swift */,
+				666CC513244FDAE500222841 /* AccountViewController.swift */,
+				666CC515244FE26800222841 /* ManageDevicesViewController.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -749,9 +755,11 @@
 				6662C27E240E111700C622D5 /* MonthHistoryTableViewCell.swift in Sources */,
 				667302BB2405FF2600BA015A /* MessageReceiver.swift in Sources */,
 				5B5A71E523EB3FDD00B5E2C5 /* SceneDelegate.swift in Sources */,
+				666CC514244FDAE500222841 /* AccountViewController.swift in Sources */,
 				66603F20240B2C3300253B04 /* RideParameters.swift in Sources */,
 				5B5A71ED23EB3FDD00B5E2C5 /* AgriGuardian.xcdatamodeld in Sources */,
 				6621C63C240B69900039B49A /* AddDeviceViewController.swift in Sources */,
+				666CC516244FE26800222841 /* ManageDevicesViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
