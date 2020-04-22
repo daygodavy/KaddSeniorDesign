@@ -108,6 +108,10 @@ class Device {
         self.lastLocation = location
     }
     
+    func setRideHistory(history: RideHistory) {
+        self.rideHistory = history
+    }
+    
 }
 
 
