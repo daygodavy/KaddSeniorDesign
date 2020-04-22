@@ -41,7 +41,7 @@ class DevicesCollectionViewController: UICollectionViewController, UICollectionV
         setupNavBar()
         registerFlowLayout()
         collectionView.dataSource = self
-        print("VIEWDIDLOAD TRIGGERED")
+        
         centralManager = CBCentralManager(delegate: self, queue: nil)
 
         

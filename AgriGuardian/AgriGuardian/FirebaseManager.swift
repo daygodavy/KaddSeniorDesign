@@ -147,7 +147,7 @@ class FirebaseManager {
         if let id = Auth.auth().currentUser?.uid {
             currUID = id
         }
-        print("CURRUID: \(currUID)")
+//        print("CURRUID: \(currUID)")
         let root = db.collection("devices").whereField("uid", isEqualTo: currUID)
         root.getDocuments() {(data, error) in
             if let err = error {
@@ -335,7 +335,7 @@ class FirebaseManager {
          } catch {
              fatalError("Unable to load file contents")
          }
-        thisRide.printDate()
+//        thisRide.printDate()
         return thisRide
     }
 
