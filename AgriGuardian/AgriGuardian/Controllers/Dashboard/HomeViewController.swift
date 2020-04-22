@@ -112,28 +112,28 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
 //        }
         
         
-//        self.loadNibs()
-//        self.collectionView.reloadData()
-//        self.activityView.stopAnimating()
-//        print("HOME VC user email: \(self.user.emailAddress)")
-//        print("HOME VC")
-//        print("HOME VC user currDev: \(self.user.currentDevice.name)")
-//        print("HOME VC currDev: \(self.currDevice.name)")
+        self.loadNibs()
+        self.collectionView.reloadData()
+        self.activityView.stopAnimating()
+        print("HOME VC user email: \(self.user.emailAddress)")
+        print("HOME VC")
+        print("HOME VC user currDev: \(self.user.currentDevice.name)")
+        print("HOME VC currDev: \(self.currDevice.name)")
     
         
         
         
         
-        self.loadRidesPerDevice {
-            self.loadNibs()
-            self.collectionView.reloadData()
-            self.activityView.stopAnimating()
-            print("HOME VC user email: \(self.user.emailAddress)")
-            print("HOME VC user currDev id: \(self.user.currentDevice.devId)")
-            print("HOME VC currDev id: \(self.currDevice.devId)")
-            print("HOME VC currDev name: \(self.currDevice.name)")
-        }
-        self.loadNibs()
+//        self.loadRidesPerDevice {
+//            self.loadNibs()
+//            self.collectionView.reloadData()
+//            self.activityView.stopAnimating()
+//            print("HOME VC user email: \(self.user.emailAddress)")
+//            print("HOME VC user currDev id: \(self.user.currentDevice.devId)")
+//            print("HOME VC currDev id: \(self.currDevice.devId)")
+//            print("HOME VC currDev name: \(self.currDevice.name)")
+//        }
+//        self.loadNibs()
 
     }
     

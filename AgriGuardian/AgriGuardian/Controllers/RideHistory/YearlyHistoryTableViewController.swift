@@ -21,8 +21,11 @@ class YearlyHistoryTableViewController: UITableViewController {
         super.viewDidLoad()
         setupNavBar()
 //        user = dataManager.loadSampleData()
-//        currDevice = user.currentDevice
-//        rideHistory = currDevice.rideHistory
+        currDevice = user.currentDevice
+        rideHistory = currDevice.rideHistory
+        let nib = UINib(nibName: "MonthHistoryTableViewCell", bundle: nil)
+        self.tableView.register(nib, forCellReuseIdentifier: "MonthCell")
+        self.tableView.reloadData()
 //        fbManager.loadUserProfile { currUser in
 //            self.user = currUser
 //            self.currDevice = self.user.currentDevice // must string match devId to find it
@@ -32,27 +35,30 @@ class YearlyHistoryTableViewController: UITableViewController {
 //            self.tableView.reloadData()
 //        }
         
-        if let uid = Auth.auth().currentUser?.uid {
-            self.fbManager.getUser(uid: uid) { (currUser) in
-                self.user = currUser
-                self.fbManager.getDevices(uid: uid) { (currDevs) in
-                    self.user.devices = currDevs
-                    
-//                    self.currDevice = self.loadCurrentDevice()
-                    print("currDev name: \(self.currDevice.name)")
-                    print("currDev devId: \(self.currDevice.devId)")
-                    
-                    self.currDevice = self.user.currentDevice
-                    self.rideHistory = self.currDevice.rideHistory
-                    let nib = UINib(nibName: "MonthHistoryTableViewCell", bundle: nil)
-                    self.tableView.register(nib, forCellReuseIdentifier: "MonthCell")
-                    self.tableView.reloadData()
-                    
-                }
-                print("user email: \(self.user.emailAddress)")
-                print("user currDev: \(self.user.currentDevice.name)")
-            }
-        }
+//        if let uid = Auth.auth().currentUser?.uid {
+//            self.fbManager.getUser(uid: uid) { (currUser) in
+//                self.user = currUser
+//                self.fbManager.getDevices(uid: uid) { (currDevs) in
+//                    self.user.devices = currDevs
+//
+////                    self.currDevice = self.loadCurrentDevice()
+//                    print("currDev name: \(self.currDevice.name)")
+//                    print("currDev devId: \(self.currDevice.devId)")
+//
+//                    self.currDevice = self.user.currentDevice
+//                    self.rideHistory = self.currDevice.rideHistory
+//                    let nib = UINib(nibName: "MonthHistoryTableViewCell", bundle: nil)
+//                    self.tableView.register(nib, forCellReuseIdentifier: "MonthCell")
+//                    self.tableView.reloadData()
+//
+//                }
+//                print("user email: \(self.user.emailAddress)")
+//                print("user currDev: \(self.user.currentDevice.name)")
+//            }
+//        }
+        print("HOME VC user email: \(self.user.emailAddress)")
+        print("HOME VC user currDev id: \(self.user.currentDevice.devId)")
+        
         
         
         
