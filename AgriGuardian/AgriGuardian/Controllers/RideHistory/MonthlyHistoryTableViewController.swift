@@ -9,6 +9,7 @@
 import UIKit
 
 class MonthlyHistoryTableViewController: UITableViewController {
+    var thisRideMonth = RideMonth()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,23 +33,25 @@ class MonthlyHistoryTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 20
+        return thisRideMonth.rides.count
     }
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 90
     }
 
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return "Month Header"
+        return thisRideMonth.getMonthName()
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "RideCell") as! RideTableViewCell
+        
         return cell
     }
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        let vc = mainStoryboard.instantiateViewController(withIdentifier: "RideDetailView")
+        let vc = mainStoryboard.instantiateViewController(withIdentifier: "RideDetailView") as! RideDetailCollectionViewController
+        vc.thisRide = thisRideMonth.getRide(rideIndex: indexPath.row)
         vc.title = "Sec: \(indexPath.section) Row: \(indexPath.row)"
         navigationController?.pushViewController(vc, animated: true)
     }

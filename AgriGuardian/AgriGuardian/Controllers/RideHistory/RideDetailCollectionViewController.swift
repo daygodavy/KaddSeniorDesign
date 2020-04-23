@@ -7,23 +7,32 @@
 //
 
 import UIKit
- 
+import MapKit
+import ScrollableGraphView
 
 class RideDetailCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
+    
+    var thisRide = Ride()
+    var locationPoints = [CLLocation]()
     
     // MARK: - Properties
     fileprivate let cellID = "InfoCell"
     fileprivate let tempID = "cellID"
     fileprivate let headerID = "HeaderCell"
     fileprivate let mapID = "MapCell"
-    fileprivate let spacing: CGFloat = 1
+    fileprivate let graphID = "GraphCell"
+    fileprivate let spacing: CGFloat = 8
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.largeTitleDisplayMode  = .never
         registerCellClasses()
-        
         registerFlowLayout()
+        
+        print("111111111111111")
+        locationPoints = thisRide.locations
+        print("222222222222222")
         // Do any additional setup after loading the view.
     }
     
@@ -38,8 +47,9 @@ class RideDetailCollectionViewController: UICollectionViewController, UICollecti
     
     fileprivate func registerCellClasses() {
         // register plain temp cell
-        self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: tempID)
-        
+        self.collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: tempID)
+        let graphNib = UINib(nibName: "RideGraphCVCell", bundle: nil)
+        self.collectionView.register(graphNib, forCellWithReuseIdentifier: graphID)
         // regiser main detail cell
         let cellNib = UINib(nibName: "RideDetailInfoCVC", bundle: nil)
         self.collectionView.register(cellNib, forCellWithReuseIdentifier: cellID)
@@ -56,16 +66,16 @@ class RideDetailCollectionViewController: UICollectionViewController, UICollecti
         switch(indexPath.row) {
         case 0:
             cell.titleLabel.text = "Total Time"
-            cell.valueLabel.text = "00:00:00"
+            cell.valueLabel.text = thisRide.getTime() 
             cell.iconLabel.image = UIImage(systemName: "clock")
         case 1:
             cell.titleLabel.text = "Avg. Speed"
-            cell.valueLabel.text = "00.00"
+            cell.valueLabel.text = thisRide.getAvgSpeed() + "mph"
             cell.iconLabel.image = UIImage(systemName: "speedometer")
 
         case 2:
             cell.titleLabel.text = "Miles"
-            cell.valueLabel.text = "000.0"
+            cell.valueLabel.text = thisRide.getMileage() + "mi"
             cell.iconLabel.image = UIImage(systemName: "circle")
 
         case 3:
@@ -75,7 +85,7 @@ class RideDetailCollectionViewController: UICollectionViewController, UICollecti
 
         case 4:
             cell.titleLabel.text = "Top Speed"
-            cell.valueLabel.text = "000.00"
+            cell.valueLabel.text = thisRide.getTopSpeed() + "mph"
             cell.iconLabel.image = UIImage(systemName: "gauge.badge.plus")
         case 5:
             cell.titleLabel.text = "Stops"
@@ -93,85 +103,98 @@ class RideDetailCollectionViewController: UICollectionViewController, UICollecti
 
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 2
+        return 1
     }
 
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of items
-        switch(section) {
-        case 0:
-            return 6
-        case 1:
-            return 2
-        default:
-            return 0
-        }
+        return 8
 
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         // dequeue main detail cells for 0th section
-        if indexPath.section == 0  {
+        if indexPath.row < 6 {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath) as! RideDetailInfoCVC
             //cell.titleLabel.text = "row: \(indexPath.row)"
             
             return setupDetailCell(cell: cell, indexPath: indexPath)
         }
-        // deque special cells for 1st section
-        else if indexPath.section == 1 {
-            if indexPath.row == 0 {
-                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: tempID, for: indexPath)
-                cell.backgroundColor = .systemGray6
-                return cell
-            } else {
-                let mapCell = collectionView.dequeueReusableCell(withReuseIdentifier: mapID, for: indexPath) as! RideDetailMapCVC
-                mapCell.mapDelegate = self
-                
-                return mapCell
-            }
-
-        } else {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: tempID, for: indexPath)
+            // deque special cells for 1st section
+        else if indexPath.row == 6 {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: graphID, for: indexPath) as! RideGraphCVCell
             cell.backgroundColor = .systemGray6
+            cell.points = locationPoints
+            
             return cell
+        } else {
+            let mapCell = collectionView.dequeueReusableCell(withReuseIdentifier: mapID, for: indexPath) as! RideDetailMapCVC
+            print("333333333333333333")
+            mapCell.ride = thisRide // DOESNT WORK OR THISRIDE IS EMPTY
+            mapCell.locations = self.locationPoints
+            mapCell.mapDelegate = self
+            
+            mapCell.loadRoute(coords: locationPoints, miles: Double(thisRide.getMileage())! as! Double)
+            print("444444444444444444")
+            
+            return mapCell
         }
+    
+//        } else {
+//            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: tempID, for: indexPath)
+//            cell.backgroundColor = .systemGray6
+//            return cell
+//        }
 
     }
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         // dequeue header
-        let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerID, for: indexPath) 
+        let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerID, for: indexPath) as! RideDetailHeaderCRV
+//        header.locationLabel.text = thisRide.getRideCity()
+        thisRide.getRideCity { thisCity in
+            header.locationLabel.text = "📍 \(thisCity)"
+        }
+        
         return header
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        switch(section) {
-        case 0:
-            return .init(width: view.frame.width, height: 150)
-        case 1:
-            return .init(width: view.frame.width, height: 0)
-
-        default:
-            return .init(width: view.frame.width, height: 0)
-
-        }
+        return .init(width: view.frame.width, height: 150)
     }
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let numberOfItemsPerRow: CGFloat = 2
-        let spacingBetweenCells: CGFloat = 1
+        let spacingBetweenCells: CGFloat = 8
         
         let totalSpacing = (2 * self.spacing) + ((numberOfItemsPerRow - 1) * spacingBetweenCells) // amount of total spacing in a row
-
+        let widthWithSpacing = (view.frame.width - totalSpacing)/numberOfItemsPerRow
+        let sizeWithSpacing = CGSize(width: widthWithSpacing, height: widthWithSpacing / 2)
         
-        switch(indexPath.section) {
+        switch(indexPath.row) {
         case 0:
-            if let collection = self.collectionView {
-                let width = (collection.bounds.width - totalSpacing)/numberOfItemsPerRow
-                return CGSize(width: width, height: width / 2)
-            } else {
-                return CGSize(width: 0, height: 0)
-            }
+            return sizeWithSpacing
         case 1:
+            return sizeWithSpacing
+        case 2:
+            return sizeWithSpacing
+        case 3:
+            return sizeWithSpacing
+        case 4:
+            return sizeWithSpacing
+        case 5:
+            return sizeWithSpacing
+        case 6:
+            return  .init(width: view.frame.width - 2 * spacingBetweenCells, height: 180)
+        case 7:
             return .init(width: view.frame.width - 2 * spacingBetweenCells, height: 180)
+            
+//            if let collection = self.collectionView {
+//                let width = (collection.bounds.width - totalSpacing)/numberOfItemsPerRow
+//                return CGSize(width: width, height: width / 2)
+//            } else {
+//                return CGSize(width: 0, height: 0)
+//            }
+
         default:
             return CGSize(width: 0, height: 0)
         }
@@ -217,6 +240,10 @@ class RideDetailCollectionViewController: UICollectionViewController, UICollecti
 
 }
 extension RideDetailCollectionViewController: MapCellDelegate {
+    func loadTraceRoute() -> [CLLocation] {
+        return self.locationPoints
+    }
+    
     func didTapMap(_ sender: Any) {
         print("Map Pressed")
         let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)

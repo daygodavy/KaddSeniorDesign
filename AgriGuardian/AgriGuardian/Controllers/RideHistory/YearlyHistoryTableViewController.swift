@@ -7,14 +7,27 @@
 //
 
 import UIKit
+import Firebase
 
 class YearlyHistoryTableViewController: UITableViewController {
+    var dataManager = DataManager()
+    var fbManager = FirebaseManager()
+    var user = User()
+    var rideHistory = RideHistory()
+    var devices = [Device]()
+    var currDevice = Device()
+    var sectionIdx: Int = 0
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNavBar()
+//        user = dataManager.loadSampleData()
+        currDevice = user.currentDevice
+        rideHistory = currDevice.rideHistory
         let nib = UINib(nibName: "MonthHistoryTableViewCell", bundle: nil)
         self.tableView.register(nib, forCellReuseIdentifier: "MonthCell")
+        self.tableView.reloadData()
+        
     }
     // MARK: - Private functions
     private func setupNavBar() {
@@ -25,29 +38,36 @@ class YearlyHistoryTableViewController: UITableViewController {
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 4
+        return rideHistory.getYears().count
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 12
+        return rideHistory.getMonths(yearIndex: section).count
     }
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 120
     }
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return "Year Header"
+        self.sectionIdx = section
+        return rideHistory.getYearName(yearIndex: section)
     }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MonthCell") as! MonthHistoryTableViewCell
+        cell.monthLabel.text! = "\(rideHistory.getMonthName(yearIndex: self.sectionIdx, monthIndex: indexPath.item)): "
+        cell.rideCountLabel.text! = "Rides -  \(String(rideHistory.years[self.sectionIdx].months[indexPath.item].rides.count))"
+        cell.timeLabel.text! = rideHistory.years[self.sectionIdx].months[indexPath.item].getTimeLabel()
+        cell.mileageLabel.text! = rideHistory.years[self.sectionIdx].months[indexPath.item].getMileageLabel()
+        cell.incidentLabel.text! = String(rideHistory.years[self.sectionIdx].months[indexPath.item].rollovers)
         return cell
     }
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        let vc = mainStoryboard.instantiateViewController(withIdentifier: "MonthlyHistoryView")
+        let vc = mainStoryboard.instantiateViewController(withIdentifier: "MonthlyHistoryView") as! MonthlyHistoryTableViewController
         vc.title = "Sec: \(indexPath.section) Row: \(indexPath.row)"
+        vc.thisRideMonth = rideHistory.getMonth(yearIndex: indexPath.section, monthIndex: indexPath.row)
         navigationController?.pushViewController(vc, animated: true)
     }
     

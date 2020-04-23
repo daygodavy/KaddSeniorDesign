@@ -7,16 +7,20 @@
 //
 
 import UIKit
+import Firebase
 
 class MainTabBarController: UITabBarController {
     var chosenDevice = Device()
+    var fbManager = FirebaseManager()
+    var user = User()
+//    var currDevice = Device()
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
         let historyVC = mainStoryboard.instantiateViewController(identifier: "YearlyHistoryView") as! YearlyHistoryTableViewController
-        let settingVC = mainStoryboard.instantiateViewController(identifier: "SettingsView")
+        let settingVC = mainStoryboard.instantiateViewController(identifier: "SettingsView") as! SettingsViewController
         let homeVC = mainStoryboard.instantiateViewController(identifier: "Dashboard") as! HomeViewController
         
         let historyNC = UINavigationController(rootViewController: historyVC)
@@ -32,14 +36,64 @@ class MainTabBarController: UITabBarController {
         historyNC.tabBarItem = UITabBarItem(title: "Rides", image: nil, tag: 1)
         settingsNC.tabBarItem = UITabBarItem(title: "Settings", image: nil, tag: 2)
         
-        // pass data to view controllers
-        homeVC.currDevice = chosenDevice
         
-        let tabBarList = [homeNC, historyNC, settingsNC]
-        self.viewControllers = tabBarList
+        // ========================================================================
+        if let uid = Auth.auth().currentUser?.uid {
+            self.fbManager.getUser(uid: uid) { (currUser) in
+                self.user = currUser
+                self.fbManager.getDevices(uid: uid) { (currDevs) in
+                    self.user.devices = currDevs
+                    
+                    self.chosenDevice = self.loadCurrDev(devId: self.user.currentDevice.devId)
+//                    self.user.currentDevice = self.chosenDevice
+                    
+                    // load ride history ONLY for the current device
+                    // ACCOMMODATE FOR WHEN ThERE ARE NO RIDES AVAILABLE...
+                    self.fbManager.getRides(devId: self.chosenDevice.devId) { (rides) in
+                        self.chosenDevice.rides = rides
+                        let history = self.fbManager.getRideHistory(rides: rides)
+                        self.chosenDevice.rideHistory = history
+                        
+                        self.user.currentDevice = self.chosenDevice
+                        
+                        // pass data to view controllers
+                        homeVC.currDevice = self.chosenDevice
+                        homeVC.user = self.user
+                        
+                        historyVC.currDevice = self.chosenDevice
+                        historyVC.user = self.user
+                        
+//                        settingVC.currDevice = self.chosenDevice
+//                        settingVC.user = self.user
+                        
+                        let tabBarList = [homeNC, historyNC, settingsNC]
+                        self.viewControllers = tabBarList
+                    }
+                    
+                    
+                    
+                }
+            }
+        }
+        // ========================================================================
         
-        print("GOT IT: \(chosenDevice.name)")
-        
+    }
+    
+    
+    func loadCurrDev(devId: String) -> Device {
+        if !devId.isEmpty {
+            // is devId exists, set current Device
+            for dev in self.user.devices {
+                if devId == dev.devId {
+                    return dev
+                }
+            }
+        }
+        else if user.devices.count > 0 {
+            return user.devices.first!
+        }
+        // if the user has no current device set.. no current device so set to default?
+        return Device()
     }
     
 

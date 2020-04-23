@@ -9,6 +9,7 @@
 import UIKit
 import GoogleSignIn
 import FirebaseAuth
+import Firebase
 
 class HomeViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
@@ -19,21 +20,38 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
     private let statId = "StatCell"
     private let detailId = "DetailCell"
     private let locationId = "LocationCell"
+    var devices: [Device] = []
     var currDevice = Device()
     var user = User()
     var dataManager = DataManager()
+    var fbManager = FirebaseManager()
+    
+    var ref: DocumentReference? = nil
+    let db = Firestore.firestore()
+    
+    var activityView = UIActivityIndicatorView()
+    
+
     
     fileprivate let spacing: CGFloat = 16.0
 
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.showActivityIndicator()
         self.setupNavBar()
         registerFlowLayout()
-        user = dataManager.loadSampleData()
-        currDevice = loadCurrentDevice()
-        
-        
+
+
+        self.loadNibs()
+        self.collectionView.reloadData()
+        self.activityView.stopAnimating()
+
+    }
+    
+    
+    
+    func loadNibs() {
         self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
         self.collectionView.register(UICollectionViewCell.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: reuseIdentifier)
         let cellNib = UINib(nibName: "LastRideCell", bundle: nil)
@@ -51,14 +69,29 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
         // regisert main header
         let headerNib = UINib(nibName: "DashboardHeaderView", bundle: nil)
         self.collectionView.register(headerNib, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerId)
+        
+//        self.collectionView.reloadData()
+        
+        
     }
+    
+    func showActivityIndicator() {
+        self.activityView.style = .large
+        activityView.center = self.view.center
+        self.view.addSubview(activityView)
+        activityView.startAnimating()
+    }
+    
     
     private func loadCurrentDevice() -> Device {
         if currDevice.name.isEmpty {
+            print("YES \(user)")
             return user.currentDevice
         }
+        print("NO \(currDevice)")
         return currDevice
     }
+    
     @objc func SignOutButtonPressed(_ sender: Any) {
         print("attempting to signout")
         self.userLogout()
@@ -80,12 +113,24 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
         let devicesButton = UIBarButtonItem(image: image, style: .plain, target: self, action: #selector(showDevices))
         //self.navigationItem.rightBarButtonItem = addButton
         self.navigationItem.leftBarButtonItem = devicesButton
+        
+        let signoutImg = UIImage(systemName: "clear")
+        let signoutButton = UIBarButtonItem(image: signoutImg, style: .plain, target: self, action: #selector(userLogout))
+        self.navigationItem.rightBarButtonItem = signoutButton
     }
     
 
     
-    fileprivate func userLogout() {
+    @objc fileprivate func userLogout() {
+        do {
+            try Auth.auth().signOut()
+        }
+        catch {
+            print("ERROR ON AUTH SIGNOUT")
+        }
         GIDSignIn.sharedInstance().signOut()
+        
+        self.goToHome()
     }
     
     @objc fileprivate func showDevices() {
