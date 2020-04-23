@@ -76,6 +76,7 @@ class SettingsViewController: UITableViewController {
     private func setupNavBar() {
         self.navigationItem.title = "Settings"
         self.navigationController?.navigationItem.largeTitleDisplayMode = .never
+        self.navigationItem.largeTitleDisplayMode  = .never
 //        let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(didTapDone))
 //        let cancelButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(didTapCancel))
 //        self.navigationItem.rightBarButtonItem = doneButton
@@ -83,8 +84,14 @@ class SettingsViewController: UITableViewController {
     }
     private func segueToAccountView() {
         let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        let vc = mainStoryboard.instantiateViewController(withIdentifier: "AccountView")
+        let vc = mainStoryboard.instantiateViewController(withIdentifier: "AccountView") as! AccountViewController
         vc.title = "Account Info"
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    private func segueToDevicesView() {
+        let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = mainStoryboard.instantiateViewController(withIdentifier: "ManageDevicesView")
+        vc.title = "Your Devices"
         navigationController?.pushViewController(vc, animated: true)
     }
     
@@ -96,6 +103,10 @@ class SettingsViewController: UITableViewController {
             if (indexPath.row == 0) {
             // Account row - segue to account view
                 segueToAccountView()
+            }
+            else if (indexPath.row == 1) {
+                // Manage Devices view
+                segueToDevicesView()
             }
         default:
             break

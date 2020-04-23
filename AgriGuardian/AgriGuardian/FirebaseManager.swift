@@ -192,8 +192,6 @@ class FirebaseManager {
     
 
     
-
-    
     func organizeUserRides(rides: [Ride]) -> RideHistory {
         var history = RideHistory()
         var years = history.getYears()
