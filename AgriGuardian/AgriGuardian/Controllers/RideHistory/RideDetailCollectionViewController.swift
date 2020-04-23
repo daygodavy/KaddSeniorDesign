@@ -30,7 +30,9 @@ class RideDetailCollectionViewController: UICollectionViewController, UICollecti
         registerCellClasses()
         registerFlowLayout()
         
+        print("111111111111111")
         locationPoints = thisRide.locations
+        print("222222222222222")
         // Do any additional setup after loading the view.
     }
     
@@ -119,18 +121,24 @@ class RideDetailCollectionViewController: UICollectionViewController, UICollecti
             
             return setupDetailCell(cell: cell, indexPath: indexPath)
         }
-        // deque special cells for 1st section
+            // deque special cells for 1st section
         else if indexPath.row == 6 {
-                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: graphID, for: indexPath) as! RideGraphCVCell
-                cell.backgroundColor = .systemGray6
-                cell.points = locationPoints
-                
-                return cell
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: graphID, for: indexPath) as! RideGraphCVCell
+            cell.backgroundColor = .systemGray6
+            cell.points = locationPoints
+            
+            return cell
         } else {
-                let mapCell = collectionView.dequeueReusableCell(withReuseIdentifier: mapID, for: indexPath) as! RideDetailMapCVC
-                mapCell.mapDelegate = self
-                
-                return mapCell
+            let mapCell = collectionView.dequeueReusableCell(withReuseIdentifier: mapID, for: indexPath) as! RideDetailMapCVC
+            print("333333333333333333")
+            mapCell.ride = thisRide // DOESNT WORK OR THISRIDE IS EMPTY
+            mapCell.locations = self.locationPoints
+            mapCell.mapDelegate = self
+            
+            mapCell.loadRoute(coords: locationPoints, miles: Double(thisRide.getMileage())! as! Double)
+            print("444444444444444444")
+            
+            return mapCell
         }
     
 //        } else {
@@ -232,6 +240,10 @@ class RideDetailCollectionViewController: UICollectionViewController, UICollecti
 
 }
 extension RideDetailCollectionViewController: MapCellDelegate {
+    func loadTraceRoute() -> [CLLocation] {
+        return self.locationPoints
+    }
+    
     func didTapMap(_ sender: Any) {
         print("Map Pressed")
         let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
