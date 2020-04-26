@@ -94,6 +94,12 @@ class SettingsViewController: UITableViewController {
         vc.title = "Your Devices"
         navigationController?.pushViewController(vc, animated: true)
     }
+    private func segueToDataPull() {
+        let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = mainStoryboard.instantiateViewController(identifier: "DataPullView") as! DataPullViewController
+        vc.title = "Data Pull"
+        navigationController?.pushViewController(vc, animated: true)
+    }
     
     // MARK: - Table view data source
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -107,6 +113,10 @@ class SettingsViewController: UITableViewController {
             else if (indexPath.row == 1) {
                 // Manage Devices view
                 segueToDevicesView()
+            }
+            else if (indexPath.row == 3) {
+                // TODO: Present an alert for User to select which device they seek to pull data from
+                segueToDataPull()
             }
         default:
             break

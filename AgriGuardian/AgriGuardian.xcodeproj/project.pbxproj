@@ -56,6 +56,7 @@
 		667302BA2405FF2600BA015A /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 667302B72405FF2600BA015A /* Message.swift */; };
 		667302BB2405FF2600BA015A /* MessageReceiver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 667302B82405FF2600BA015A /* MessageReceiver.swift */; };
 		667EB1632418549200B8BCC1 /* RideOrganization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 667EB1622418549200B8BCC1 /* RideOrganization.swift */; };
+		669338B22455048500612DD2 /* DataPullViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 669338B12455048500612DD2 /* DataPullViewController.swift */; };
 		66946A5F240F374D00800E0B /* DevicesCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66946A5E240F374D00800E0B /* DevicesCollectionViewController.swift */; };
 		66946A63240F694000800E0B /* DeviceCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66946A61240F694000800E0B /* DeviceCollectionViewCell.swift */; };
 		66946A64240F694000800E0B /* DeviceCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 66946A62240F694000800E0B /* DeviceCollectionViewCell.xib */; };
@@ -151,6 +152,7 @@
 		667302B72405FF2600BA015A /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		667302B82405FF2600BA015A /* MessageReceiver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageReceiver.swift; sourceTree = "<group>"; };
 		667EB1622418549200B8BCC1 /* RideOrganization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RideOrganization.swift; sourceTree = "<group>"; };
+		669338B12455048500612DD2 /* DataPullViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataPullViewController.swift; sourceTree = "<group>"; };
 		66946A5E240F374D00800E0B /* DevicesCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevicesCollectionViewController.swift; sourceTree = "<group>"; };
 		66946A61240F694000800E0B /* DeviceCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceCollectionViewCell.swift; sourceTree = "<group>"; };
 		66946A62240F694000800E0B /* DeviceCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DeviceCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -383,6 +385,7 @@
 				66946A6824109D7F00800E0B /* SettingsViewController.swift */,
 				666CC513244FDAE500222841 /* AccountViewController.swift */,
 				666CC515244FE26800222841 /* ManageDevicesViewController.swift */,
+				669338B12455048500612DD2 /* DataPullViewController.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -718,6 +721,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				669338B22455048500612DD2 /* DataPullViewController.swift in Sources */,
 				667302B22405FD2500BA015A /* Device.swift in Sources */,
 				6662C26D240E011D00C622D5 /* RideMapViewController.swift in Sources */,
 				6662C281240E111700C622D5 /* RideDetailMapCVC.swift in Sources */,
