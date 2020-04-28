@@ -6,6 +6,8 @@
 //  Copyright © 2020 Team Kadd. All rights reserved.
 
 // Summary: For users to manage their devices (Edit or Delete)
+// TODO: Load all devices. Segue to Device detail with isNew = false upon selection and send selected device
+// to device detail - vc.thisDevice = devices[indexPath.row]
 
 import UIKit
 

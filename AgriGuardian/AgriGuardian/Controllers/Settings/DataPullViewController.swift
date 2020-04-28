@@ -5,6 +5,7 @@
 //  Created by Daniel Weatrowski on 4/25/20.
 //  Copyright © 2020 Team Kadd. All rights reserved.
 //
+// TODO: Implement Bluetooth transfer
 
 import UIKit
 
