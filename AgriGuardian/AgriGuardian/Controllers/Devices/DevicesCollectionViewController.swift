@@ -103,9 +103,10 @@ class DevicesCollectionViewController: UICollectionViewController, UICollectionV
     }
     private func setupNavBar() {
         self.navigationItem.title = "Devices"
-        let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(didTapAdd))
+
+        let manageButton = UIBarButtonItem(title: "Manage", style: .plain, target: self, action: #selector(didTapManage))
         let cancelButton = UIBarButtonItem(barButtonSystemItem: .close, target: self, action: #selector(closeMenu))
-        self.navigationItem.rightBarButtonItem = addButton
+        self.navigationItem.rightBarButtonItem = manageButton
         self.navigationItem.leftBarButtonItem = cancelButton
     }
     private func navigateToDashboard(withDeviceAt index: Int) {
@@ -132,13 +133,20 @@ class DevicesCollectionViewController: UICollectionViewController, UICollectionV
         self.dismiss(animated: true, completion: nil)
         // TODO: Disconnect device if connected
     }
-    @objc private func didTapAdd() {
-        
-        self.spinner.center = self.view.center
-        self.spinner.hidesWhenStopped = true
-        self.spinner.startAnimating()
-        self.view.addSubview(spinner)
-        centralManager.scanForPeripherals(withServices: [kaddService])
+    @objc private func didTapManage() {
+        // TODO: Segue to device manager
+        if let tabBarController = self.presentingViewController as? UITabBarController {
+            self.dismiss(animated: true) {
+                tabBarController.selectedIndex = 2
+                // TODO: Push Manage Devices view
+                
+            }
+        }
+//        self.spinner.center = self.view.center
+//        self.spinner.hidesWhenStopped = true
+//        self.spinner.startAnimating()
+//        self.view.addSubview(spinner)
+//        centralManager.scanForPeripherals(withServices: [kaddService])
     }
 
 

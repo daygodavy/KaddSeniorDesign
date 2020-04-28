@@ -10,16 +10,31 @@
 import UIKit
 
 class ManageDevicesViewController: UITableViewController {
+    
+    // MARK: - Properties
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
-
-        self.navigationItem.rightBarButtonItem = self.editButtonItem
+        let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(didTapAdd))
+        self.navigationItem.rightBarButtonItem = addButton
     }
 
+    // MARK: - Actions
+    @objc private func didTapAdd() {
+        let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = mainStoryboard.instantiateViewController(identifier: "DeviceDetail") as! DeviceDetailViewController
+
+        vc.title = "New Device"
+        vc.thisDevice = Device()
+        vc.isNew = true
+        
+        let navController = UINavigationController(rootViewController: vc)
+        self.present(navController, animated: true)
+    }
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {

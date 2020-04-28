@@ -2,9 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:AgriGuardian/Controllers/Settings/DeviceDetailViewController.swift">
-   </FileRef>
-   <FileRef
       location = "group:AgriGuardian.xcodeproj">
    </FileRef>
    <FileRef

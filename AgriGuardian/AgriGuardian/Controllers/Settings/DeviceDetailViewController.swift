@@ -8,27 +8,38 @@
 import UIKit
 
 class DeviceDetailViewController: UITableViewController {
+    // MARK: - Properties
+    var thisDevice: Device = Device()
+    @IBOutlet weak var submitButton: UIButton!
+    @IBOutlet weak var removeButton: UIButton!
+    @IBOutlet weak var removeDeviceCell: UITableViewCell!
+    var isNew: Bool = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupView()
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
+        
+    }
+    
+    fileprivate func setupView() {
+        if (!isNew) {
+            self.navigationItem.rightBarButtonItem = self.editButtonItem
+            self.submitButton.setTitle("Save", for: .normal)
+            self.removeButton.setTitle("Remove Device", for: .normal)
+            self.removeButton.tintColor = .systemRed
+        } else {
+            removeDeviceCell.isHidden = true
+        }
+        self.submitButton.setTitle("Save", for: .normal)
 
-         self.navigationItem.rightBarButtonItem = self.editButtonItem
+
     }
 
     // MARK: - Table view data source
 
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
-    }
-
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 0
-    }
 
     /*
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
