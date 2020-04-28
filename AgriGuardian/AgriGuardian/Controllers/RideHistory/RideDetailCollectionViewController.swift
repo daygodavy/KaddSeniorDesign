@@ -30,9 +30,9 @@ class RideDetailCollectionViewController: UICollectionViewController, UICollecti
         registerCellClasses()
         registerFlowLayout()
         
-        print("111111111111111")
+        
         locationPoints = thisRide.locations
-        print("222222222222222")
+        
         // Do any additional setup after loading the view.
     }
     
@@ -247,8 +247,17 @@ extension RideDetailCollectionViewController: MapCellDelegate {
     func didTapMap(_ sender: Any) {
         print("Map Pressed")
         let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        let vc = mainStoryboard.instantiateViewController(withIdentifier: "RideMapView")
+        let vc = mainStoryboard.instantiateViewController(withIdentifier: "RideMapView") as! RideMapViewController
         vc.title = "Map View"
+//        mapCell.ride = thisRide // DOESNT WORK OR THISRIDE IS EMPTY
+//        mapCell.locations = self.locationPoints
+//        mapCell.mapDelegate = self
+//
+//        mapCell.loadRoute(coords: locationPoints, miles: Double(thisRide.getMileage())! as! Double)
+        vc.ride = thisRide
+        vc.locations = self.locationPoints
+        vc.miles = Double(thisRide.getMileage()) as! Double
+//        vc.mapDelegate = self
         navigationController?.pushViewController(vc, animated: true)
     }
     

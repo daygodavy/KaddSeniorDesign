@@ -54,7 +54,14 @@ class RideDetailMapCVC: UICollectionViewCell, MKMapViewDelegate{
     
     func loadRoute(coords: [CLLocation], miles: Double) {
         let initialLoc = CLLocation(latitude: coords[0].coordinate.latitude, longitude: coords[0].coordinate.longitude)
-        self.centerMapOnLocation(location: initialLoc, miles: miles)
+        let center = CLLocation(latitude: coords[coords.count/2].coordinate.latitude, longitude: coords[coords.count/2].coordinate.longitude)
+        //coords.count/2
+        
+//        if let lati = coords.last?.coordinate.latitude, let long = coords.last?.coordinate.longitude {
+//            let finalLoc = CLLocation(latitude: lati, longitude: long)
+//        }
+
+        self.centerMapOnLocation(location: initialLoc, center: center, miles: miles)
         
         var traceRoute: [CLLocation] = []
         for coord in coords {
@@ -81,17 +88,18 @@ class RideDetailMapCVC: UICollectionViewCell, MKMapViewDelegate{
     
     
     
-    func centerMapOnLocation(location: CLLocation, miles: Double) {
+    func centerMapOnLocation(location: CLLocation, center: CLLocation, miles: Double) {
         var latD: Double = 0.1
         var longD: Double = 0.1
+        print("MILES: \(miles)")
         if miles < 1 {
             latD = 0.003
             longD = 0.003
-        } else {
-            latD = 1.1
-            longD = 1.1
+        } else { // figure out better metrics? for larger miles greater than 2.6
+            latD = 0.02 * miles
+            longD = 0.02 * miles
         }
-        let region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude), span: MKCoordinateSpan(latitudeDelta: latD, longitudeDelta: longD))
+        let region = MKCoordinateRegion(center: center.coordinate, span: MKCoordinateSpan(latitudeDelta: latD, longitudeDelta: longD))
         DispatchQueue.main.async {
             self.mapView.setRegion(region, animated: true)
             let annotation = MKPointAnnotation()

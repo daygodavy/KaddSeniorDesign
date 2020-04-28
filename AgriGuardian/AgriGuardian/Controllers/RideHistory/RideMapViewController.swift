@@ -14,6 +14,11 @@ class RideMapViewController: UIViewController, MKMapViewDelegate {
     // MARK: - Properties
     var mapView: MKMapView = MKMapView()
     var dataManager = DataManager()
+//    var mapDelegate: MapCellDelegate?
+//    var dataManager = DataManager()
+    var ride: Ride = Ride()
+    var locations: [CLLocation] = []
+    var miles: Double = 0.0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,14 +26,16 @@ class RideMapViewController: UIViewController, MKMapViewDelegate {
         self.mapView = MKMapView(frame: self.view.frame)
         self.view.addSubview(mapView)
         
-        let ride = dataManager.loadGPSData(csvFile: "gps_2020_03_09", ofType: "csv")
-        let locations = ride.locations
+//        let ride = dataManager.loadGPSData(csvFile: "gps_2020_03_09", ofType: "csv")
+//        let locations = ride.locations
         
         
         // TESTING
         mapView.delegate = self
         let initialLoc = CLLocation(latitude: locations[0].coordinate.latitude, longitude: locations[0].coordinate.longitude)
-        self.centerMapOnLocation(location: initialLoc)
+        let center = CLLocation(latitude: locations[locations.count/2].coordinate.latitude, longitude: locations[locations.count/2].coordinate.longitude)
+        self.centerMapOnLocation(location: initialLoc, center: center)
+        print(locations.count)
         
         self.loadRoute(coords: locations)
         
@@ -60,13 +67,25 @@ class RideMapViewController: UIViewController, MKMapViewDelegate {
         }
     }
     
-    func centerMapOnLocation(location: CLLocation) {
-        let region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude), span: MKCoordinateSpan(latitudeDelta: 0.003, longitudeDelta: 0.003))
+    func centerMapOnLocation(location: CLLocation, center: CLLocation) {
+        var latD: Double = 0.1
+        var longD: Double = 0.1
+        print("MILES: \(self.miles)")
+        if self.miles < 1 {
+            latD = 0.003
+            longD = 0.003
+        } else { // figure out better metrics? for larger miles greater than 2.6
+            latD = 0.03 * self.miles
+            longD = 0.03 * self.miles
+        }
+        
+        
+        let region = MKCoordinateRegion(center: center.coordinate, span: MKCoordinateSpan(latitudeDelta: latD, longitudeDelta: longD))
         DispatchQueue.main.async {
-            self.mapView.setRegion(region, animated: true)
             let annotation = MKPointAnnotation()
             annotation.coordinate = location.coordinate
             self.mapView.addAnnotation(annotation)
+            self.mapView.setRegion(region, animated: true)
         }
     }
     
