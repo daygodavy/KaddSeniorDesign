@@ -384,10 +384,10 @@
 		66946A6724109D1200800E0B /* Settings */ = {
 			isa = PBXGroup;
 			children = (
-				5BFBC69A2458B9E700D0A745 /* DeviceDetailViewController.swift */,
 				66946A6824109D7F00800E0B /* SettingsViewController.swift */,
 				666CC513244FDAE500222841 /* AccountViewController.swift */,
 				666CC515244FE26800222841 /* ManageDevicesViewController.swift */,
+				5BFBC69A2458B9E700D0A745 /* DeviceDetailViewController.swift */,
 				669338B12455048500612DD2 /* DataPullViewController.swift */,
 			);
 			path = Settings;

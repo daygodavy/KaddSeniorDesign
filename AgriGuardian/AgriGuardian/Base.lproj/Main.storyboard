@@ -1156,9 +1156,13 @@
                         </connections>
                     </tableView>
                     <connections>
+                        <outlet property="deviceNameLabel" destination="YCC-rV-D1C" id="az7-3u-YVn"/>
+                        <outlet property="geofenceRadius" destination="wAI-hq-Zys" id="Or8-Xw-e9j"/>
+                        <outlet property="geofenceToggle" destination="bNR-RC-Idw" id="N5o-hT-XSh"/>
                         <outlet property="removeButton" destination="ysH-W1-mbe" id="kbT-BZ-YFM"/>
                         <outlet property="removeDeviceCell" destination="hIR-h7-czm" id="z2d-7W-Khb"/>
                         <outlet property="submitButton" destination="niL-Ut-0rT" id="NlJ-Tt-fMS"/>
+                        <outlet property="vehicleModelLabel" destination="ihI-nP-TQV" id="Sw9-Mp-w4B"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="06m-oD-udN" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

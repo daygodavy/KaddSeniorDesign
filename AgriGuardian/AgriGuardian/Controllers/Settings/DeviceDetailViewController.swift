@@ -7,17 +7,27 @@
 
 import UIKit
 import MapKit
+import CoreLocation
 
-class DeviceDetailViewController: UITableViewController {
+class DeviceDetailViewController: UITableViewController, CLLocationManagerDelegate {
     // MARK: - Properties
     var thisDevice: Device = Device()
     @IBOutlet weak var submitButton: UIButton!
     @IBOutlet weak var removeButton: UIButton!
     @IBOutlet weak var removeDeviceCell: UITableViewCell!
+    @IBOutlet weak var deviceNameLabel: UITextField!
+    @IBOutlet weak var vehicleModelLabel: UITextField!
+    @IBOutlet weak var geofenceToggle: UISwitch!
+    @IBOutlet weak var geofenceRadius: UITextField!
+    
+    
+    var locationManager: CLLocationManager = CLLocationManager()
+    var currLoc: CLLocation = CLLocation()
     var isNew: Bool = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupAuthLoc()
         setupView()
 
         // Uncomment the following line to preserve selection between presentations
@@ -25,6 +35,19 @@ class DeviceDetailViewController: UITableViewController {
         
     }
     
+    func setupAuthLoc() {
+        if (CLLocationManager.locationServicesEnabled())
+        {
+            locationManager = CLLocationManager()
+            locationManager.delegate = self
+            locationManager.desiredAccuracy = kCLLocationAccuracyBest
+            locationManager.requestAlwaysAuthorization()
+            locationManager.startUpdatingLocation()
+            if let loc = locationManager.location {
+                currLoc = loc
+            }
+        }
+    }
     fileprivate func setupView() {
         if (!isNew) {
             self.navigationItem.rightBarButtonItem = self.editButtonItem
@@ -41,7 +64,13 @@ class DeviceDetailViewController: UITableViewController {
     fileprivate func segueToGeofencing() {
         let vc = GeofenceController()
         vc.title = "Set Geofence"
-        vc.radius = 50 // TODO: Change
+        if let gfRad = geofenceRadius.text, geofenceRadius.text!.isNumber {
+            vc.radius = Double(gfRad)!
+        }
+        else {
+            vc.radius = 50 // TODO: Change
+        }
+        vc.currLoc = self.currLoc
         navigationController?.pushViewController(vc, animated: true)
         
     }
@@ -78,7 +107,9 @@ class DeviceDetailViewController: UITableViewController {
 
 public class GeofenceController: UIViewController, MKMapViewDelegate {
     
-    var radius: Double?
+    var radius: Double = 0.0
+    var prevRadius: Double = 0.0
+    var currLoc: CLLocation = CLLocation()
     
     lazy var mapView : MKMapView = { [unowned self] in
         let v = MKMapView(frame: self.view.bounds)
@@ -104,7 +135,7 @@ public class GeofenceController: UIViewController, MKMapViewDelegate {
     var height: CGFloat = 0
 
     lazy var ellipse: UIBezierPath = { [unowned self] in
-        let ellipse = UIBezierPath(ovalIn: CGRect(x: 0, y: 0, width: self.width, height: self.height))
+        let ellipse = UIBezierPath(ovalIn: CGRect(x: 0, y: 0, width: CGFloat(self.radius), height: CGFloat(self.radius)))
         return ellipse
         }()
 
@@ -112,10 +143,10 @@ public class GeofenceController: UIViewController, MKMapViewDelegate {
     lazy var ellipsisLayer: CAShapeLayer = { [unowned self] in
         let layer = CAShapeLayer()
 
-        if let rad = radius {
-            self.width = CGFloat(rad)
-            self.height = CGFloat(rad)
-        }
+
+        self.width = CGFloat(radius)
+        self.height = CGFloat(radius)
+
         
         layer.bounds = CGRect(x: 0, y: 0, width: self.width, height: self.height)
         layer.path = self.ellipse.cgPath
@@ -146,13 +177,19 @@ public class GeofenceController: UIViewController, MKMapViewDelegate {
     }
     public override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
+        // SET VARS HERE =======================================================
         let center = mapView.convert(mapView.centerCoordinate, toPointTo: pinView)
         pinView.center = CGPoint(x: center.x, y: center.y - (pinView.bounds.height/2))
         ellipsisLayer.position = center
+        let region = MKCoordinateRegion(center: self.currLoc
+            .coordinate, span: MKCoordinateSpan(latitudeDelta: 0.02, longitudeDelta: 0.02))
+        DispatchQueue.main.async {
+            self.mapView.setRegion(region, animated: true)
+        }
     }
     @objc func tappedDone(_ sender: UIBarButtonItem){
         let target = mapView.convert(ellipsisLayer.position, toCoordinateFrom: mapView)
+        // GET COORDS AND RETURN
 //        row.value = CLLocation(latitude: target.latitude, longitude: target.longitude)
 //        onDismissCallback?(self)
     }
@@ -166,18 +203,47 @@ public class GeofenceController: UIViewController, MKMapViewDelegate {
         title = "\(latitude), \(longitude)"
     }
     public func mapView(_ mapView: MKMapView, regionWillChangeAnimated animated: Bool) {
+        self.prevRadius = radius
         ellipsisLayer.transform = CATransform3DMakeScale(0.5, 0.5, 1)
+//        ellipsisLayer.transform = CATransform3DMakeScale(CGFloat(0.5/mapView.region.span.longitudeDelta), CGFloat(0.5/mapView.region.span.longitudeDelta), 1)
+        print("WILLCHANGE: \(mapView.region.span)")
         UIView.animate(withDuration: 0.2, animations: { [weak self] in
             self?.pinView.center = CGPoint(x: self!.pinView.center.x, y: self!.pinView.center.y - 10)
             })
     }
 
     public func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
+        mapView.layer.removeAllAnimations()
+        mapView.willRemoveSubview(pinView)
+//        mapView.remove
+        
+        let oldEllipsis = ellipsisLayer
+        let scaleW = self.radius/(100 * mapView.region.span.longitudeDelta)
+        let scaleH = self.radius/(100 * mapView.region.span.longitudeDelta)
+        print("SCALING \(scaleW), \(scaleH)")
+        ellipse.apply(CGAffineTransform(scaleX: CGFloat(scaleW), y: CGFloat(scaleH)))
         ellipsisLayer.transform = CATransform3DIdentity
+        self.radius = self.prevRadius/(100 * mapView.region.span.longitudeDelta)
+        self.prevRadius = self.radius
+        mapView.addSubview(pinView)
+        mapView.layer.insertSublayer(ellipsisLayer, below: pinView.layer)
+        
+        
+//        mapView.layer.insertSublayer(ellipsisLayer, below: pinView.layer)
+//        mapView.layer.replaceSublayer(oldEllipsis, with: ellipsisLayer)
+        
+        
+        
+        print("DIDCHANGE: \(mapView.region.span)")
         UIView.animate(withDuration: 0.2, animations: { [weak self] in
             self?.pinView.center = CGPoint(x: self!.pinView.center.x, y: self!.pinView.center.y + 10)
             })
         updateTitle()
     }
     
+}
+extension String  {
+    var isNumber: Bool {
+        return !isEmpty && rangeOfCharacter(from: CharacterSet.decimalDigits.inverted) == nil
+    }
 }
