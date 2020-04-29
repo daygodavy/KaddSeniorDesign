@@ -401,7 +401,7 @@ public class MapViewController : UIViewController, TypedRowControllerType, MKMap
         return layer
         }()
 
-
+    
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }

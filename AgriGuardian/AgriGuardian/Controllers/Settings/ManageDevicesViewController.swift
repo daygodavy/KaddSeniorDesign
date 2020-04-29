@@ -14,6 +14,10 @@ import UIKit
 class ManageDevicesViewController: UITableViewController {
     
     // MARK: - Properties
+    let fbManager: FirebaseManager = FirebaseManager()
+    var user: User = User()
+    var devices: [Device] = []
+    var spinner: UIActivityIndicatorView = UIActivityIndicatorView()
 
 
     override func viewDidLoad() {
@@ -23,6 +27,8 @@ class ManageDevicesViewController: UITableViewController {
         // self.clearsSelectionOnViewWillAppear = false
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(didTapAdd))
         self.navigationItem.rightBarButtonItem = addButton
+        self.startSpinner()
+        self.loadData()
     }
 
     // MARK: - Actions
@@ -37,27 +43,50 @@ class ManageDevicesViewController: UITableViewController {
         let navController = UINavigationController(rootViewController: vc)
         self.present(navController, animated: true)
     }
+    
+    func startSpinner() {
+        self.spinner.center = self.view.center
+        self.spinner.style = .large
+        self.spinner.startAnimating()
+        self.view.addSubview(spinner)
+    }
+    
+    func loadData() {
+        fbManager.loadUserProfile { (user) in
+            self.user = user
+            print("user NAME: \(self.user.firstName)")
+            //            self.currDevice = self.loadCurrentDevice()
+            self.devices = user.getDevices()
+            self.tableView.dataSource = self
+            self.tableView.delegate = self
+            self.tableView.reloadData()
+            self.spinner.stopAnimating()
+
+        }
+    }
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 0
+        return self.devices.count
     }
 
-    /*
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ManageDeviceTableViewCell", for: indexPath) as! ManageDeviceTableViewCell
 
         // Configure the cell...
-
+        cell.backgroundColor = .systemGray5
+        cell.nameLabel.text = self.user.devices[indexPath.row].getDeviceName()
+        cell.vehicleLabel.text = self.user.devices[indexPath.row].getVehicleName()
         return cell
     }
-    */
+    
 
     /*
     // Override to support conditional editing of the table view.
@@ -104,4 +133,14 @@ class ManageDevicesViewController: UITableViewController {
     }
     */
 
+}
+
+class ManageDeviceTableViewCell: UITableViewCell {
+    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var vehicleLabel: UILabel!
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        // Initialization code
+    }
 }

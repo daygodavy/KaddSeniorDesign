@@ -53,12 +53,12 @@ class FirebaseManager {
             // get user
             getUser(uid: uid) { user in
                 currUser = user
+                // get user's devices
+                self.getDevices(uid: uid) { devices in
+                    currUser.devices = devices
+                    completion(currUser)
+                }
             }
-            // get user's devices
-            getDevices(uid: uid) { devices in
-                currUser.devices = devices
-            }
-        completion(currUser)
         }
     }
     
@@ -140,6 +140,42 @@ class FirebaseManager {
             }
         }
     }
+    
+//    // MARK: - STORING DEVICE OBJECT INTO FIREBASE
+//    func addToDevice(device: Device) {
+//        let currUID: String = Auth.auth().currentUser!.uid
+//        let gfGeoPoint: GeoPoint = GeoPoint.init(latitude: device.gfCenter.coordinate.latitude, longitude: device.gfCenter.coordinate.longitude)
+//        let ref = Firestore.firestore().collection("devices").document()
+//        ref.setData([
+//            "name" : device.name,
+//            "modelNumber" : device.modelNumber,
+//            "serialNumber" : device.serialNumber,
+//            "atvModel" : device.atvModel,
+//            "manufacturer" : device.manufacturer,
+//            "hardwareVersion" : device.hardwareVersion,
+//            "firmwareVersion" : device.firmwareVersion,
+//            "lastLocation" : "",
+//            "uid" : currUID,
+//            "devId" : ref.documentID,
+//            "rideHistory" : [],
+//            "gfToggle" : device.gfToggle,
+//            "gfRadius" : device.gfRadius,
+//            "gfCenter" : gfGeoPoint
+//        ]) { err in
+//            if let err = err {
+//                print("Error adding document: \(err)")
+//            } else {
+//                print("Document added with ID: \(ref.documentID)")
+//                self.addToUserDevice(id: ref.documentID)
+//
+//
+//
+//                self.performSegue(withIdentifier: "UnwindToDevices", sender: self)
+//
+//            }
+//        }
+//
+//    }
     
     
     // ======= SHOULD THIS INCLUDE NAME AND VEHICLE MODEL ========

@@ -59,8 +59,9 @@ class DevicesCollectionViewController: UICollectionViewController, UICollectionV
 ////            self.activityView.stopAnimating()
 //        }
 //        devices = user.getDevices()
+        print("1")
         self.loadData()
-        
+        print("2")
         
         
         self.navigationController?.navigationBar.prefersLargeTitles = true
@@ -74,8 +75,9 @@ class DevicesCollectionViewController: UICollectionViewController, UICollectionV
     }
     
     func loadData() {
-        dataManager.loadDevices_tempUser { (user) in
+        fbManager.loadUserProfile { (user) in
             self.user = user
+            print("user NAME: \(self.user.firstName)")
             //            self.currDevice = self.loadCurrentDevice()
             self.devices = user.getDevices()
             self.collectionView.dataSource = self
@@ -194,7 +196,6 @@ class DevicesCollectionViewController: UICollectionViewController, UICollectionV
         }
         self.showActivityIndicator()
         self.loadData()
-        print("UNWINDED FROM ADD DEVICE VC")
     }
 
 }

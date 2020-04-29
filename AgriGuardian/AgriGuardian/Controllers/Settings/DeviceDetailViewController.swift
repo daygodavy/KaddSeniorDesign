@@ -45,6 +45,7 @@ class DeviceDetailViewController: UITableViewController {
         navigationController?.pushViewController(vc, animated: true)
         
     }
+    
 
 
     

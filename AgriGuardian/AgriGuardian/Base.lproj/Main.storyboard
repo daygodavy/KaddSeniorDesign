@@ -781,7 +781,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="60" id="sFo-bk-wBJ">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ManageDeviceTableViewCell" rowHeight="60" id="sFo-bk-wBJ" customClass="ManageDeviceTableViewCell" customModule="AgriGuardian" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="414" height="60"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="sFo-bk-wBJ" id="fHn-J9-ZIG">
@@ -827,6 +827,10 @@
                                         <constraint firstAttribute="trailing" secondItem="DSx-TI-Tlj" secondAttribute="trailing" constant="20" id="zTI-FW-cBz"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="nameLabel" destination="Arh-re-hg7" id="H39-NW-TBE"/>
+                                    <outlet property="vehicleLabel" destination="Zk0-N7-OfY" id="Rwl-SU-xFP"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
