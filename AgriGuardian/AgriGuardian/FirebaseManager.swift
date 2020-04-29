@@ -123,6 +123,25 @@ class FirebaseManager {
     }
     
     
+    
+    func setAccountInfo(firstName: String, lastName: String, phoneNum: String) {
+        if let uid = Auth.auth().currentUser?.uid {
+            ref = db.collection("users").document(uid)
+            ref?.updateData([
+                "firstName" : firstName,
+                "lastName" : lastName,
+                "phoneNumber" : phoneNum
+            ]) { err in
+                if let err = err {
+                    print("Error adding document: \(err)")
+                } else {
+                    print("Document updated with ID: \(self.ref!.documentID)")
+                }
+            }
+        }
+    }
+    
+    
     // ======= SHOULD THIS INCLUDE NAME AND VEHICLE MODEL ========
     func setCurrDevice(currDev: String) {
         ref = db.collection("users").document(Auth.auth().currentUser!.uid)

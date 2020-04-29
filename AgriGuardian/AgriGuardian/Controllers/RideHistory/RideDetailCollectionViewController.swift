@@ -249,11 +249,7 @@ extension RideDetailCollectionViewController: MapCellDelegate {
         let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = mainStoryboard.instantiateViewController(withIdentifier: "RideMapView") as! RideMapViewController
         vc.title = "Map View"
-//        mapCell.ride = thisRide // DOESNT WORK OR THISRIDE IS EMPTY
-//        mapCell.locations = self.locationPoints
-//        mapCell.mapDelegate = self
-//
-//        mapCell.loadRoute(coords: locationPoints, miles: Double(thisRide.getMileage())! as! Double)
+        
         vc.ride = thisRide
         vc.locations = self.locationPoints
         vc.miles = Double(thisRide.getMileage()) as! Double

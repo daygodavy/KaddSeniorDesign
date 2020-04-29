@@ -63,8 +63,8 @@ class MainTabBarController: UITabBarController {
                         historyVC.currDevice = self.chosenDevice
                         historyVC.user = self.user
                         
-//                        settingVC.currDevice = self.chosenDevice
-//                        settingVC.user = self.user
+                        settingVC.currDevice = self.chosenDevice
+                        settingVC.user = self.user
                         
                         let tabBarList = [homeNC, historyNC, settingsNC]
                         self.viewControllers = tabBarList

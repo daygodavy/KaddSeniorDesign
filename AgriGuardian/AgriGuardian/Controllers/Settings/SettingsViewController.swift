@@ -9,6 +9,8 @@
 import UIKit
 
 class SettingsViewController: UITableViewController {
+    var currDevice: Device = Device()
+    var user: User = User()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -86,6 +88,7 @@ class SettingsViewController: UITableViewController {
         let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = mainStoryboard.instantiateViewController(withIdentifier: "AccountView") as! AccountViewController
         vc.title = "Account Info"
+        vc.user = self.user // DO I NEED THIS
         navigationController?.pushViewController(vc, animated: true)
     }
     private func segueToDevicesView() {

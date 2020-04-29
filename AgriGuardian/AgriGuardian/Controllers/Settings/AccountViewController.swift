@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 class AccountViewController: UITableViewController {
     
@@ -19,13 +20,19 @@ class AccountViewController: UITableViewController {
     @IBOutlet weak var emailTF: UITextField!
     @IBOutlet weak var phoneTF: UITextField!
     
-    
+    var user: User = User()
+    let fbManager = FirebaseManager()
+    let loadSignal: UIActivityIndicatorView = UIActivityIndicatorView()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.delegate = self
         tableView.dataSource = self
-        setupView()
+        self.loadSignal.startAnimating()
+        self.setupView()
+        self.loadAcctInfo {
+            self.loadSignal.stopAnimating()
+        }
 
     }
     fileprivate func disableTextfields() {
@@ -43,6 +50,7 @@ class AccountViewController: UITableViewController {
         lastNameTF.isEnabled = true
         emailTF.isEnabled = true
         phoneTF.isEnabled = true
+        phoneTF.keyboardType = .numberPad
         tableView.reloadData()
 
     }
@@ -51,12 +59,14 @@ class AccountViewController: UITableViewController {
         let button = UIBarButtonItem(title: "Edit", style: .plain, target: self, action:  #selector(didTapEdit))
         self.navigationItem.rightBarButtonItem = button
         disableTextfields()
-
     }
     @objc fileprivate func didTapEdit() {
         if (isEditing) {
             disableTextfields()
             self.navigationItem.rightBarButtonItem?.title = "Edit"
+            
+            // save fields to firebase
+            self.saveAcctInfo()
 
         } else {
             enableTextfields()
@@ -64,6 +74,37 @@ class AccountViewController: UITableViewController {
         }
 
     }
+    
+    func loadAcctInfo(completion: @escaping () -> Void) {
+        fbManager.getUser(uid: user.uid) { curruser in
+            print("GOT IT")
+            print(curruser.uid)
+            self.user = curruser
+            self.firstNameTF.text = self.user.firstName
+            self.lastNameTF.text = self.user.lastName
+            self.phoneTF.text = self.user.phoneNumber
+            self.emailTF.text = self.user.emailAddress
+            self.tableView.reloadData()
+        }
+    }
+    
+    func saveAcctInfo() {
+//        if let fn = firstNameTF.text, ln = lastNameTF.text, email = emailTF.text, pn = phoneTF.text {
+//
+//        }
+        // save to fire base
+        if let fn = firstNameTF.text, let ln = lastNameTF.text, let pn = phoneTF.text {
+            fbManager.setAccountInfo(firstName: fn, lastName: ln, phoneNum: pn)
+        }
+        
+        // store locally
+        // ...
+        self.loadAcctInfo {
+            self.tableView.reloadData()
+        }
+    }
+    
+    
     // removes red editing icon
     override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
         return .none
