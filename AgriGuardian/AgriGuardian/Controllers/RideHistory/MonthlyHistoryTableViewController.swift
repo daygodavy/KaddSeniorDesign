@@ -10,6 +10,8 @@ import UIKit
 
 class MonthlyHistoryTableViewController: UITableViewController {
     var thisRideMonth = RideMonth()
+    var device: Device = Device()
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,6 +47,12 @@ class MonthlyHistoryTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "RideCell") as! RideTableViewCell
+//        cell.vehicleNameLabel = thisRideMonth.rides[indexPath.row].
+        cell.vehicleNameLabel.text = self.device.getVehicleName()
+        cell.deviceNameLabel.text = self.device.getDeviceName()
+        cell.dateLabel.text = self.thisRideMonth.rides[indexPath.row].getDate()
+        cell.mileageLabel.text = self.thisRideMonth.rides[indexPath.row].getMileage()
+        
         
         return cell
     }

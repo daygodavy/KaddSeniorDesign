@@ -49,6 +49,10 @@ class DeviceDetailViewController: UITableViewController, CLLocationManagerDelega
         }
     }
     fileprivate func setupView() {
+        self.geofenceToggle.isOn = false
+        self.deviceNameLabel.text = ""
+        self.vehicleModelLabel.text = ""
+        
         if (!isNew) {
             self.navigationItem.rightBarButtonItem = self.editButtonItem
             self.submitButton.setTitle("Save", for: .normal)
@@ -216,6 +220,7 @@ public class GeofenceController: UIViewController, MKMapViewDelegate {
         mapView.layer.removeAllAnimations()
         mapView.willRemoveSubview(pinView)
 //        mapView.remove
+//        ellipse.
         
         let oldEllipsis = ellipsisLayer
         let scaleW = self.radius/(100 * mapView.region.span.longitudeDelta)
