@@ -197,6 +197,21 @@ public class Ride {
             completion(thisCity)
         }
     }
+    func getRideDuration() -> String {
+        var finalStart: String = ""
+        var finalEnd: String = ""
+        let dateFormatterGet = DateFormatter()
+        let dateFormatterPrint = DateFormatter()
+        dateFormatterGet.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        dateFormatterPrint.dateFormat = "h:mm a"
+        let startTime = locations[0].timestamp
+        if let end = locations.last {
+            let endTime = end.timestamp
+            finalEnd = dateFormatterPrint.string(from: endTime)
+            finalStart = dateFormatterPrint.string(from: startTime)
+        }
+        return finalStart + " - " + finalEnd
+    }
     
 }
 

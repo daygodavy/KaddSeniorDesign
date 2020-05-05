@@ -13,6 +13,7 @@ import ScrollableGraphView
 class RideDetailCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
     var thisRide = Ride()
+    var thisDevice = Device()
     var locationPoints = [CLLocation]()
     
     // MARK: - Properties
@@ -130,13 +131,11 @@ class RideDetailCollectionViewController: UICollectionViewController, UICollecti
             return cell
         } else {
             let mapCell = collectionView.dequeueReusableCell(withReuseIdentifier: mapID, for: indexPath) as! RideDetailMapCVC
-            print("333333333333333333")
             mapCell.ride = thisRide // DOESNT WORK OR THISRIDE IS EMPTY
             mapCell.locations = self.locationPoints
             mapCell.mapDelegate = self
             
             mapCell.loadRoute(coords: locationPoints, miles: Double(thisRide.getMileage())! as! Double)
-            print("444444444444444444")
             
             return mapCell
         }
@@ -151,10 +150,15 @@ class RideDetailCollectionViewController: UICollectionViewController, UICollecti
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         // dequeue header
         let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerID, for: indexPath) as! RideDetailHeaderCRV
-//        header.locationLabel.text = thisRide.getRideCity()
+//        header.locationLabel.text = thisRide.getRideCity()]
         thisRide.getRideCity { thisCity in
             header.locationLabel.text = "📍 \(thisCity)"
+            header.vehicleLabel.text = self.thisDevice.getVehicleName()
+            header.deviceLabel.text = self.thisDevice.getDeviceName()
+            header.timeRangeLabel.text = self.thisRide.getRideDuration()
+            
         }
+        
         
         return header
     }

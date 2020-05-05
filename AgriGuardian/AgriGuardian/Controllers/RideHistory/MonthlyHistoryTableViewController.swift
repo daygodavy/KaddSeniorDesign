@@ -60,6 +60,7 @@ class MonthlyHistoryTableViewController: UITableViewController {
         let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = mainStoryboard.instantiateViewController(withIdentifier: "RideDetailView") as! RideDetailCollectionViewController
         vc.thisRide = thisRideMonth.getRide(rideIndex: indexPath.row)
+        vc.thisDevice = self.device
         vc.title = "Sec: \(indexPath.section) Row: \(indexPath.row)"
         navigationController?.pushViewController(vc, animated: true)
     }

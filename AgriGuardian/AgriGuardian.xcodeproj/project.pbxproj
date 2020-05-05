@@ -302,12 +302,12 @@
 				6662C270240E111700C622D5 /* RideTableViewCell.swift */,
 				6662C271240E111700C622D5 /* RideTableViewCell.xib */,
 				6662C272240E111700C622D5 /* RideDetailHeaderCRV.swift */,
+				6662C278240E111700C622D5 /* RideDetailHeaderCRV.xib */,
 				6662C273240E111700C622D5 /* RideDetailInfoCVC.xib */,
 				6662C274240E111700C622D5 /* MonthHistoryTableViewCell.swift */,
 				6662C275240E111700C622D5 /* MonthHistoryTableViewCell.xib */,
 				6662C276240E111700C622D5 /* RideDetailMapCVC.xib */,
 				6662C277240E111700C622D5 /* RideDetailMapCVC.swift */,
-				6662C278240E111700C622D5 /* RideDetailHeaderCRV.xib */,
 				6648BB91243BF5D40092093E /* RideGraphCVCell.swift */,
 				6648BB92243BF5D40092093E /* RideGraphCVCell.xib */,
 			);
