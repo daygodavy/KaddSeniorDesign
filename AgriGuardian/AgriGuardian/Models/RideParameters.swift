@@ -191,6 +191,9 @@ public class Ride {
             completion(thisCity)
         }
     }
+    func isSameDate(date: Date) -> Bool {
+        return self.rideDate == date
+    }
     
 }
 

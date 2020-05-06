@@ -25,6 +25,26 @@ public final class RideHistory {
     func getMonthName(yearIndex: Int, monthIndex: Int) -> String {
         return self.years[yearIndex].months[monthIndex].getMonthName()
     }
+    func getCurrentMonth() -> RideMonth {
+        let year = self.years.last
+        let months = year?.getMonths()
+        if let month = months?.last {
+            return month
+        } else {
+            return RideMonth()
+        }
+    }
+    func getPreviousMonth() -> RideMonth {
+        let year = self.years.last
+        if let months = year?.getMonths() {
+            let count = months.count
+            // minus 2 to get the second to last month in the array
+            return months[count - 2]
+        } else {
+            return RideMonth()
+        }
+    }
+    
     func getYearName(yearIndex: Int) -> String {
         return self.years[yearIndex].yearName
     }
@@ -107,6 +127,9 @@ public final class RideMonth: Equatable {
     func addRide(ride: Ride) {
         self.rides.append(ride)
     }
+    func getRides() -> [Ride] {
+        return self.rides
+    }
     
     func getMileageLabel() -> String {
         let meters = Measurement(value: self.mileage, unit: UnitLength.meters)
@@ -120,3 +143,49 @@ public final class RideMonth: Equatable {
     
 }
 
+
+    
+public final class RideWeek {
+    var week: [[Ride]]
+
+    
+    // pass in both month incase new month began during the current week
+    init(currMonth: RideMonth, prevMonth: RideMonth) {
+        
+        var week = [[Ride]]()
+        
+        var rides = currMonth.getRides()
+        rides.append(contentsOf: prevMonth.getRides())
+        
+
+        let calendar = Calendar.current
+        let today = calendar.startOfDay(for: Date())
+        let dayOfWeek = calendar.component(.weekday, from: today)
+        let weekdays = calendar.range(of: .weekday, in: .weekOfYear, for: today)!
+        let days = (weekdays.lowerBound ..< weekdays.upperBound)
+            .compactMap { calendar.date(byAdding: .day, value: $0 - dayOfWeek, to: today) }
+            .filter { today >= $0 } // not sure if this works but it should filter out all dates greater than today
+        // we now have array of days so find rides such that ride date matches the date index of days
+        // get rides with corresponding date
+
+        for j in 0..<days.count {
+            print(days[j].description)
+            
+        }
+        var dayIndex = 0;
+        for day in days {
+            for ride in rides {
+                if (ride.isSameDate(date: day)) {
+                    // do something here
+                    week[dayIndex].append(ride)
+                }
+            }
+            dayIndex += 1
+        }
+        
+        // week contains an array of ride arrays corresponding to monday, tuesday, wednesday, etc.
+        
+        self.week = week
+    }
+}
+    

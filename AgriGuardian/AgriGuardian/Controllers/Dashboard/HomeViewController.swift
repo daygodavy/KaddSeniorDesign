@@ -41,11 +41,12 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
         self.showActivityIndicator()
         self.setupNavBar()
         registerFlowLayout()
-
+  
 
         self.loadNibs()
         self.collectionView.reloadData()
         self.activityView.stopAnimating()
+    
 
     }
     
