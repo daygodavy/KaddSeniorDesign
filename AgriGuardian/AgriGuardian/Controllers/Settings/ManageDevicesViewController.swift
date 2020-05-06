@@ -28,8 +28,7 @@ class ManageDevicesViewController: UITableViewController, RefreshDataDelegate {
         // self.clearsSelectionOnViewWillAppear = false
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(didTapAdd))
         self.navigationItem.rightBarButtonItem = addButton
-        self.startSpinner()
-        self.loadData()
+        self.refreshData()
     }
 
     // MARK: - Actions

@@ -113,7 +113,6 @@ class DeviceDetailViewController: UITableViewController, CLLocationManagerDelega
             fbManager.addDevice(device: currDevice)
             viewDelegate?.refreshData()
             self.dismiss(animated: true, completion: nil)
-//            viewDelegate?.refreshData()
    
         }
         
@@ -337,30 +336,26 @@ public class GeofenceController: UIViewController, MKMapViewDelegate {
 //        self.radius = self.prevRadius/(100 * mapView.region.span.longitudeDelta)
 //        self.prevRadius = self.radius
 //
-        if mapView.region.span.longitudeDelta == 0.02 {
-            print("===========REGION UP IN HERE NOW========")
-            self.currRadius = 200
-        }
-        else {
-            var check = ((self.currDelta - self.prevDelta) * 10) + self.currRadius
-            if check < 0 {
-                self.currRadius = 200
-            }
-            else {
-                self.currRadius = ((self.currDelta - self.prevDelta) * 10) + self.currRadius
-            }
-            print("~~~~~~~~REGION DOWN IN HERE NOW~~~~~~~~~")
-        }
+//        if mapView.region.span.longitudeDelta == 0.02 {
+//            print("===========REGION UP IN HERE NOW========")
+//            self.currRadius = 200
+//        }
+//        else {
+//            var check = ((self.currDelta - self.prevDelta) * 10) + self.currRadius
+//            if check < 0 {
+//                self.currRadius = 200
+//            }
+//            else {
+//                self.currRadius = ((self.currDelta - self.prevDelta) * 10) + self.currRadius
+//            }
+//            print("~~~~~~~~REGION DOWN IN HERE NOW~~~~~~~~~")
+//        }
         print("CURR RADIUS: \(self.currRadius)")
 //        mapView.addSubview(pinView)
         print("ADDING NEXT")
         mapView.layer.insertSublayer(ellipsisLayer, below: pinView.layer)
         print("2NUM SUBVIEWS: \(mapView.subviews.count)")
         print("2NUM SUBLAYERS: \(mapView.layer.sublayers?.count)")
-
-        
-//        mapView.layer.insertSublayer(ellipsisLayer, below: pinView.layer)
-//        mapView.layer.replaceSublayer(oldEllipsis, with: ellipsisLayer)
         
 
         self.currDelta = mapView.region.span.longitudeDelta
