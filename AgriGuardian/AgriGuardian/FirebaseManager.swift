@@ -141,8 +141,8 @@ class FirebaseManager {
         }
     }
     
-//    // MARK: - STORING DEVICE OBJECT INTO FIREBASE
-//    func addToDevice(device: Device) {
+    
+//    func addDevice(device: Device, completion: @escaping () -> Void) {
 //        let currUID: String = Auth.auth().currentUser!.uid
 //        let gfGeoPoint: GeoPoint = GeoPoint.init(latitude: device.gfCenter.coordinate.latitude, longitude: device.gfCenter.coordinate.longitude)
 //        let ref = Firestore.firestore().collection("devices").document()
@@ -166,16 +166,40 @@ class FirebaseManager {
 //                print("Error adding document: \(err)")
 //            } else {
 //                print("Document added with ID: \(ref.documentID)")
-//                self.addToUserDevice(id: ref.documentID)
-//
-//
-//
-//                self.performSegue(withIdentifier: "UnwindToDevices", sender: self)
 //
 //            }
 //        }
-//
 //    }
+    
+//    // MARK: - STORING DEVICE OBJECT INTO FIREBASE
+    func addDevice(device: Device) {
+        let currUID: String = Auth.auth().currentUser!.uid
+        let gfGeoPoint: GeoPoint = GeoPoint.init(latitude: device.gfCenter.coordinate.latitude, longitude: device.gfCenter.coordinate.longitude)
+        let ref = Firestore.firestore().collection("devices").document()
+        ref.setData([
+            "name" : device.name,
+            "modelNumber" : device.modelNumber,
+            "serialNumber" : device.serialNumber,
+            "atvModel" : device.atvModel,
+            "manufacturer" : device.manufacturer,
+            "hardwareVersion" : device.hardwareVersion,
+            "firmwareVersion" : device.firmwareVersion,
+            "lastLocation" : "",
+            "uid" : currUID,
+            "devId" : ref.documentID,
+            "rideHistory" : [],
+            "gfToggle" : device.gfToggle,
+            "gfRadius" : device.gfRadius,
+            "gfCenter" : gfGeoPoint
+        ]) { err in
+            if let err = err {
+                print("Error adding document: \(err)")
+            } else {
+                print("Document added with ID: \(ref.documentID)")
+
+            }
+        }
+    }
     
     
     // ======= SHOULD THIS INCLUDE NAME AND VEHICLE MODEL ========
