@@ -305,12 +305,12 @@
 				6662C270240E111700C622D5 /* RideTableViewCell.swift */,
 				6662C271240E111700C622D5 /* RideTableViewCell.xib */,
 				6662C272240E111700C622D5 /* RideDetailHeaderCRV.swift */,
+				6662C278240E111700C622D5 /* RideDetailHeaderCRV.xib */,
 				6662C273240E111700C622D5 /* RideDetailInfoCVC.xib */,
 				6662C274240E111700C622D5 /* MonthHistoryTableViewCell.swift */,
 				6662C275240E111700C622D5 /* MonthHistoryTableViewCell.xib */,
 				6662C276240E111700C622D5 /* RideDetailMapCVC.xib */,
 				6662C277240E111700C622D5 /* RideDetailMapCVC.swift */,
-				6662C278240E111700C622D5 /* RideDetailHeaderCRV.xib */,
 				6648BB91243BF5D40092093E /* RideGraphCVCell.swift */,
 				6648BB92243BF5D40092093E /* RideGraphCVCell.xib */,
 			);
@@ -387,10 +387,10 @@
 		66946A6724109D1200800E0B /* Settings */ = {
 			isa = PBXGroup;
 			children = (
-				5BFBC69A2458B9E700D0A745 /* DeviceDetailViewController.swift */,
 				66946A6824109D7F00800E0B /* SettingsViewController.swift */,
 				666CC513244FDAE500222841 /* AccountViewController.swift */,
 				666CC515244FE26800222841 /* ManageDevicesViewController.swift */,
+				5BFBC69A2458B9E700D0A745 /* DeviceDetailViewController.swift */,
 				669338B12455048500612DD2 /* DataPullViewController.swift */,
 			);
 			path = Settings;

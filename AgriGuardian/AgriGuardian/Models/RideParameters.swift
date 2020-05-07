@@ -142,6 +142,12 @@ public class Ride {
     func setDate(date: Date) {
         self.rideDate = date
     }
+    func getDate() -> String {
+        let df = DateFormatter()
+        df.dateFormat = "yyyy-MM-dd hh:mm:ss"
+        let now = df.string(from: self.rideDate)
+        return now
+    }
     func printDate() {
         print(self.rideDate.description)
     }
@@ -191,8 +197,26 @@ public class Ride {
             completion(thisCity)
         }
     }
+
     func isSameDate(date: Date) -> Bool {
         return self.rideDate == date
+    }
+
+    func getRideDuration() -> String {
+        var finalStart: String = ""
+        var finalEnd: String = ""
+        let dateFormatterGet = DateFormatter()
+        let dateFormatterPrint = DateFormatter()
+        dateFormatterGet.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        dateFormatterPrint.dateFormat = "h:mm a"
+        let startTime = locations[0].timestamp
+        if let end = locations.last {
+            let endTime = end.timestamp
+            finalEnd = dateFormatterPrint.string(from: endTime)
+            finalStart = dateFormatterPrint.string(from: startTime)
+        }
+        return finalStart + " - " + finalEnd
+
     }
     
 }

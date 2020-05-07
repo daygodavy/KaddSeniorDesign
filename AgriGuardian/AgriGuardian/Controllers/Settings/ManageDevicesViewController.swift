@@ -11,7 +11,8 @@
 
 import UIKit
 
-class ManageDevicesViewController: UITableViewController {
+
+class ManageDevicesViewController: UITableViewController, RefreshDataDelegate {
     
     // MARK: - Properties
     let fbManager: FirebaseManager = FirebaseManager()
@@ -27,8 +28,7 @@ class ManageDevicesViewController: UITableViewController {
         // self.clearsSelectionOnViewWillAppear = false
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(didTapAdd))
         self.navigationItem.rightBarButtonItem = addButton
-        self.startSpinner()
-        self.loadData()
+        self.refreshData()
     }
 
     // MARK: - Actions
@@ -39,6 +39,7 @@ class ManageDevicesViewController: UITableViewController {
         vc.title = "New Device"
         vc.thisDevice = Device()
         vc.isNew = true
+        vc.viewDelegate = self
         
         let navController = UINavigationController(rootViewController: vc)
         self.present(navController, animated: true)
@@ -54,7 +55,6 @@ class ManageDevicesViewController: UITableViewController {
     func loadData() {
         fbManager.loadUserProfile { (user) in
             self.user = user
-            print("user NAME: \(self.user.firstName)")
             //            self.currDevice = self.loadCurrentDevice()
             self.devices = user.getDevices()
             self.tableView.dataSource = self
@@ -64,6 +64,13 @@ class ManageDevicesViewController: UITableViewController {
 
         }
     }
+    
+    func refreshData() {
+        self.startSpinner()
+        self.loadData()
+    }
+    
+    
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
