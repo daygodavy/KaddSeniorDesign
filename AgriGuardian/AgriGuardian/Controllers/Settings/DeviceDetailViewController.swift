@@ -120,26 +120,6 @@ class DeviceDetailViewController: UITableViewController, CLLocationManagerDelega
         
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        print("~~~~~~~~DISSMISSSSSEDDDD~~~~~~~~~")
-//        if let firstVC = presentingViewController as? ManageDevicesViewController {
-//            DispatchQueue.main.async {
-//                firstVC.loadData()
-//                print("loaded dataaaa")
-//                firstVC.tableView.reloadData()
-//                print("fresh table !!!!!")
-//            }
-//        }
-   
-//        let firstVC = navigationController as! ManageDevicesViewController
-//        firstVC.loadData()
-//        print("loaded dataaaa")
-//        firstVC.tableView.reloadData()
-//        print("fresh table !!!!!")
-    }
-    
-    
     
     
     @IBAction func removeButtonPressed(_ sender: Any) {
@@ -318,13 +298,19 @@ public class GeofenceController: UIViewController, MKMapViewDelegate {
         
         
         
-        
-        newEllipse = UIBezierPath(ovalIn: CGRect(x: 0, y: 0, width: CGFloat(self.radius), height: CGFloat(self.radius )))
+//        newEllipse = UIBezierPath(ovalIn: CGRect(x: 0, y: 0, width: CGFloat(self.radius), height: CGFloat(self.radius )))
         // ==================================================
         
         
         
         ellipsisLayer.path = newEllipse.cgPath
+        
+        
+//        let center = mapView.convert(mapView.centerCoordinate, toPointTo: pinView)
+//        pinView.center = CGPoint(x: center.x, y: center.y - (pinView.bounds.height/2))
+//        ellipsisLayer.position = center
+        
+        
         print("RADIUSSSSSSS: \(self.currRadius)")
         
         
@@ -350,6 +336,31 @@ public class GeofenceController: UIViewController, MKMapViewDelegate {
 //            }
 //            print("~~~~~~~~REGION DOWN IN HERE NOW~~~~~~~~~")
 //        }
+        
+        
+        
+        
+        
+//        if mapView.region.span.longitudeDelta < 0.09 {
+//            print("===========REGION UP IN HERE NOW========")
+//            self.currRadius = self.radius
+//        }
+//        else {
+//            var check = ((self.currDelta - self.prevDelta) * 10) + self.currRadius
+//            if check < 0 {
+//                self.currRadius = self.radius
+//            }
+//            else {
+//                self.currRadius = ((self.currDelta - self.prevDelta) * 10) + self.currRadius
+//            }
+//            print("~~~~~~~~REGION DOWN IN HERE NOW~~~~~~~~~")
+//        }
+        
+        
+        
+        
+        self.currRadius = self.radius
+        
         print("CURR RADIUS: \(self.currRadius)")
 //        mapView.addSubview(pinView)
         print("ADDING NEXT")
