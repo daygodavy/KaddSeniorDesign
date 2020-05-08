@@ -16,8 +16,8 @@ class StatisticsCell: UICollectionViewCell {
     @IBOutlet weak var graphView: UIView!
     @IBOutlet weak var titleLabel: UILabel!
     
-    var testData = [88.0, 26.5, 30.2, 97.3, 53.3, 10, 66.6]
-    var days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
+    var rideWeek = RideWeek()
+    var days = ["Sun","Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -52,7 +52,7 @@ class StatisticsCell: UICollectionViewCell {
 
         graphView.shouldAnimateOnStartup = true
 
-        graphView.rangeMax = 100
+        graphView.rangeMax = 5
         graphView.rangeMin = 0
 
         // Add everything
@@ -64,7 +64,7 @@ class StatisticsCell: UICollectionViewCell {
 }
 extension StatisticsCell: ScrollableGraphViewDataSource {
     func value(forPlot plot: Plot, atIndex pointIndex: Int) -> Double {
-        return testData[pointIndex]
+        return rideWeek.week[pointIndex].mileage
     }
     
     func label(atIndex pointIndex: Int) -> String {
@@ -72,7 +72,7 @@ extension StatisticsCell: ScrollableGraphViewDataSource {
     }
     
     func numberOfPoints() -> Int {
-        return days.count
+        return rideWeek.week.count
     }
     
     

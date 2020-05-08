@@ -146,13 +146,18 @@ public final class RideMonth: Equatable {
 
     
 public final class RideWeek {
-    var week: [[Ride]]
+
+    var week: [RideDay]
+    
+    init() {
+        self.week = [RideDay]()
+    }
 
     
     // pass in both month incase new month began during the current week
     init(currMonth: RideMonth, prevMonth: RideMonth) {
         
-        var week = [[Ride]]()
+        var week = [RideDay]()
         
         var rides = currMonth.getRides()
         rides.append(contentsOf: prevMonth.getRides())
@@ -174,10 +179,16 @@ public final class RideWeek {
         }
         var dayIndex = 0;
         for day in days {
+            let tempDay = RideDay()
+            week.append(tempDay)
             for ride in rides {
                 if (ride.isSameDate(date: day)) {
                     // do something here
-                    week[dayIndex].append(ride)
+                    print("match!")
+                    week[dayIndex].ride.append(ride)
+                    week[dayIndex].date = day
+                    week[dayIndex].mileage += ride.mileage
+                    print(ride.mileage)
                 }
             }
             dayIndex += 1
@@ -187,5 +198,33 @@ public final class RideWeek {
         
         self.week = week
     }
-}
     
+    func getTotalMileage() -> String {
+        var mileage = 0.0
+        for i in 0..<self.week.count {
+            for ride in self.week[i].ride {
+                mileage += ride.mileage
+            }
+        }
+        return String(format: "%.2f", mileage)
+
+    }
+    
+    func getTotalHours() -> String {
+        var hours = 0.0
+        for i in 0..<self.week.count {
+            for ride in self.week[i].ride {
+                let seconds = Measurement(value: ride.totalTime, unit: UnitDuration.seconds)
+                let tempHours = seconds.converted(to: UnitDuration.hours)
+                hours += tempHours.value
+            }
+        }
+        return String(format: "%.2f", hours)
+    }
+}
+
+final class RideDay {
+    var ride = [Ride]()
+    var mileage: Double = 0
+    var date = Date()
+}

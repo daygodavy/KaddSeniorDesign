@@ -57,6 +57,11 @@ class MonthlyHistoryTableViewController: UITableViewController {
         return cell
     }
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        let ride = thisRideMonth.getRide(rideIndex: indexPath.row)
+        print("Device ID:")
+        print(ride.devIdx)
+        
         let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = mainStoryboard.instantiateViewController(withIdentifier: "RideDetailView") as! RideDetailCollectionViewController
         vc.thisRide = thisRideMonth.getRide(rideIndex: indexPath.row)
