@@ -28,15 +28,18 @@ class StatisticsCell: UICollectionViewCell {
     func setupGraph() {
         let graphView = ScrollableGraphView(frame: self.graphView.frame, dataSource: self)
 
+
+        
         // Setup the plot
         let barPlot = BarPlot(identifier: "bar")
 
-        barPlot.barWidth = 25
+        barPlot.barWidth = 30
         barPlot.barLineWidth = 1
         barPlot.barLineColor = .gray
         barPlot.barColor = .systemGray4
         barPlot.adaptAnimationType = ScrollableGraphViewAnimationType.elastic
         barPlot.animationDuration = 1.5
+        
 
         // Setup the reference lines
         let referenceLines = ReferenceLines()
@@ -58,7 +61,14 @@ class StatisticsCell: UICollectionViewCell {
         // Add everything
         graphView.addPlot(plot: barPlot)
         graphView.addReferenceLines(referenceLines: referenceLines)
-        self.addSubview(graphView)
+        self.graphView.addSubview(graphView)
+
+//        NSLayoutConstraint.activate([
+//            graphView.leadingAnchor.constraint(equalToSystemSpacingAfter: self.leadingAnchor, multiplier: 0),
+//            graphView.trailingAnchor.constraint(equalToSystemSpacingAfter: self.trailingAnchor, multiplier: 0),
+//            graphView.topAnchor.constraint(equalToSystemSpacingAfter: self.topAnchor, multiplier: 0)
+//            ]
+//        )
     }
 
 }

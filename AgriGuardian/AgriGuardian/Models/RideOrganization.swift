@@ -132,9 +132,7 @@ public final class RideMonth: Equatable {
     }
     
     func getMileageLabel() -> String {
-        let meters = Measurement(value: self.mileage, unit: UnitLength.meters)
-        let mileage = meters.converted(to: UnitLength.miles)
-        return String(format: "%.2f", mileage.value)
+        return String(format: "%.2f", self.mileage)
     }
     
     func getTimeLabel() -> String {
@@ -220,6 +218,96 @@ public final class RideWeek {
             }
         }
         return String(format: "%.2f", hours)
+    }
+    
+    func getTotalRollovers() -> String {
+        var rolls = 0
+        for i in 0..<self.week.count {
+            for ride in self.week[i].ride {
+                if (ride.didRollover) {
+                    rolls += 1
+                }
+            }
+        }
+        return String(format: "%.2f", rolls)
+    }
+    
+    func getLastRideDate() -> String {
+        var allRides = [Ride]()
+        for i in 0..<self.week.count {
+            for ride in self.week[i].ride {
+                allRides.append(ride)
+            }
+        }
+        guard let lastRide = allRides.last else {
+            fatalError("Unnexpectedly found nil while trying to get last ride from ride week")
+        }
+        
+        let lastDate = lastRide.rideDate
+        if (lastDate == Date()) {
+            return "Today"
+        }
+        let df = DateFormatter()
+        df.dateFormat = "yyyy-MM-dd"
+        let now = df.string(from: lastDate)
+        return now
+        
+    }
+    func getDaysSinceLastRide() -> String {
+        var allRides = [Ride]()
+        for i in 0..<self.week.count {
+            for ride in self.week[i].ride {
+                allRides.append(ride)
+            }
+        }
+        guard let lastRide = allRides.last else {
+            fatalError("Unnexpectedly found nil while trying to get last ride from ride week")
+        }
+        
+        let lastDate = lastRide.rideDate
+        if (lastDate == Date()) {
+            return "Today"
+        }
+        guard let diffInDays = Calendar.current.dateComponents([.day], from: lastDate, to: Date()).day else {
+            fatalError("Unexpectedly found nil trying to get last ride date")
+        }
+        return String(diffInDays)
+
+        
+    }
+    
+    func getLastRideTime() -> String {
+        var allRides = [Ride]()
+        for i in 0..<self.week.count {
+            for ride in self.week[i].ride {
+                allRides.append(ride)
+            }
+        }
+        guard let lastRide = allRides.last else {
+            fatalError("Unexpectedly found nil while trying to get last ride from ride week")
+        }
+        
+        let totalTime = Int(lastRide.totalTime)
+        let minutes = (totalTime / 60) % 60
+        let hours = (totalTime / 3600)
+        
+        return "\(hours) hours \(minutes) minutes"
+        
+    }
+    
+    func getLastRideMileage() -> String {
+        var allRides = [Ride]()
+        for i in 0..<self.week.count {
+            for ride in self.week[i].ride {
+                allRides.append(ride)
+            }
+        }
+        guard let lastRide = allRides.last else {
+            fatalError("Unexpectedly found nil while trying to get last ride from ride week")
+        }
+        
+        let mileage = lastRide.mileage
+        return String(format: "%.2f", mileage) + " miles"
     }
 }
 

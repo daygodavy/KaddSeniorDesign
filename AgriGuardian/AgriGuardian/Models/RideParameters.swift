@@ -148,7 +148,7 @@ public class Ride {
     }
     func getDate() -> String {
         let df = DateFormatter()
-        df.dateFormat = "yyyy-MM-dd hh:mm:ss"
+        df.dateFormat = "EEEE, MMM d, yyyy"
         let now = df.string(from: self.rideDate)
         return now
     }

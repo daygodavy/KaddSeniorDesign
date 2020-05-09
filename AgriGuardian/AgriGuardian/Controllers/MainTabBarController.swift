@@ -32,9 +32,13 @@ class MainTabBarController: UITabBarController {
         settingsNC.navigationBar.prefersLargeTitles = true
         homeNC.navigationBar.prefersLargeTitles = true
         
-        homeNC.tabBarItem = UITabBarItem(title: "Home", image: nil, tag: 0)
-        historyNC.tabBarItem = UITabBarItem(title: "Rides", image: nil, tag: 1)
-        settingsNC.tabBarItem = UITabBarItem(title: "Settings", image: nil, tag: 2)
+        let settingsIcon = UIImage(systemName: "gear")
+        let ridesIcon = UIImage(systemName: "list.dash")
+        let dashIcon = UIImage(systemName: "speedometer")
+        
+        homeNC.tabBarItem = UITabBarItem(title: "Home", image: dashIcon, tag: 0)
+        historyNC.tabBarItem = UITabBarItem(title: "Rides", image: ridesIcon, tag: 1)
+        settingsNC.tabBarItem = UITabBarItem(title: "Settings", image: settingsIcon, tag: 2)
         
         
         // ========================================================================

@@ -176,6 +176,9 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if (indexPath.row == 0) {
             let lastRideCell = collectionView.dequeueReusableCell(withReuseIdentifier: lastRideId, for: indexPath) as! LastRideCell
+            lastRideCell.titleLabel.text = "Last ride, \(weeklyRides.getDaysSinceLastRide()) day's ago"
+            lastRideCell.timeLabel.text = weeklyRides.getLastRideTime()
+            lastRideCell.detailLabel.text = weeklyRides.getLastRideMileage()
             return lastRideCell
         } else if (indexPath.row == 1) {
             let statCell = collectionView.dequeueReusableCell(withReuseIdentifier: statId, for: indexPath) as! StatisticsCell
@@ -197,6 +200,7 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
         } else if (indexPath.row == 4) {
             let detCell = collectionView.dequeueReusableCell(withReuseIdentifier: detailId, for: indexPath) as! WeekDetailCell
             detCell.nameLabel.text = "Rollovers"
+            detCell.valueLabel.text = weeklyRides.getTotalRollovers()
             detCell.backgroundColor = .systemGray6
             return detCell
         }

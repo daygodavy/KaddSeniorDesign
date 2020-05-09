@@ -51,7 +51,7 @@ class MonthlyHistoryTableViewController: UITableViewController {
         cell.vehicleNameLabel.text = self.device.getVehicleName()
         cell.deviceNameLabel.text = self.device.getDeviceName()
         cell.dateLabel.text = self.thisRideMonth.rides[indexPath.row].getDate()
-        cell.mileageLabel.text = self.thisRideMonth.rides[indexPath.row].getMileage()
+        cell.mileageLabel.text = self.thisRideMonth.rides[indexPath.row].getMileage() + " MI"
         
         
         return cell
@@ -66,7 +66,7 @@ class MonthlyHistoryTableViewController: UITableViewController {
         let vc = mainStoryboard.instantiateViewController(withIdentifier: "RideDetailView") as! RideDetailCollectionViewController
         vc.thisRide = thisRideMonth.getRide(rideIndex: indexPath.row)
         vc.thisDevice = self.device
-        vc.title = "Sec: \(indexPath.section) Row: \(indexPath.row)"
+        vc.title = thisRideMonth.getRide(rideIndex: indexPath.row).getDate()
         navigationController?.pushViewController(vc, animated: true)
     }
     
