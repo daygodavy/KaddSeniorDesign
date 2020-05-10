@@ -201,6 +201,17 @@ class FirebaseManager {
         }
     }
     
+    func deleteDevice(device: Device) {
+        let ref = Firestore.firestore().collection("devices").document(device.devId)
+        ref.delete() { err in
+            if let error = err {
+                print(error)
+            } else {
+                print("Document successfully removed")
+            }
+        }
+    }
+    
     
     // ======= SHOULD THIS INCLUDE NAME AND VEHICLE MODEL ========
     func setCurrDevice(currDev: String) {

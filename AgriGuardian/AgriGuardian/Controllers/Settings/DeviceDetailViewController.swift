@@ -133,6 +133,22 @@ class DeviceDetailViewController: UITableViewController, CLLocationManagerDelega
     
     
     @IBAction func removeButtonPressed(_ sender: Any) {
+        let alert = UIAlertController(title: "Please Confirm", message: "Are you sure you want to delete this device?", preferredStyle: .alert)
+
+
+        alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { action in
+            self.fbManager.deleteDevice(device: self.thisDevice)
+            self.viewDelegate?.refreshData()
+            self.dismiss(animated: true, completion: nil)
+        }))
+        
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { action in
+            self.viewDelegate?.refreshData()
+            self.dismiss(animated: true, completion: nil)
+        }))
+
+
+        self.present(alert, animated: true)
     }
     
 
