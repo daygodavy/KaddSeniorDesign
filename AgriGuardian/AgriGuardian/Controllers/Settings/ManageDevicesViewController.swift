@@ -33,16 +33,7 @@ class ManageDevicesViewController: UITableViewController, RefreshDataDelegate {
 
     // MARK: - Actions
     @objc private func didTapAdd() {
-        let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        let vc = mainStoryboard.instantiateViewController(identifier: "DeviceDetail") as! DeviceDetailViewController
-
-        vc.title = "New Device"
-        vc.thisDevice = Device()
-        vc.isNew = true
-        vc.viewDelegate = self
-        
-        let navController = UINavigationController(rootViewController: vc)
-        self.present(navController, animated: true)
+        self.segueToDeviceDetailVC(isNewDev: true, thisDev: Device())
     }
     
     func startSpinner() {
@@ -61,13 +52,35 @@ class ManageDevicesViewController: UITableViewController, RefreshDataDelegate {
             self.tableView.delegate = self
             self.tableView.reloadData()
             self.spinner.stopAnimating()
-
         }
     }
     
     func refreshData() {
         self.startSpinner()
         self.loadData()
+    }
+    
+    func segueToDeviceDetailVC(isNewDev: Bool, thisDev: Device) {
+        let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = mainStoryboard.instantiateViewController(identifier: "DeviceDetail") as! DeviceDetailViewController
+
+        if isNewDev {
+            vc.title = "New Device"
+        }
+        else {
+            vc.title = "Edit Device"
+//            vc.deviceNameLabel.text = thisDev.name
+//            vc.vehicleModelLabel.text = thisDev.atvModel
+//            vc.geofenceToggle.isOn = thisDev.gfToggle
+//            vc.geofenceRadius.text = String(thisDev.gfRadius)
+//            vc.gfCenter = thisDev.gfCenter
+        }
+        
+        vc.thisDevice = thisDev
+        vc.isNew = isNewDev
+        vc.viewDelegate = self
+        let navController = UINavigationController(rootViewController: vc)
+        self.present(navController, animated: true)
     }
     
     
@@ -92,6 +105,11 @@ class ManageDevicesViewController: UITableViewController, RefreshDataDelegate {
         cell.nameLabel.text = self.user.devices[indexPath.row].getDeviceName()
         cell.vehicleLabel.text = self.user.devices[indexPath.row].getVehicleName()
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print("row \(indexPath.item) was pressed")
+        self.segueToDeviceDetailVC(isNewDev: false, thisDev: self.devices[indexPath.item])
     }
     
 

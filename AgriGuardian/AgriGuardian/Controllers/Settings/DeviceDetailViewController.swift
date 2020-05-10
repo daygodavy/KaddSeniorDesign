@@ -65,12 +65,22 @@ class DeviceDetailViewController: UITableViewController, CLLocationManagerDelega
         }
     }
     fileprivate func setupView() {
-        self.geofenceToggle.isOn = false
-        self.deviceNameLabel.text = ""
-        self.vehicleModelLabel.text = ""
+
+        if isNew {
+            self.geofenceToggle.isOn = false
+            self.deviceNameLabel.text = ""
+            self.vehicleModelLabel.text = ""
+        }
+        else {
+            self.geofenceToggle.isOn = thisDevice.gfToggle
+            self.deviceNameLabel.text = thisDevice.name
+            self.vehicleModelLabel.text = thisDevice.atvModel
+            self.geofenceRadius.text = String(thisDevice.gfRadius)
+            self.gfCenter = thisDevice.gfCenter
+        }
         
         if (!isNew) {
-            self.navigationItem.rightBarButtonItem = self.editButtonItem
+//            self.navigationItem.rightBarButtonItem = self.editButtonItem
             self.submitButton.setTitle("Save", for: .normal)
             self.removeButton.setTitle("Remove Device", for: .normal)
             self.removeButton.tintColor = .systemRed
@@ -102,44 +112,24 @@ class DeviceDetailViewController: UITableViewController, CLLocationManagerDelega
     @IBAction func submitButtonPressed(_ sender: Any) {
         print(self.gfCenter)
         print(self.geofenceRadius.text!)
-        
-        var currDevice: Device = Device()
-        if let devName = self.deviceNameLabel.text, !devName.isEmpty, let vehName = self.vehicleModelLabel.text, !vehName.isEmpty, let gfRad = geofenceRadius.text, geofenceRadius.text!.isNumber {
-            currDevice.name = devName
-            currDevice.atvModel = vehName
-            currDevice.gfRadius = Double(gfRad)!
-            currDevice.gfToggle = self.geofenceToggle.isOn
-            currDevice.gfCenter = self.gfCenter
-            fbManager.addDevice(device: currDevice)
+ 
+//        var currDevice: Device = Device()
+        if let devName = self.deviceNameLabel.text, !devName.isEmpty, let vehName = self.vehicleModelLabel.text, !vehName.isEmpty, let gfRad = geofenceRadius.text, geofenceRadius.text!.isnumberordouble {
+            thisDevice.name = devName
+            thisDevice.atvModel = vehName
+            thisDevice.gfRadius = Double(gfRad)!
+            thisDevice.gfToggle = self.geofenceToggle.isOn
+            thisDevice.gfCenter = self.gfCenter
+            if isNew {
+                fbManager.addDevice(device: thisDevice)
+            }
+            else {
+                fbManager.updateDevice(device: thisDevice)
+            }
             viewDelegate?.refreshData()
             self.dismiss(animated: true, completion: nil)
-   
         }
-        
-//        self.fbManager.addDevice()
-        
     }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        print("~~~~~~~~DISSMISSSSSEDDDD~~~~~~~~~")
-//        if let firstVC = presentingViewController as? ManageDevicesViewController {
-//            DispatchQueue.main.async {
-//                firstVC.loadData()
-//                print("loaded dataaaa")
-//                firstVC.tableView.reloadData()
-//                print("fresh table !!!!!")
-//            }
-//        }
-   
-//        let firstVC = navigationController as! ManageDevicesViewController
-//        firstVC.loadData()
-//        print("loaded dataaaa")
-//        firstVC.tableView.reloadData()
-//        print("fresh table !!!!!")
-    }
-    
-    
     
     
     @IBAction func removeButtonPressed(_ sender: Any) {
@@ -369,8 +359,12 @@ public class GeofenceController: UIViewController, MKMapViewDelegate {
 }
 extension String  {
     var isNumber: Bool {
-        return !isEmpty && rangeOfCharacter(from: CharacterSet.decimalDigits.inverted) == nil
+        print("CHECKING NUMBER")
+        let check = !isEmpty && rangeOfCharacter(from: CharacterSet.decimalDigits.inverted) == nil
+        print(check)
+        return check
     }
+    var isnumberordouble: Bool { return Double(self.trimmingCharacters(in: .whitespaces)) != nil }
 }
 
 extension UITextField{
