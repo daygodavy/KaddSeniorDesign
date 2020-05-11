@@ -19,7 +19,7 @@ protocol RefreshDataDelegate
     func refreshData()
 }
 
-class DeviceDetailViewController: UITableViewController, CLLocationManagerDelegate, gfDelegate {
+class DeviceDetailViewController: UITableViewController, CLLocationManagerDelegate, UITextFieldDelegate, gfDelegate {
     
     // MARK: - Properties
     var thisDevice: Device = Device()
@@ -65,7 +65,16 @@ class DeviceDetailViewController: UITableViewController, CLLocationManagerDelega
         }
     }
     fileprivate func setupView() {
-
+        deviceNameLabel.delegate = self
+        vehicleModelLabel.delegate = self
+        geofenceRadius.delegate = self
+        var endPosition = deviceNameLabel.endOfDocument
+        deviceNameLabel.selectedTextRange = deviceNameLabel.textRange(from: endPosition, to: endPosition)
+        endPosition = vehicleModelLabel.endOfDocument
+        vehicleModelLabel.selectedTextRange = vehicleModelLabel.textRange(from: endPosition, to: endPosition)
+        endPosition = geofenceRadius.endOfDocument
+        geofenceRadius.selectedTextRange = geofenceRadius.textRange(from: endPosition, to: endPosition)
+        
         if isNew {
             self.geofenceToggle.isOn = false
             self.deviceNameLabel.text = ""
@@ -150,6 +159,24 @@ class DeviceDetailViewController: UITableViewController, CLLocationManagerDelega
 
         self.present(alert, animated: true)
     }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        var endPosition = deviceNameLabel.endOfDocument
+        deviceNameLabel.selectedTextRange = deviceNameLabel.textRange(from: endPosition, to: endPosition)
+        endPosition = vehicleModelLabel.endOfDocument
+        vehicleModelLabel.selectedTextRange = vehicleModelLabel.textRange(from: endPosition, to: endPosition)
+        endPosition = geofenceRadius.endOfDocument
+        geofenceRadius.selectedTextRange = geofenceRadius.textRange(from: endPosition, to: endPosition)
+        if textField == deviceNameLabel {
+            print("pressed1")
+
+        } else if textField == vehicleModelLabel {
+            print("pressed2")
+        } else if textField == geofenceRadius {
+            print("pressed3")
+        }
+    }
+
     
 
     

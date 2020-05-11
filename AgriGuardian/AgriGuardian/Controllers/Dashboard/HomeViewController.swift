@@ -129,8 +129,12 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
         catch {
             print("ERROR ON AUTH SIGNOUT")
         }
-        GIDSignIn.sharedInstance().signOut()
-        
+        if let providerId = Auth.auth().currentUser?.providerData.first?.providerID, providerId == "apple.com" {
+            // Clear saved user ID
+            UserDefaults.standard.set(nil, forKey: "appleAuthorizedUserIdKey")
+        } else {
+            GIDSignIn.sharedInstance().signOut()
+        }
         self.goToHome()
     }
     
@@ -146,8 +150,9 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
     
     // ====TEMPORARY====: segue programatically (no unwind segue?)
     fileprivate func goToHome() {
+        let onboardStoryboard = UIStoryboard(name: "Onboarding", bundle: nil)
         
-        let loginViewController = self.storyboard?.instantiateViewController(withIdentifier: "LoginViewController") as? LoginViewController
+        let loginViewController = onboardStoryboard.instantiateViewController(withIdentifier: "InitialLoginViewController") as? InitialLoginViewController
 
         self.view.window?.rootViewController = loginViewController
         self.view.window?.makeKeyAndVisible()

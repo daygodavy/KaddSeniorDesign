@@ -32,6 +32,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                 self.window!.rootViewController = initialVC
                 self.window!.makeKeyAndVisible()
             }
+        } else {
+            let storyBoard = UIStoryboard(name: "Onboarding", bundle: nil)
+            let secondVC = storyBoard.instantiateViewController(withIdentifier: "InitialLoginViewController") as! InitialLoginViewController
+            self.window?.rootViewController = secondVC
         }
     }
 
