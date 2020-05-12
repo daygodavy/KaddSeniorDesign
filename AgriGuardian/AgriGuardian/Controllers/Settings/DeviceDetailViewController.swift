@@ -314,8 +314,8 @@ public class GeofenceController: UIViewController, MKMapViewDelegate {
     }
     public func mapView(_ mapView: MKMapView, regionWillChangeAnimated animated: Bool) {
         self.prevRadius = radius
-        ellipsisLayer.transform = CATransform3DMakeScale(0.5, 0.5, 1)
-//        ellipsisLayer.transform = CATransform3DMakeScale(CGFloat(0.5/mapView.region.span.longitudeDelta), CGFloat(0.5/mapView.region.span.longitudeDelta), 1)
+//        ellipsisLayer.transform = CATransform3DMakeScale(0.5, 0.5, 1)
+        
         print("WILLCHANGE: \(mapView.region.span)")
         UIView.animate(withDuration: 0.2, animations: { [weak self] in
             self?.pinView.center = CGPoint(x: self!.pinView.center.x, y: self!.pinView.center.y - 10)
@@ -324,79 +324,55 @@ public class GeofenceController: UIViewController, MKMapViewDelegate {
     }
 
     public func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
-        print("===========================================================")
-        print("3NUM SUBVIEWS: \(mapView.subviews.count)")
-        print("3NUM SUBLAYERS: \(mapView.layer.sublayers?.count)")
+        self.currDelta = mapView.region.span.longitudeDelta
         mapView.layer.removeAllAnimations()
         mapView.willRemoveSubview(pinView)
-//        mapView.subviews = mapView.subviews.dropLast()
-//        pinView.removeFromSuperview()
         ellipsisLayer.removeFromSuperlayer()
-        print("1NUM SUBVIEWS: \(mapView.subviews.count)")
-        print("1NUM SUBLAYERS: \(mapView.layer.sublayers?.count)")
-        
-//        mapView.remove
-//        ellipse.
-        
-        let oldEllipsis = ellipsisLayer
-        let scaleW = self.radius/(100 * mapView.region.span.longitudeDelta)
-        let scaleH = self.radius/(100 * mapView.region.span.longitudeDelta)
-        self.width = CGFloat(scaleW)
-        self.height = CGFloat(scaleH)
+
         
         
         // ==================================================
-//        ellipsisLayer.bounds = CGRect(x: 0, y: 0, width: self.width, height: self.height)
-        var newEllipse = UIBezierPath(ovalIn: CGRect(x: 0, y: 0, width: CGFloat(self.currRadius), height: CGFloat(self.currRadius )))
-        
-        
-        
-        
-        newEllipse = UIBezierPath(ovalIn: CGRect(x: 0, y: 0, width: CGFloat(self.radius), height: CGFloat(self.radius )))
+
+
+        var newEllipse = UIBezierPath(ovalIn: CGRect(x: 0, y: 0, width: CGFloat(self.radius), height: CGFloat(self.radius )))
+        print("***************************************")
+        print(newEllipse.currentPoint)
+        print(pinView.center)
+        print("***************************************")
         // ==================================================
         
         
         
         ellipsisLayer.path = newEllipse.cgPath
-        print("RADIUSSSSSSS: \(self.currRadius)")
-        
-        
-        print("SCALING \(scaleW), \(scaleH)")
-//        ellipse.apply(CGAffineTransform(scaleX: CGFloat(9999), y: CGFloat(9999)))
         ellipsisLayer.transform = CATransform3DIdentity
-
-        print("PREV RADIUS: \(self.radius)")
-//        self.radius = self.prevRadius/(100 * mapView.region.span.longitudeDelta)
-//        self.prevRadius = self.radius
-//
-//        if mapView.region.span.longitudeDelta == 0.02 {
-//            print("===========REGION UP IN HERE NOW========")
-//            self.currRadius = 200
-//        }
-//        else {
-//            var check = ((self.currDelta - self.prevDelta) * 10) + self.currRadius
-//            if check < 0 {
-//                self.currRadius = 200
-//            }
-//            else {
-//                self.currRadius = ((self.currDelta - self.prevDelta) * 10) + self.currRadius
-//            }
-//            print("~~~~~~~~REGION DOWN IN HERE NOW~~~~~~~~~")
-//        }
-        print("CURR RADIUS: \(self.currRadius)")
-//        mapView.addSubview(pinView)
-        print("ADDING NEXT")
-        mapView.layer.insertSublayer(ellipsisLayer, below: pinView.layer)
-        print("2NUM SUBVIEWS: \(mapView.subviews.count)")
-        print("2NUM SUBLAYERS: \(mapView.layer.sublayers?.count)")
+        
+        let rescaleFactor = (self.currDelta - self.prevDelta)
+        print(self.currDelta)
+        print(self.prevDelta)
+        print(rescaleFactor)
+        ellipsisLayer.transform = CATransform3DMakeScale(CGFloat(1-rescaleFactor), CGFloat(1-rescaleFactor), CGFloat(1-rescaleFactor))
+        if self.currDelta > 0.19 && self.currDelta < 0.3 {
+            print("FAILFAILFAILFAILFAILFAILFAIL")
+            ellipsisLayer.transform = CATransform3DIdentity
+        }
         
 
-        self.currDelta = mapView.region.span.longitudeDelta
+        mapView.layer.insertSublayer(ellipsisLayer, below: pinView.layer)
+
+        
+
+
         print("DIDCHANGE: \(mapView.region.span)")
+        if mapView.region.span.longitudeDelta < 0.03 {
+            print("TIME TO GOOOO JREPWFJEOPWFJEOPWFJOPEWJFEOPWFJ")
+        }
         UIView.animate(withDuration: 0.2, animations: { [weak self] in
             self?.pinView.center = CGPoint(x: self!.pinView.center.x, y: self!.pinView.center.y + 10)
             })
         updateTitle()
+        print("currLD - prevLD = \(self.currDelta - self.prevDelta)")
+        print("currLD / prevLD = \(self.currDelta / self.prevDelta)")
+        print("prevLD / currLD = \(self.prevDelta / self.currDelta)")
     }
     
 }
