@@ -25,7 +25,7 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
     var user = User()
     var dataManager = DataManager()
     var fbManager = FirebaseManager()
-    
+    var weeklyRides = RideWeek()
     var ref: DocumentReference? = nil
     let db = Firestore.firestore()
     
@@ -46,6 +46,13 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
         self.loadNibs()
         self.collectionView.reloadData()
         self.activityView.stopAnimating()
+        
+        let rideHistory = currDevice.rideHistory
+        let currMonth = rideHistory.getCurrentMonth()
+        let prevMonth = rideHistory.getPreviousMonth()
+        
+        weeklyRides = RideWeek(currMonth: currMonth, prevMonth: prevMonth)
+        print("success")
     
 
     }
@@ -181,16 +188,35 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if (indexPath.row == 0) {
             let lastRideCell = collectionView.dequeueReusableCell(withReuseIdentifier: lastRideId, for: indexPath) as! LastRideCell
+            lastRideCell.titleLabel.text = "Last ride, \(weeklyRides.getDaysSinceLastRide()) day's ago"
+            lastRideCell.timeLabel.text = weeklyRides.getLastRideTime()
+            lastRideCell.detailLabel.text = weeklyRides.getLastRideMileage()
             return lastRideCell
         } else if (indexPath.row == 1) {
             let statCell = collectionView.dequeueReusableCell(withReuseIdentifier: statId, for: indexPath) as! StatisticsCell
+            statCell.rideWeek = weeklyRides
             statCell.backgroundColor = .systemGray6
             return statCell
-        } else if (indexPath.row == 2 || indexPath.row == 3 || indexPath.row == 4) {
+        } else if (indexPath.row == 2){
             let detCell = collectionView.dequeueReusableCell(withReuseIdentifier: detailId, for: indexPath) as! WeekDetailCell
             detCell.backgroundColor = .systemGray6
+            detCell.nameLabel.text = "Miles"
+            detCell.valueLabel.text = weeklyRides.getTotalMileage()
             return detCell
-        } else if (indexPath.row == 5) {
+        } else if (indexPath.row == 3) {
+            let detCell = collectionView.dequeueReusableCell(withReuseIdentifier: detailId, for: indexPath) as! WeekDetailCell
+            detCell.nameLabel.text = "Hours"
+            detCell.valueLabel.text = weeklyRides.getTotalHours()
+            detCell.backgroundColor = .systemGray6
+            return detCell
+        } else if (indexPath.row == 4) {
+            let detCell = collectionView.dequeueReusableCell(withReuseIdentifier: detailId, for: indexPath) as! WeekDetailCell
+            detCell.nameLabel.text = "Rollovers"
+            detCell.valueLabel.text = weeklyRides.getTotalRollovers()
+            detCell.backgroundColor = .systemGray6
+            return detCell
+        }
+        else if (indexPath.row == 5) {
             let locoCell = collectionView.dequeueReusableCell(withReuseIdentifier: locationId, for: indexPath) as! LastLocationCell
             locoCell.backgroundColor = .systemGray6
             return locoCell

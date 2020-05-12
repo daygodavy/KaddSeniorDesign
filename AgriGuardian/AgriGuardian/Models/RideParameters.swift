@@ -73,7 +73,11 @@ public class Ride {
             prevPoint = currLocation
         }
         
-    
+        // convert meters to miles
+        let meters = Measurement(value: self.mileage, unit: UnitLength.meters)
+        let mileage = meters.converted(to: UnitLength.miles)
+        self.mileage = mileage.value
+        
         self.devIdx = data["index"] as! Int
         self.devId = data["dev_id"] as! String
         self.didRollover = data["did_rollover"] as! Bool
@@ -144,7 +148,7 @@ public class Ride {
     }
     func getDate() -> String {
         let df = DateFormatter()
-        df.dateFormat = "yyyy-MM-dd hh:mm:ss"
+        df.dateFormat = "EEEE, MMM d, yyyy"
         let now = df.string(from: self.rideDate)
         return now
     }
@@ -155,15 +159,13 @@ public class Ride {
         return self.totalTime.stringFromTimeInterval()
     }
     func getMileage() -> String {
-        let meters = Measurement(value: self.mileage, unit: UnitLength.meters)
-        let mileage = meters.converted(to: UnitLength.miles)
-        return String(format: "%.2f", mileage.value)
+        return String(format: "%.2f", self.mileage)
     }
     func getTopSpeed() -> String {
         let points = self.locations
         let topSpeedLoco = points.max { a, b in a.speed < b.speed }
         if let topSpeed =  topSpeedLoco?.speed {
-            let mps = Measurement(value: topSpeed, unit: UnitSpeed.metersPerSecond)
+            let mps = Measurement(value: topSpeed, unit: UnitSpeed.kilometersPerHour)
             let mph = mps.converted(to: UnitSpeed.milesPerHour)
             return String(format: "%.2f", mph.value)
         } else {
@@ -177,7 +179,7 @@ public class Ride {
             sum += speed
         }
         let avg = sum / Double(self.locations.count)
-        let mps = Measurement(value: avg, unit: UnitSpeed.metersPerSecond)
+        let mps = Measurement(value: avg, unit: UnitSpeed.kilometersPerHour)
         let mph = mps.converted(to: UnitSpeed.milesPerHour)
         return String(format: "%.2f", mph.value)
     }
@@ -199,7 +201,7 @@ public class Ride {
     }
 
     func isSameDate(date: Date) -> Bool {
-        return self.rideDate == date
+        return Calendar.current.isDate(self.rideDate, inSameDayAs: date)
     }
 
     func getRideDuration() -> String {

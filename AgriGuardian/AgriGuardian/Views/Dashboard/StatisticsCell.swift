@@ -16,8 +16,8 @@ class StatisticsCell: UICollectionViewCell {
     @IBOutlet weak var graphView: UIView!
     @IBOutlet weak var titleLabel: UILabel!
     
-    var testData = [88.0, 26.5, 30.2, 97.3, 53.3, 10, 66.6]
-    var days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
+    var rideWeek = RideWeek()
+    var days = ["Sun","Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -28,15 +28,18 @@ class StatisticsCell: UICollectionViewCell {
     func setupGraph() {
         let graphView = ScrollableGraphView(frame: self.graphView.frame, dataSource: self)
 
+
+        
         // Setup the plot
         let barPlot = BarPlot(identifier: "bar")
 
-        barPlot.barWidth = 25
+        barPlot.barWidth = 30
         barPlot.barLineWidth = 1
         barPlot.barLineColor = .gray
         barPlot.barColor = .systemGray4
         barPlot.adaptAnimationType = ScrollableGraphViewAnimationType.elastic
         barPlot.animationDuration = 1.5
+        
 
         // Setup the reference lines
         let referenceLines = ReferenceLines()
@@ -52,19 +55,26 @@ class StatisticsCell: UICollectionViewCell {
 
         graphView.shouldAnimateOnStartup = true
 
-        graphView.rangeMax = 100
+        graphView.rangeMax = 5
         graphView.rangeMin = 0
 
         // Add everything
         graphView.addPlot(plot: barPlot)
         graphView.addReferenceLines(referenceLines: referenceLines)
-        self.addSubview(graphView)
+        self.graphView.addSubview(graphView)
+
+//        NSLayoutConstraint.activate([
+//            graphView.leadingAnchor.constraint(equalToSystemSpacingAfter: self.leadingAnchor, multiplier: 0),
+//            graphView.trailingAnchor.constraint(equalToSystemSpacingAfter: self.trailingAnchor, multiplier: 0),
+//            graphView.topAnchor.constraint(equalToSystemSpacingAfter: self.topAnchor, multiplier: 0)
+//            ]
+//        )
     }
 
 }
 extension StatisticsCell: ScrollableGraphViewDataSource {
     func value(forPlot plot: Plot, atIndex pointIndex: Int) -> Double {
-        return testData[pointIndex]
+        return rideWeek.week[pointIndex].mileage
     }
     
     func label(atIndex pointIndex: Int) -> String {
@@ -72,7 +82,7 @@ extension StatisticsCell: ScrollableGraphViewDataSource {
     }
     
     func numberOfPoints() -> Int {
-        return days.count
+        return rideWeek.week.count
     }
     
     

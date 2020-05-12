@@ -56,11 +56,11 @@ class YearlyHistoryTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MonthCell") as! MonthHistoryTableViewCell
-        cell.monthLabel.text! = "\(rideHistory.getMonthName(yearIndex: self.sectionIdx, monthIndex: indexPath.item)): "
-        cell.rideCountLabel.text! = "Rides -  \(String(rideHistory.years[self.sectionIdx].months[indexPath.item].rides.count))"
+        cell.monthLabel.text! = "\(rideHistory.getMonthName(yearIndex: self.sectionIdx, monthIndex: indexPath.item))"
+        cell.rideCountLabel.text! = "\(String(rideHistory.years[self.sectionIdx].months[indexPath.item].rides.count))"
         cell.timeLabel.text! = rideHistory.years[self.sectionIdx].months[indexPath.item].getTimeLabel()
         cell.mileageLabel.text! = rideHistory.years[self.sectionIdx].months[indexPath.item].getMileageLabel()
-        cell.incidentLabel.text! = String(rideHistory.years[self.sectionIdx].months[indexPath.item].rollovers)
+
         return cell
     }
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
