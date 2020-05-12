@@ -93,6 +93,7 @@ class InitialLoginViewController: UIViewController, GIDSignInDelegate, ASAuthori
                         // if user doesn't exist, create in db
                         if check == false{
                             self.fbManager.createUser(email: email, uid: uid)
+                            self.navigateToNewAcct()
                         }
                         self.navigateToHome()
                     }
@@ -150,12 +151,21 @@ class InitialLoginViewController: UIViewController, GIDSignInDelegate, ASAuthori
     }
     
     
-    
     func navigateToHome() {
         // TODO:
-        let MainTabBarVC = self.storyboard?.instantiateViewController(withIdentifier: "MainTabBarController") as? MainTabBarController
+        let thisStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let MainTabBarVC = thisStoryboard.instantiateViewController(withIdentifier: "MainTabBarController") as? MainTabBarController
         
         self.view.window?.rootViewController = MainTabBarVC
+        self.view.window?.makeKeyAndVisible()
+    }
+    
+    
+    func navigateToNewAcct() {
+        let thisStoryboard = UIStoryboard(name: "Onboarding", bundle: nil)
+        let newAcctVC = thisStoryboard.instantiateViewController(withIdentifier: "IntroAccountInfoViewController") as? IntroAccountInfoViewController
+        
+        self.view.window?.rootViewController = newAcctVC
         self.view.window?.makeKeyAndVisible()
     }
     
@@ -194,10 +204,11 @@ class InitialLoginViewController: UIViewController, GIDSignInDelegate, ASAuthori
             Auth.auth().signIn(with: firebaseCredential) { (authResult, error) in
                 
                 if let error = error {
+                    print("0================")
                     print(error.localizedDescription)
                     return
                 }
-                
+                print("1================")
                 // Mak a request to set user's display name on Firebase
                 let changeRequest = authResult?.user.createProfileChangeRequest()
                 changeRequest?.displayName = appleIDCredential.fullName?.givenName
@@ -205,14 +216,33 @@ class InitialLoginViewController: UIViewController, GIDSignInDelegate, ASAuthori
 
                     if let error = error {
                         print(error.localizedDescription)
+                        print("2================")
                     } else {
-                        print("Updated display name: \(Auth.auth().currentUser!.displayName!)")
+                        print("Updated display name: \(Auth.auth().currentUser?.displayName)")
+                        print("3================")
                     }
+                    print("4================")
                 })
+                if let uid = Auth.auth().currentUser?.uid, let email = Auth.auth().currentUser?.email {
+                    
+                    
+                    // check if user exists
+                    self.fbManager.checkUser { check in
+                        // if user doesn't exist, create in db
+                        if check == false{
+                            self.fbManager.createUser(email: email, uid: uid)
+                            self.navigateToNewAcct()
+                        }
+                        self.navigateToHome()
+                    }
+                    
+                }
             }
-            
+            print("5================")
         }
     }
+    
+    
     
     
     /*
@@ -225,4 +255,48 @@ class InitialLoginViewController: UIViewController, GIDSignInDelegate, ASAuthori
      }
      */
     
+}
+
+
+extension String  {
+    var isNumber: Bool {
+        print("CHECKING NUMBER")
+        let check = !isEmpty && rangeOfCharacter(from: CharacterSet.decimalDigits.inverted) == nil
+        print(check)
+        return check
+    }
+    var isnumberordouble: Bool { return Double(self.trimmingCharacters(in: .whitespaces)) != nil }
+}
+
+extension UITextField{
+    @IBInspectable var doneAccessory: Bool{
+        get{
+            return self.doneAccessory
+        }
+        set (hasDone) {
+            if hasDone{
+                addDoneButtonOnKeyboard()
+            }
+        }
+    }
+
+    func addDoneButtonOnKeyboard()
+    {
+        let doneToolbar: UIToolbar = UIToolbar(frame: CGRect.init(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50))
+        doneToolbar.barStyle = .default
+
+        let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let done: UIBarButtonItem = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(self.doneButtonAction))
+
+        let items = [flexSpace, done]
+        doneToolbar.items = items
+        doneToolbar.sizeToFit()
+
+        self.inputAccessoryView = doneToolbar
+    }
+
+    @objc func doneButtonAction()
+    {
+        self.resignFirstResponder()
+    }
 }

@@ -509,6 +509,9 @@
                                 <state key="normal" title="Begin">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
+                                <connections>
+                                    <action selector="beginButtonPressed:" destination="8o1-Lb-IF9" eventType="touchUpInside" id="CRk-it-beh"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -531,6 +534,11 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="JtC-9R-d1k"/>
                     </view>
+                    <connections>
+                        <outlet property="firstNameTextField" destination="nGN-Zc-ucG" id="VR8-Wt-q4G"/>
+                        <outlet property="lastNameTextField" destination="8BR-RU-62b" id="ckp-wS-WDQ"/>
+                        <outlet property="phoneNumberTextField" destination="Jy9-21-Q00" id="M80-PX-fHx"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="z5j-Qe-wbS" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

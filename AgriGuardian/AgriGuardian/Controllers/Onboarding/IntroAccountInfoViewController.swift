@@ -9,14 +9,38 @@
 import UIKit
 
 class IntroAccountInfoViewController: UIViewController {
-
+    @IBOutlet weak var firstNameTextField: UITextField!
+    @IBOutlet weak var lastNameTextField: UITextField!
+    @IBOutlet weak var phoneNumberTextField: UITextField!
+    
+    var fbManager: FirebaseManager = FirebaseManager()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        self.phoneNumberTextField.keyboardType = .phonePad
+        self.firstNameTextField.addDoneButtonOnKeyboard()
+        self.lastNameTextField.addDoneButtonOnKeyboard()
+        self.phoneNumberTextField.addDoneButtonOnKeyboard()
         // Do any additional setup after loading the view.
     }
     
 
+    @IBAction func beginButtonPressed(_ sender: Any) {
+        if let firstN = firstNameTextField.text, !firstN.isEmpty, let lastN = lastNameTextField.text, !lastN.isEmpty, let phoneN = phoneNumberTextField.text, !phoneN.isEmpty, phoneN.count == 10 {
+            fbManager.setupNewUser(firstName: firstN, lastName: lastN, phoneNum: phoneN)
+            self.navigateToHome()
+        }
+    }
+    
+    
+    func navigateToHome() {
+        // TODO:
+        let thisStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let MainTabBarVC = thisStoryboard.instantiateViewController(withIdentifier: "MainTabBarController") as? MainTabBarController
+        
+        self.view.window?.rootViewController = MainTabBarVC
+        self.view.window?.makeKeyAndVisible()
+    }
     /*
     // MARK: - Navigation
 
@@ -28,3 +52,36 @@ class IntroAccountInfoViewController: UIViewController {
     */
 
 }
+
+//extension UITextField {
+//    @IBInspectable var doneAccessory: Bool {
+//        get{
+//            return self.doneAccessory
+//        }
+//        set (hasDone) {
+//            if hasDone{
+//                addDoneButtonOnKeyboard()
+//            }
+//        }
+//    }
+//
+//    func addDoneButtonOnKeyboard()
+//    {
+//        let doneToolbar: UIToolbar = UIToolbar(frame: CGRect.init(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50))
+//        doneToolbar.barStyle = .default
+//
+//        let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+//        let done: UIBarButtonItem = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(self.doneButtonAction))
+//
+//        let items = [flexSpace, done]
+//        doneToolbar.items = items
+//        doneToolbar.sizeToFit()
+//
+//        self.inputAccessoryView = doneToolbar
+//    }
+//
+//    @objc func doneButtonAction()
+//    {
+//        self.resignFirstResponder()
+//    }
+//}

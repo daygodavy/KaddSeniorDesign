@@ -123,18 +123,25 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
 
     
     @objc fileprivate func userLogout() {
-        do {
-            try Auth.auth().signOut()
-        }
-        catch {
-            print("ERROR ON AUTH SIGNOUT")
-        }
-        if let providerId = Auth.auth().currentUser?.providerData.first?.providerID, providerId == "apple.com" {
+
+        
+        // Check provider ID to verify that the user has signed in with Apple
+        if let providerId = Auth.auth().currentUser?.providerData.first?.providerID,
+            providerId == "apple.com" {
             // Clear saved user ID
             UserDefaults.standard.set(nil, forKey: "appleAuthorizedUserIdKey")
         } else {
             GIDSignIn.sharedInstance().signOut()
         }
+        
+        // Perform sign out from Firebase
+        do {
+            try Auth.auth().signOut()
+        } catch let signOutError as NSError {
+            print ("Error signing out: %@", signOutError)
+        }
+        
+        
         self.goToHome()
     }
     

@@ -47,6 +47,10 @@ class FirebaseManager {
         }
     }
     
+    func setupNewUser(firstName: String, lastName: String, phoneNum: String) {
+        
+    }
+    
     func loadUserProfile(completion: @escaping (User) -> Void) {
         var currUser = User()
         if let uid = Auth.auth().currentUser?.uid {
@@ -63,6 +67,7 @@ class FirebaseManager {
     }
     
     func getUser(uid: String, completion: @escaping (User) -> Void) {
+
         db.collection("users").document(uid).getDocument() { (snap, error) in
             if let err = error {
                 print("\(err)")
