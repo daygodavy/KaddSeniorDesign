@@ -261,7 +261,8 @@ public final class RideWeek {
             }
         }
         guard let lastRide = allRides.last else {
-            fatalError("Unnexpectedly found nil while trying to get last ride from ride week")
+            return "0"
+//            fatalError("Unnexpectedly found nil while trying to get last ride from ride week")
         }
         
         let lastDate = lastRide.rideDate
@@ -284,7 +285,8 @@ public final class RideWeek {
             }
         }
         guard let lastRide = allRides.last else {
-            fatalError("Unexpectedly found nil while trying to get last ride from ride week")
+            return "00:00:00"
+//            fatalError("Unexpectedly found nil while trying to get last ride from ride week")
         }
         
         let totalTime = Int(lastRide.totalTime)
@@ -303,7 +305,8 @@ public final class RideWeek {
             }
         }
         guard let lastRide = allRides.last else {
-            fatalError("Unexpectedly found nil while trying to get last ride from ride week")
+            return "0 miles"
+//            fatalError("Unexpectedly found nil while trying to get last ride from ride week")
         }
         
         let mileage = lastRide.mileage
