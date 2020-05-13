@@ -217,6 +217,8 @@ public class GeofenceController: UIViewController, MKMapViewDelegate {
     var prevDelta: Double = 0.0
     var currLoc: CLLocation = CLLocation()
     var delegate: gfDelegate?
+    var startScaling: Bool = false
+    var currScaleSize: Double = 1.0
     
     lazy var mapView : MKMapView = { [unowned self] in
         var v = MKMapView(frame: self.view.bounds)
@@ -293,6 +295,7 @@ public class GeofenceController: UIViewController, MKMapViewDelegate {
             .coordinate, span: MKCoordinateSpan(latitudeDelta: 0.02, longitudeDelta: 0.02))
         DispatchQueue.main.async {
             self.mapView.setRegion(region, animated: true)
+            self.startScaling = true
         }
     }
     @objc func tappedDone(_ sender: UIBarButtonItem){
@@ -312,6 +315,10 @@ public class GeofenceController: UIViewController, MKMapViewDelegate {
         let longitude = fmt.string(from: NSNumber(value: mapView.centerCoordinate.longitude))!
         title = "\(latitude), \(longitude)"
     }
+    
+    
+    
+    
     public func mapView(_ mapView: MKMapView, regionWillChangeAnimated animated: Bool) {
         self.prevRadius = radius
 //        ellipsisLayer.transform = CATransform3DMakeScale(0.5, 0.5, 1)
@@ -322,6 +329,10 @@ public class GeofenceController: UIViewController, MKMapViewDelegate {
             })
         self.prevDelta = mapView.region.span.longitudeDelta
     }
+    
+
+    
+    
 
     public func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
         self.currDelta = mapView.region.span.longitudeDelta
@@ -329,30 +340,71 @@ public class GeofenceController: UIViewController, MKMapViewDelegate {
         mapView.willRemoveSubview(pinView)
         ellipsisLayer.removeFromSuperlayer()
 
-        
-        
-        // ==================================================
 
+        let newEllipse = UIBezierPath(ovalIn: CGRect(x: 0, y: 0, width: CGFloat(self.radius), height: CGFloat(self.radius)))
 
-        var newEllipse = UIBezierPath(ovalIn: CGRect(x: 0, y: 0, width: CGFloat(self.radius), height: CGFloat(self.radius )))
-        print("***************************************")
-        print(newEllipse.currentPoint)
-        print(pinView.center)
-        print("***************************************")
-        // ==================================================
-        
         
         
         ellipsisLayer.path = newEllipse.cgPath
-        ellipsisLayer.transform = CATransform3DIdentity
+//        ellipsisLayer.transform = CATransform3DIdentity
         
-        let rescaleFactor = (self.currDelta - self.prevDelta)
-        print(self.currDelta)
-        print(self.prevDelta)
-        print(rescaleFactor)
-        ellipsisLayer.transform = CATransform3DMakeScale(CGFloat(1-rescaleFactor), CGFloat(1-rescaleFactor), CGFloat(1-rescaleFactor))
-        if self.currDelta > 0.19 && self.currDelta < 0.3 {
-            print("FAILFAILFAILFAILFAILFAILFAIL")
+        if self.startScaling {
+            let rescaleFactor = (self.currDelta / self.prevDelta)
+            print(self.currDelta)
+            print(self.prevDelta)
+            print(rescaleFactor)
+//            ellipsisLayer.transform = CATransform3DMakeScale(CGFloat(1/rescaleFactor), CGFloat(1/rescaleFactor), CGFloat(1/rescaleFactor))
+            
+            
+//            currScaleSize = currScaleSize / (1/rescaleFactor)
+//            ellipsisLayer.transform = CATransform3DMakeScale(CGFloat(currScaleSize), CGFloat(currScaleSize), CGFloat(currScaleSize))
+            print("currScaleSize = \(currScaleSize)")
+            
+            
+            print("rescaleFactor = \(rescaleFactor)")
+            print("1/rescaleFactor = \(1/rescaleFactor)")
+            if self.currDelta > 0.019 && self.currDelta < 0.03 {
+                print("FAILFAILFAILFAILFAILFAILFAIL")
+                ellipsisLayer.transform = CATransform3DIdentity
+                currScaleSize = 1
+            } else if prevDelta < currDelta && mapView.region.span.longitudeDelta < 0.019 {
+                ellipsisLayer.transform = CATransform3DIdentity
+            } else if rescaleFactor >= 1 {
+                print("SMALLER")
+//                // zoom out, smaller ellipse
+//                currScaleSize = currScaleSize / (1/rescaleFactor)
+//                ellipsisLayer.transform = CATransform3DMakeScale(CGFloat(1 + ((1/rescaleFactor)/100)), CGFloat(1 + ((1/rescaleFactor)/100)), CGFloat(1 + ((1/rescaleFactor)/100)))
+                
+                currScaleSize = currScaleSize - (rescaleFactor/10)
+                print(rescaleFactor/50)
+                print("smaller = \(currScaleSize)")
+                ellipsisLayer.transform = CATransform3DMakeScale(CGFloat(currScaleSize), CGFloat(currScaleSize), CGFloat(currScaleSize))
+                
+            } else if rescaleFactor < 1 && currScaleSize < 1 && mapView.region.span.longitudeDelta > 0.1{
+                currScaleSize = currScaleSize + (rescaleFactor / 5)
+                ellipsisLayer.transform = CATransform3DMakeScale(CGFloat(currScaleSize), CGFloat(currScaleSize), CGFloat(currScaleSize))
+                
+            } else if rescaleFactor < 1 {
+                print("BIGGER")
+                // zoom in, bigger ellipse
+//                ellipsisLayer.transform = CATransform3DMakeScale(CGFloat(1 - (1/rescaleFactor)/10), CGFloat((1/rescaleFactor)/10), CGFloat((1/rescaleFactor)/10))
+                
+                
+//                currScaleSize = currScaleSize + (rescaleFactor/5)
+//                 print(rescaleFactor/5)
+
+                currScaleSize = currScaleSize + rescaleFactor
+                print("bigger = \(currScaleSize)")
+                ellipsisLayer.transform = CATransform3DMakeScale(CGFloat(currScaleSize), CGFloat(currScaleSize), CGFloat(currScaleSize))
+            }
+        }
+        
+        if currScaleSize > 1.2 && mapView.region.span.longitudeDelta > 0.3 {
+            currScaleSize = 1
+            ellipsisLayer.transform = CATransform3DMakeScale(CGFloat(currScaleSize), CGFloat(currScaleSize), CGFloat(currScaleSize))
+        }
+        
+        if self.mapView.region.span.longitudeDelta >= 3 {
             ellipsisLayer.transform = CATransform3DIdentity
         }
         
@@ -363,9 +415,6 @@ public class GeofenceController: UIViewController, MKMapViewDelegate {
 
 
         print("DIDCHANGE: \(mapView.region.span)")
-        if mapView.region.span.longitudeDelta < 0.03 {
-            print("TIME TO GOOOO JREPWFJEOPWFJEOPWFJOPEWJFEOPWFJ")
-        }
         UIView.animate(withDuration: 0.2, animations: { [weak self] in
             self?.pinView.center = CGPoint(x: self!.pinView.center.x, y: self!.pinView.center.y + 10)
             })
