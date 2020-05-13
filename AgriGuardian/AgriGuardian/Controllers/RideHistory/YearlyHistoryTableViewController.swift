@@ -69,6 +69,10 @@ class YearlyHistoryTableViewController: UITableViewController {
         vc.title = "Sec: \(indexPath.section) Row: \(indexPath.row)"
         vc.thisRideMonth = rideHistory.getMonth(yearIndex: indexPath.section, monthIndex: indexPath.row)
         vc.device = self.currDevice
+        
+        vc.rideHistory = rideHistory
+        vc.yearIndex = indexPath.section
+        vc.monthIndex = indexPath.row
         navigationController?.pushViewController(vc, animated: true)
     }
     

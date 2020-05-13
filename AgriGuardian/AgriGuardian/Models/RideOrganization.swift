@@ -59,6 +59,15 @@ public final class RideHistory {
         let currMonth = self.years[yearIndex].months[monthIndex]
         currMonth.rides.append(newRide)
     }
+    func getLastRide() -> Ride? {
+        let lastYear = self.years.last
+        let lastMonth = lastYear?.getMonths().last
+        guard let lastRide = lastMonth?.getRides().last else {
+            // return nil ride
+            return nil
+        }
+        return lastRide
+    }
 
 }
 public final class RideYear: Equatable {
@@ -253,18 +262,12 @@ public final class RideWeek {
         return now
         
     }
-    func getDaysSinceLastRide() -> String {
-        var allRides = [Ride]()
-        for i in 0..<self.week.count {
-            for ride in self.week[i].ride {
-                allRides.append(ride)
-            }
-        }
-        guard let lastRide = allRides.last else {
-            fatalError("Unnexpectedly found nil while trying to get last ride from ride week")
+    func getDaysSinceLastRide(lastRide: Ride?) -> String {
+        guard let ride = lastRide else {
+            return "No Ride Data"
         }
         
-        let lastDate = lastRide.rideDate
+        let lastDate = ride.rideDate
         if (lastDate == Date()) {
             return "Today"
         }
@@ -276,18 +279,13 @@ public final class RideWeek {
         
     }
     
-    func getLastRideTime() -> String {
-        var allRides = [Ride]()
-        for i in 0..<self.week.count {
-            for ride in self.week[i].ride {
-                allRides.append(ride)
-            }
-        }
-        guard let lastRide = allRides.last else {
-            fatalError("Unexpectedly found nil while trying to get last ride from ride week")
+    func getLastRideTime(lastRide: Ride?) -> String {
+
+        guard let ride = lastRide else {
+            return "No Ride Data"
         }
         
-        let totalTime = Int(lastRide.totalTime)
+        let totalTime = Int(ride.totalTime)
         let minutes = (totalTime / 60) % 60
         let hours = (totalTime / 3600)
         
@@ -295,18 +293,12 @@ public final class RideWeek {
         
     }
     
-    func getLastRideMileage() -> String {
-        var allRides = [Ride]()
-        for i in 0..<self.week.count {
-            for ride in self.week[i].ride {
-                allRides.append(ride)
-            }
-        }
-        guard let lastRide = allRides.last else {
-            fatalError("Unexpectedly found nil while trying to get last ride from ride week")
+    func getLastRideMileage(lastRide: Ride?) -> String {
+        guard let ride = lastRide else {
+            return "No Ride Data"
         }
         
-        let mileage = lastRide.mileage
+        let mileage = ride.mileage
         return String(format: "%.2f", mileage) + " miles"
     }
 }

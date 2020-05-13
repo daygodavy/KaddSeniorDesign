@@ -28,6 +28,7 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
     var weeklyRides = RideWeek()
     var ref: DocumentReference? = nil
     let db = Firestore.firestore()
+    var lastRide: Ride?
     
     var activityView = UIActivityIndicatorView()
     
@@ -50,6 +51,8 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
         let rideHistory = currDevice.rideHistory
         let currMonth = rideHistory.getCurrentMonth()
         let prevMonth = rideHistory.getPreviousMonth()
+        lastRide = rideHistory.getLastRide()
+        
         
         weeklyRides = RideWeek(currMonth: currMonth, prevMonth: prevMonth)
         print("success")
@@ -188,9 +191,9 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if (indexPath.row == 0) {
             let lastRideCell = collectionView.dequeueReusableCell(withReuseIdentifier: lastRideId, for: indexPath) as! LastRideCell
-            lastRideCell.titleLabel.text = "Last ride, \(weeklyRides.getDaysSinceLastRide()) day's ago"
-            lastRideCell.timeLabel.text = weeklyRides.getLastRideTime()
-            lastRideCell.detailLabel.text = weeklyRides.getLastRideMileage()
+            lastRideCell.titleLabel.text = "Last ride, \(weeklyRides.getDaysSinceLastRide(lastRide: lastRide)) day's ago"
+            lastRideCell.timeLabel.text = weeklyRides.getLastRideTime(lastRide: lastRide)
+            lastRideCell.detailLabel.text = weeklyRides.getLastRideMileage(lastRide: lastRide)
             return lastRideCell
         } else if (indexPath.row == 1) {
             let statCell = collectionView.dequeueReusableCell(withReuseIdentifier: statId, for: indexPath) as! StatisticsCell
