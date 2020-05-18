@@ -37,6 +37,7 @@ class DeviceDetailViewController: UITableViewController, CLLocationManagerDelega
     var gfCenter: CLLocation = CLLocation()
     var isNew: Bool = false
     var viewDelegate: RefreshDataDelegate?
+    var ellipseSize: Double = 410.0
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -103,12 +104,8 @@ class DeviceDetailViewController: UITableViewController, CLLocationManagerDelega
     fileprivate func segueToGeofencing() {
         let vc = GeofenceController()
         vc.title = "Set Geofence"
-        if let gfRad = geofenceRadius.text, geofenceRadius.text!.isNumber {
-            vc.radius = Double(gfRad)!
-        }
-        else {
-            vc.radius = 50 // TODO: Change
-        }
+
+        vc.radius = self.ellipseSize
         vc.currLoc = self.currLoc
         vc.delegate = self
         navigationController?.pushViewController(vc, animated: true)
@@ -287,7 +284,6 @@ public class GeofenceController: UIViewController, MKMapViewDelegate {
     }
     public override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        // SET VARS HERE =======================================================
         let center = mapView.convert(mapView.centerCoordinate, toPointTo: pinView)
         pinView.center = CGPoint(x: center.x, y: center.y - (pinView.bounds.height/2))
         ellipsisLayer.position = center
@@ -304,125 +300,53 @@ public class GeofenceController: UIViewController, MKMapViewDelegate {
         delegate?.pullGFCenter(gfPoint: target)
 //        self.dismiss(animated: true, completion: nil)
         self.navigationController?.popViewController(animated: true)
-
     }
 
     func updateTitle(){
-        let fmt = NumberFormatter()
-        fmt.maximumFractionDigits = 4
-        fmt.minimumFractionDigits = 4
-        let latitude = fmt.string(from: NSNumber(value: mapView.centerCoordinate.latitude))!
-        let longitude = fmt.string(from: NSNumber(value: mapView.centerCoordinate.longitude))!
-        title = "\(latitude), \(longitude)"
+//        let fmt = NumberFormatter()
+//        fmt.maximumFractionDigits = 4
+//        fmt.minimumFractionDigits = 4
+//        let latitude = fmt.string(from: NSNumber(value: mapView.centerCoordinate.latitude))!
+//        let longitude = fmt.string(from: NSNumber(value: mapView.centerCoordinate.longitude))!
+//        title = "\(latitude), \(longitude)"
+        title = "\(self.mapView.region.distanceMax()) METERS"
     }
     
     
     
     
     public func mapView(_ mapView: MKMapView, regionWillChangeAnimated animated: Bool) {
-        self.prevRadius = radius
-//        ellipsisLayer.transform = CATransform3DMakeScale(0.5, 0.5, 1)
+
+        ellipsisLayer.transform = CATransform3DMakeScale(0.5, 0.5, 1)
         
-        print("WILLCHANGE: \(mapView.region.span)")
         UIView.animate(withDuration: 0.2, animations: { [weak self] in
             self?.pinView.center = CGPoint(x: self!.pinView.center.x, y: self!.pinView.center.y - 10)
             })
-        self.prevDelta = mapView.region.span.longitudeDelta
     }
     
 
-    
-    
-
     public func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
-        self.currDelta = mapView.region.span.longitudeDelta
-        mapView.layer.removeAllAnimations()
-        mapView.willRemoveSubview(pinView)
-        ellipsisLayer.removeFromSuperlayer()
 
+        ellipsisLayer.transform = CATransform3DIdentity
 
-        let newEllipse = UIBezierPath(ovalIn: CGRect(x: 0, y: 0, width: CGFloat(self.radius), height: CGFloat(self.radius)))
-
-        
-        
-        ellipsisLayer.path = newEllipse.cgPath
-//        ellipsisLayer.transform = CATransform3DIdentity
-        
-        if self.startScaling {
-            let rescaleFactor = (self.currDelta / self.prevDelta)
-            print(self.currDelta)
-            print(self.prevDelta)
-            print(rescaleFactor)
-//            ellipsisLayer.transform = CATransform3DMakeScale(CGFloat(1/rescaleFactor), CGFloat(1/rescaleFactor), CGFloat(1/rescaleFactor))
-            
-            
-//            currScaleSize = currScaleSize / (1/rescaleFactor)
-//            ellipsisLayer.transform = CATransform3DMakeScale(CGFloat(currScaleSize), CGFloat(currScaleSize), CGFloat(currScaleSize))
-            print("currScaleSize = \(currScaleSize)")
-            
-            
-            print("rescaleFactor = \(rescaleFactor)")
-            print("1/rescaleFactor = \(1/rescaleFactor)")
-            if self.currDelta > 0.019 && self.currDelta < 0.03 {
-                print("FAILFAILFAILFAILFAILFAILFAIL")
-                ellipsisLayer.transform = CATransform3DIdentity
-                currScaleSize = 1
-            } else if prevDelta < currDelta && mapView.region.span.longitudeDelta < 0.019 {
-                ellipsisLayer.transform = CATransform3DIdentity
-            } else if rescaleFactor >= 1 {
-                print("SMALLER")
-//                // zoom out, smaller ellipse
-//                currScaleSize = currScaleSize / (1/rescaleFactor)
-//                ellipsisLayer.transform = CATransform3DMakeScale(CGFloat(1 + ((1/rescaleFactor)/100)), CGFloat(1 + ((1/rescaleFactor)/100)), CGFloat(1 + ((1/rescaleFactor)/100)))
-                
-                currScaleSize = currScaleSize - (rescaleFactor/10)
-                print(rescaleFactor/50)
-                print("smaller = \(currScaleSize)")
-                ellipsisLayer.transform = CATransform3DMakeScale(CGFloat(currScaleSize), CGFloat(currScaleSize), CGFloat(currScaleSize))
-                
-            } else if rescaleFactor < 1 && currScaleSize < 1 && mapView.region.span.longitudeDelta > 0.1{
-                currScaleSize = currScaleSize + (rescaleFactor / 5)
-                ellipsisLayer.transform = CATransform3DMakeScale(CGFloat(currScaleSize), CGFloat(currScaleSize), CGFloat(currScaleSize))
-                
-            } else if rescaleFactor < 1 {
-                print("BIGGER")
-                // zoom in, bigger ellipse
-//                ellipsisLayer.transform = CATransform3DMakeScale(CGFloat(1 - (1/rescaleFactor)/10), CGFloat((1/rescaleFactor)/10), CGFloat((1/rescaleFactor)/10))
-                
-                
-//                currScaleSize = currScaleSize + (rescaleFactor/5)
-//                 print(rescaleFactor/5)
-
-                currScaleSize = currScaleSize + rescaleFactor
-                print("bigger = \(currScaleSize)")
-                ellipsisLayer.transform = CATransform3DMakeScale(CGFloat(currScaleSize), CGFloat(currScaleSize), CGFloat(currScaleSize))
-            }
-        }
-        
-        if currScaleSize > 1.2 && mapView.region.span.longitudeDelta > 0.3 {
-            currScaleSize = 1
-            ellipsisLayer.transform = CATransform3DMakeScale(CGFloat(currScaleSize), CGFloat(currScaleSize), CGFloat(currScaleSize))
-        }
-        
-        if self.mapView.region.span.longitudeDelta >= 3 {
-            ellipsisLayer.transform = CATransform3DIdentity
-        }
-        
-
-        mapView.layer.insertSublayer(ellipsisLayer, below: pinView.layer)
-
-        
-
-
-        print("DIDCHANGE: \(mapView.region.span)")
         UIView.animate(withDuration: 0.2, animations: { [weak self] in
             self?.pinView.center = CGPoint(x: self!.pinView.center.x, y: self!.pinView.center.y + 10)
             })
         updateTitle()
-        print("currLD - prevLD = \(self.currDelta - self.prevDelta)")
-        print("currLD / prevLD = \(self.currDelta / self.prevDelta)")
-        print("prevLD / currLD = \(self.prevDelta / self.currDelta)")
+        
+        print("DISTANCE MAX ======== \(self.mapView.region.distanceMax())")
     }
     
 }
 
+
+extension MKCoordinateRegion {
+    func distanceMax() -> CLLocationDistance {
+//        let furthest = CLLocation(latitude: center.latitude + (span.latitudeDelta/2),
+//                             longitude: center.longitude + (span.longitudeDelta/2))
+        let furthest = CLLocation(latitude: center.latitude, longitude: center.longitude + (span.longitudeDelta/2))
+        let centerLoc = CLLocation(latitude: center.latitude, longitude: center.longitude)
+        
+        return trunc(centerLoc.distance(from: furthest))
+    }
+}
