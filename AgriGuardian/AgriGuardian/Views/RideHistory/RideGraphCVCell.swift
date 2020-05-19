@@ -19,6 +19,7 @@ class RideGraphCVCell: UICollectionViewCell {
         super.awakeFromNib()
         // Initialization code
         setupGraph()
+        
     }
     
     private func setupGraph() {
@@ -38,6 +39,7 @@ class RideGraphCVCell: UICollectionViewCell {
         dots.dataPointSize = 2.0
         dots.dataPointFillColor = .systemBlue
         dots.dataPointType = .circle
+        
         // Setup the reference lines
         let referenceLines = ReferenceLines()
 
@@ -60,7 +62,8 @@ class RideGraphCVCell: UICollectionViewCell {
         graphView.addPlot(plot: graph)
         graphView.addPlot(plot: dots)
         graphView.addReferenceLines(referenceLines: referenceLines)
-        self.addSubview(graphView)
+    
+        self.graphView.addSubview(graphView)
     }
 
 }
