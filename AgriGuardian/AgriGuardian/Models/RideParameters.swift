@@ -220,6 +220,19 @@ public class Ride {
         return finalStart + " - " + finalEnd
 
     }
+    func getLastLocation() -> CLLocation? {
+        return self.locations.last
+    }
+    func getLastUpdatedTime() -> String {
+        guard let lastLocation = self.getLastLocation() else {
+            return "No ride data"
+        }
+        let time = lastLocation.timestamp
+        
+        let df = DateFormatter()
+        df.dateFormat = "HH:mm a"
+        return df.string(from: time)
+    }
     
 }
 

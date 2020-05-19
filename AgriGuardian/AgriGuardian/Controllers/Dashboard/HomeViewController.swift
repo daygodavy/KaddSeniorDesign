@@ -10,6 +10,7 @@ import UIKit
 import GoogleSignIn
 import FirebaseAuth
 import Firebase
+import CoreLocation
 
 class HomeViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
@@ -29,6 +30,7 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
     var ref: DocumentReference? = nil
     let db = Firestore.firestore()
     var lastRide: Ride?
+    var lastLocation: CLLocation?
     
     var activityView = UIActivityIndicatorView()
     
@@ -52,6 +54,7 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
         let currMonth = rideHistory.getCurrentMonth()
         let prevMonth = rideHistory.getPreviousMonth()
         lastRide = rideHistory.getLastRide()
+        lastLocation = lastRide?.getLastLocation()
         
         
         weeklyRides = RideWeek(currMonth: currMonth, prevMonth: prevMonth)
@@ -191,6 +194,7 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if (indexPath.row == 0) {
             let lastRideCell = collectionView.dequeueReusableCell(withReuseIdentifier: lastRideId, for: indexPath) as! LastRideCell
+            
             lastRideCell.titleLabel.text = "Last ride, \(weeklyRides.getDaysSinceLastRide(lastRide: lastRide)) day's ago"
             lastRideCell.timeLabel.text = weeklyRides.getLastRideTime(lastRide: lastRide)
             lastRideCell.detailLabel.text = weeklyRides.getLastRideMileage(lastRide: lastRide)
@@ -221,6 +225,9 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
         }
         else if (indexPath.row == 5) {
             let locoCell = collectionView.dequeueReusableCell(withReuseIdentifier: locationId, for: indexPath) as! LastLocationCell
+            let time = lastRide?.getLastUpdatedTime()
+            locoCell.loadLastLocation(location: self.lastLocation)
+            locoCell.dateLabel.text = "\(weeklyRides.getDaysSinceLastRide(lastRide: lastRide)) day's ago at \(time!)"
             locoCell.backgroundColor = .systemGray6
             return locoCell
         }
