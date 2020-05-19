@@ -68,6 +68,8 @@ public final class RideHistory {
         }
         return lastRide
     }
+    
+
 
 }
 public final class RideYear: Equatable {
