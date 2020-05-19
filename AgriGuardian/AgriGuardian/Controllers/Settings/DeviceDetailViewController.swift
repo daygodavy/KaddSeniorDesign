@@ -66,6 +66,9 @@ class DeviceDetailViewController: UITableViewController, CLLocationManagerDelega
         }
     }
     fileprivate func setupView() {
+        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .close, target: self, action: #selector(cancelNavButtonPressed))
+//            navigationItem.rightBarButtonItem =
+        
         deviceNameLabel.delegate = self
         vehicleModelLabel.delegate = self
         geofenceRadius.delegate = self
@@ -113,6 +116,14 @@ class DeviceDetailViewController: UITableViewController, CLLocationManagerDelega
     }
     func pullGFCenter(gfPoint: CLLocation) {
         self.gfCenter = gfPoint
+    }
+    @objc func cancelNavButtonPressed() {
+        presentCustomAlert(title: "Are you sure?", message: "Any changes made will not be saved") {
+            // OK was pressed
+            self.dismiss(animated: true, completion: nil)
+        }
+        // otherwise cancel, nothing happens
+        
     }
     
     @IBAction func submitButtonPressed(_ sender: Any) {
