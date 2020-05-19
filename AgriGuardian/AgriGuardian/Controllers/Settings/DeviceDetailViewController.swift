@@ -37,6 +37,7 @@ class DeviceDetailViewController: UITableViewController, CLLocationManagerDelega
     var gfCenter: CLLocation = CLLocation()
     var isNew: Bool = false
     var viewDelegate: RefreshDataDelegate?
+    var ellipseSize: Double = 410.0
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -65,6 +66,9 @@ class DeviceDetailViewController: UITableViewController, CLLocationManagerDelega
         }
     }
     fileprivate func setupView() {
+        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .close, target: self, action: #selector(cancelNavButtonPressed))
+//            navigationItem.rightBarButtonItem =
+        
         deviceNameLabel.delegate = self
         vehicleModelLabel.delegate = self
         geofenceRadius.delegate = self
@@ -103,12 +107,8 @@ class DeviceDetailViewController: UITableViewController, CLLocationManagerDelega
     fileprivate func segueToGeofencing() {
         let vc = GeofenceController()
         vc.title = "Set Geofence"
-        if let gfRad = geofenceRadius.text, geofenceRadius.text!.isNumber {
-            vc.radius = Double(gfRad)!
-        }
-        else {
-            vc.radius = 50 // TODO: Change
-        }
+
+        vc.radius = self.ellipseSize
         vc.currLoc = self.currLoc
         vc.delegate = self
         navigationController?.pushViewController(vc, animated: true)
@@ -116,6 +116,14 @@ class DeviceDetailViewController: UITableViewController, CLLocationManagerDelega
     }
     func pullGFCenter(gfPoint: CLLocation) {
         self.gfCenter = gfPoint
+    }
+    @objc func cancelNavButtonPressed() {
+        presentCustomAlert(title: "Are you sure?", message: "Any changes made will not be saved") {
+            // OK was pressed
+            self.dismiss(animated: true, completion: nil)
+        }
+        // otherwise cancel, nothing happens
+        
     }
     
     @IBAction func submitButtonPressed(_ sender: Any) {
@@ -217,6 +225,8 @@ public class GeofenceController: UIViewController, MKMapViewDelegate {
     var prevDelta: Double = 0.0
     var currLoc: CLLocation = CLLocation()
     var delegate: gfDelegate?
+    var startScaling: Bool = false
+    var currScaleSize: Double = 1.0
     
     lazy var mapView : MKMapView = { [unowned self] in
         var v = MKMapView(frame: self.view.bounds)
@@ -285,7 +295,6 @@ public class GeofenceController: UIViewController, MKMapViewDelegate {
     }
     public override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        // SET VARS HERE =======================================================
         let center = mapView.convert(mapView.centerCoordinate, toPointTo: pinView)
         pinView.center = CGPoint(x: center.x, y: center.y - (pinView.bounds.height/2))
         ellipsisLayer.position = center
@@ -293,6 +302,7 @@ public class GeofenceController: UIViewController, MKMapViewDelegate {
             .coordinate, span: MKCoordinateSpan(latitudeDelta: 0.02, longitudeDelta: 0.02))
         DispatchQueue.main.async {
             self.mapView.setRegion(region, animated: true)
+            self.startScaling = true
         }
     }
     @objc func tappedDone(_ sender: UIBarButtonItem){
@@ -301,103 +311,53 @@ public class GeofenceController: UIViewController, MKMapViewDelegate {
         delegate?.pullGFCenter(gfPoint: target)
 //        self.dismiss(animated: true, completion: nil)
         self.navigationController?.popViewController(animated: true)
-
     }
 
     func updateTitle(){
-        let fmt = NumberFormatter()
-        fmt.maximumFractionDigits = 4
-        fmt.minimumFractionDigits = 4
-        let latitude = fmt.string(from: NSNumber(value: mapView.centerCoordinate.latitude))!
-        let longitude = fmt.string(from: NSNumber(value: mapView.centerCoordinate.longitude))!
-        title = "\(latitude), \(longitude)"
+//        let fmt = NumberFormatter()
+//        fmt.maximumFractionDigits = 4
+//        fmt.minimumFractionDigits = 4
+//        let latitude = fmt.string(from: NSNumber(value: mapView.centerCoordinate.latitude))!
+//        let longitude = fmt.string(from: NSNumber(value: mapView.centerCoordinate.longitude))!
+//        title = "\(latitude), \(longitude)"
+        title = "\(self.mapView.region.distanceMax()) METERS"
     }
+    
+    
+    
+    
     public func mapView(_ mapView: MKMapView, regionWillChangeAnimated animated: Bool) {
-        self.prevRadius = radius
+
         ellipsisLayer.transform = CATransform3DMakeScale(0.5, 0.5, 1)
-//        ellipsisLayer.transform = CATransform3DMakeScale(CGFloat(0.5/mapView.region.span.longitudeDelta), CGFloat(0.5/mapView.region.span.longitudeDelta), 1)
-        print("WILLCHANGE: \(mapView.region.span)")
+        
         UIView.animate(withDuration: 0.2, animations: { [weak self] in
             self?.pinView.center = CGPoint(x: self!.pinView.center.x, y: self!.pinView.center.y - 10)
             })
-        self.prevDelta = mapView.region.span.longitudeDelta
     }
+    
 
     public func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
-        print("===========================================================")
-        print("3NUM SUBVIEWS: \(mapView.subviews.count)")
-        print("3NUM SUBLAYERS: \(mapView.layer.sublayers?.count)")
-        mapView.layer.removeAllAnimations()
-        mapView.willRemoveSubview(pinView)
-//        mapView.subviews = mapView.subviews.dropLast()
-//        pinView.removeFromSuperview()
-        ellipsisLayer.removeFromSuperlayer()
-        print("1NUM SUBVIEWS: \(mapView.subviews.count)")
-        print("1NUM SUBLAYERS: \(mapView.layer.sublayers?.count)")
-        
-//        mapView.remove
-//        ellipse.
-        
-        let oldEllipsis = ellipsisLayer
-        let scaleW = self.radius/(100 * mapView.region.span.longitudeDelta)
-        let scaleH = self.radius/(100 * mapView.region.span.longitudeDelta)
-        self.width = CGFloat(scaleW)
-        self.height = CGFloat(scaleH)
-        
-        
-        // ==================================================
-//        ellipsisLayer.bounds = CGRect(x: 0, y: 0, width: self.width, height: self.height)
-        var newEllipse = UIBezierPath(ovalIn: CGRect(x: 0, y: 0, width: CGFloat(self.currRadius), height: CGFloat(self.currRadius )))
-        
-        
-        
-        
-        newEllipse = UIBezierPath(ovalIn: CGRect(x: 0, y: 0, width: CGFloat(self.radius), height: CGFloat(self.radius )))
-        // ==================================================
-        
-        
-        
-        ellipsisLayer.path = newEllipse.cgPath
-        print("RADIUSSSSSSS: \(self.currRadius)")
-        
-        
-        print("SCALING \(scaleW), \(scaleH)")
-//        ellipse.apply(CGAffineTransform(scaleX: CGFloat(9999), y: CGFloat(9999)))
+
         ellipsisLayer.transform = CATransform3DIdentity
 
-        print("PREV RADIUS: \(self.radius)")
-//        self.radius = self.prevRadius/(100 * mapView.region.span.longitudeDelta)
-//        self.prevRadius = self.radius
-//
-//        if mapView.region.span.longitudeDelta == 0.02 {
-//            print("===========REGION UP IN HERE NOW========")
-//            self.currRadius = 200
-//        }
-//        else {
-//            var check = ((self.currDelta - self.prevDelta) * 10) + self.currRadius
-//            if check < 0 {
-//                self.currRadius = 200
-//            }
-//            else {
-//                self.currRadius = ((self.currDelta - self.prevDelta) * 10) + self.currRadius
-//            }
-//            print("~~~~~~~~REGION DOWN IN HERE NOW~~~~~~~~~")
-//        }
-        print("CURR RADIUS: \(self.currRadius)")
-//        mapView.addSubview(pinView)
-        print("ADDING NEXT")
-        mapView.layer.insertSublayer(ellipsisLayer, below: pinView.layer)
-        print("2NUM SUBVIEWS: \(mapView.subviews.count)")
-        print("2NUM SUBLAYERS: \(mapView.layer.sublayers?.count)")
-        
-
-        self.currDelta = mapView.region.span.longitudeDelta
-        print("DIDCHANGE: \(mapView.region.span)")
         UIView.animate(withDuration: 0.2, animations: { [weak self] in
             self?.pinView.center = CGPoint(x: self!.pinView.center.x, y: self!.pinView.center.y + 10)
             })
         updateTitle()
+        
+        print("DISTANCE MAX ======== \(self.mapView.region.distanceMax())")
     }
     
 }
 
+
+extension MKCoordinateRegion {
+    func distanceMax() -> CLLocationDistance {
+//        let furthest = CLLocation(latitude: center.latitude + (span.latitudeDelta/2),
+//                             longitude: center.longitude + (span.longitudeDelta/2))
+        let furthest = CLLocation(latitude: center.latitude, longitude: center.longitude + (span.longitudeDelta/2))
+        let centerLoc = CLLocation(latitude: center.latitude, longitude: center.longitude)
+        
+        return trunc(centerLoc.distance(from: furthest))
+    }
+}

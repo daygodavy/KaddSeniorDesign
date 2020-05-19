@@ -48,7 +48,20 @@ class FirebaseManager {
     }
     
     func setupNewUser(firstName: String, lastName: String, phoneNum: String) {
-        
+        if let uid = Auth.auth().currentUser?.uid {
+            ref = db.collection("users").document(uid)
+            ref?.updateData([
+                "firstName" : firstName,
+                "lastName" : lastName,
+                "phoneNumber" : phoneNum
+            ]) { err in
+                if let err = err {
+                    print("Error adding document: \(err)")
+                } else {
+                    print("Document updated with ID: \(self.ref!.documentID)")
+                }
+            }
+        }
     }
     
     func loadUserProfile(completion: @escaping (User) -> Void) {

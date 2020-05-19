@@ -36,7 +36,7 @@ public final class RideHistory {
     }
     func getPreviousMonth() -> RideMonth {
         let year = self.years.last
-        if let months = year?.getMonths() {
+        if let months = year?.getMonths(), months.count > 2 {
             let count = months.count
             // minus 2 to get the second to last month in the array
             return months[count - 2]
@@ -262,6 +262,7 @@ public final class RideWeek {
         return now
         
     }
+
     func getDaysSinceLastRide(lastRide: Ride?) -> String {
         guard let ride = lastRide else {
             return "No Ride Data"
@@ -279,10 +280,12 @@ public final class RideWeek {
         
     }
     
+
     func getLastRideTime(lastRide: Ride?) -> String {
 
         guard let ride = lastRide else {
             return "No Ride Data"
+
         }
         
         let totalTime = Int(ride.totalTime)
@@ -293,9 +296,11 @@ public final class RideWeek {
         
     }
     
+
     func getLastRideMileage(lastRide: Ride?) -> String {
         guard let ride = lastRide else {
             return "No Ride Data"
+
         }
         
         let mileage = ride.mileage

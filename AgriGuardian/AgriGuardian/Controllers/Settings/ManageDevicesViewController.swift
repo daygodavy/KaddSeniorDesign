@@ -80,6 +80,7 @@ class ManageDevicesViewController: UITableViewController, RefreshDataDelegate {
         vc.isNew = isNewDev
         vc.viewDelegate = self
         let navController = UINavigationController(rootViewController: vc)
+        navController.modalPresentationStyle = .fullScreen
         self.present(navController, animated: true)
     }
     
