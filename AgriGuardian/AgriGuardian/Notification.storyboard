@@ -9,7 +9,7 @@
         <!--Crash Report-->
         <scene sceneID="sAq-7h-2fR">
             <objects>
-                <tableViewController id="RF0-BX-pho" sceneMemberID="viewController">
+                <tableViewController id="RF0-BX-pho" customClass="CrashReportViewController" customModule="AgriGuardian" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="Kg7-QS-GcW">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -46,6 +46,9 @@
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DbW-nl-87k">
                                                     <rect key="frame" x="8" y="8" width="398" height="27"/>
                                                     <state key="normal" title="Open In Maps"/>
+                                                    <connections>
+                                                        <action selector="didTapOpen:" destination="RF0-BX-pho" eventType="touchUpInside" id="JVt-go-Jq6"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                             <constraints>
@@ -189,6 +192,13 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Crash Report" id="08b-DG-7wv"/>
+                    <connections>
+                        <outlet property="deviceName" destination="vJp-n9-J0a" id="LIh-vn-9LC"/>
+                        <outlet property="firstRespondersLabel" destination="JXE-Dd-7e0" id="T4C-Gq-bXf"/>
+                        <outlet property="mapView" destination="GEj-y1-MlM" id="z9H-YC-fdU"/>
+                        <outlet property="timeLabel" destination="VwW-Q0-N6d" id="mbA-9D-tE7"/>
+                        <outlet property="vehicleModel" destination="KJT-CV-9TY" id="f2H-87-sdp"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gqM-i7-gbu" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
