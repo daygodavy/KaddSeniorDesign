@@ -64,43 +64,6 @@ open class RowOf<T>: BaseRow where T: Equatable {
         }
     }
     
-    private var _value2: String? {
-        didSet {
-            guard _value2 != oldValue else { return }
-            guard let form = section?.form else { return }
-            if let delegate = form.delegate {
-                delegate.valueHasBeenChanged(for: self, oldValue: oldValue, newValue: value)
-                callbackOnChange?()
-            }
-            guard let t = tag else { return }
-            form.tagToValues[t] = (value != nil ? value! : NSNull())
-            if let rowObservers = form.rowObservers[t]?[.hidden] {
-                for rowObserver in rowObservers {
-                    (rowObserver as? Hidable)?.evaluateHidden()
-                }
-            }
-            if let rowObservers = form.rowObservers[t]?[.disabled] {
-                for rowObserver in rowObservers {
-                    (rowObserver as? Disableable)?.evaluateDisabled()
-                }
-            }
-        }
-    }
-    
-    open var value2: String? {
-        set (newValue) {
-            _value2 = newValue
-            guard let _ = section?.form else { return }
-            wasChanged = true
-            if validationOptions.contains(.validatesOnChange) || (wasBlurred && validationOptions.contains(.validatesOnChangeAfterBlurred)) ||  (!isValid && validationOptions != .validatesOnDemand) {
-                validate()
-            }
-        }
-        get {
-            return _value2
-        }
-    }
-    
     /// The reset value of this row. Sets the value property to the value of this row on the resetValue method call.
     open var resetValue: T?
 
@@ -114,7 +77,6 @@ open class RowOf<T>: BaseRow where T: Equatable {
     public var displayValueFor: ((T?) -> String?)? = {
         return $0.map { String(describing: $0) }
     }
-    
 
     public required init(tag: String?) {
         super.init(tag: tag)
@@ -168,24 +130,6 @@ open class RowOf<T>: BaseRow where T: Equatable {
         validationErrors.removeAll()
         rules.removeAll()
     }
-    
-//    // ================================================
-//    open var value2: T? {
-//        set (newValue) {
-//            _value = newValue
-//            guard let _ = section?.form else { return }
-//            wasChanged = true
-//            if validationOptions.contains(.validatesOnChange) || (wasBlurred && validationOptions.contains(.validatesOnChangeAfterBlurred)) ||  (!isValid && validationOptions != .validatesOnDemand) {
-//                validate()
-//            }
-//        }
-//        get {
-//            return _value
-//        }
-//    }
-//
-//
-//    // ================================================
 
 }
 

@@ -19,6 +19,9 @@ target 'AgriGuardian' do
   pod 'Firebase/Database'
   pod 'Firebase/Auth'
   pod 'Firebase/Firestore'
+  pod 'Firebase/AdMob'
+  pod 'Firebase/Messaging'
+  pod 'Firebase/Storage'
   pod 'FirebaseFirestoreSwift'
   pod 'GoogleSignIn'
 
