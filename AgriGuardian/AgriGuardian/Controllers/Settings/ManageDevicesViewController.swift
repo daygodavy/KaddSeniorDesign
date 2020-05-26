@@ -10,6 +10,7 @@
 // to device detail - vc.thisDevice = devices[indexPath.row]
 
 import UIKit
+import CoreBluetooth
 
 
 class ManageDevicesViewController: UITableViewController, RefreshDataDelegate {
@@ -19,7 +20,15 @@ class ManageDevicesViewController: UITableViewController, RefreshDataDelegate {
     var user: User = User()
     var devices: [Device] = []
     var spinner: UIActivityIndicatorView = UIActivityIndicatorView()
-
+    var centralManager: CBCentralManager!
+    var kaddService: CBUUID = CBUUID(string: "27cf08c1-076a-41af-becd-02ed6f6109b9")
+    var kaddInitCharacteristic = CBUUID(string: "c37ce97e-40cb-4875-9886-df66323f6e4c")
+    var kaddInitPeripheral: CBPeripheral!
+    var kaddCharactaristic: CBCharacteristic!
+    
+    var deviceModelNumber = ""
+    var deviceSerialNumber = ""
+    var deviceManufacturer = ""
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,11 +38,13 @@ class ManageDevicesViewController: UITableViewController, RefreshDataDelegate {
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(didTapAdd))
         self.navigationItem.rightBarButtonItem = addButton
         self.refreshData()
+        centralManager = CBCentralManager(delegate: self, queue: nil)
+
     }
 
     // MARK: - Actions
     @objc private func didTapAdd() {
-        self.segueToDeviceDetailVC(isNewDev: true, thisDev: Device())
+        centralManager.scanForPeripherals(withServices: [kaddService])
     }
     
     func startSpinner() {
@@ -66,6 +77,10 @@ class ManageDevicesViewController: UITableViewController, RefreshDataDelegate {
 
         if isNewDev {
             vc.title = "New Device"
+            vc.modelNumber = deviceModelNumber
+            vc.serialNumber = deviceSerialNumber
+            vc.kaddPeripheral = kaddInitPeripheral
+            vc.kaddCharacteristic = kaddCharactaristic
         }
         else {
             vc.title = "Edit Device"
@@ -112,52 +127,6 @@ class ManageDevicesViewController: UITableViewController, RefreshDataDelegate {
         print("row \(indexPath.item) was pressed")
         self.segueToDeviceDetailVC(isNewDev: false, thisDev: self.devices[indexPath.item])
     }
-    
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
 
@@ -168,5 +137,105 @@ class ManageDeviceTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+    }
+}
+extension ManageDevicesViewController: CBCentralManagerDelegate {
+    func centralManagerDidUpdateState(_ central: CBCentralManager) {
+        func centralManagerDidUpdateState(_ central: CBCentralManager) {
+            switch central.state {
+              case .unknown:
+                print("central.state is .unknown")
+              case .resetting:
+                print("central.state is .resetting")
+              case .unsupported:
+                print("central.state is .unsupported")
+              case .unauthorized:
+                print("central.state is .unauthorized")
+              case .poweredOff:
+                print("central.state is .poweredOff")
+              case .poweredOn:
+                print("central.state is .poweredOn")
+            @unknown default:
+                fatalError("Unknown Peripheral State")
+            }
+        }
+    }
+    func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral,
+                        advertisementData: [String: Any], rssi RSSI: NSNumber) {
+        self.spinner.stopAnimating()
+        kaddInitPeripheral = peripheral
+        kaddInitPeripheral.delegate = self
+        centralManager.stopScan()
+        presentBasicAlert(title: "New Device Found", message: "Connect to this device?") {
+            self.centralManager.connect(self.kaddInitPeripheral, options: nil)
+        }
+
+        
+    }
+    func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
+        print("Connected Bitch!")
+        kaddInitPeripheral.discoverServices(nil)
+    }
+    
+    
+}
+extension ManageDevicesViewController: CBPeripheralDelegate {
+    
+    func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: Error?) {
+        guard let services = peripheral.services else {
+            fatalError("Unable to unwrap services")
+        }
+        for service in services {
+          print(service)
+          peripheral.discoverCharacteristics(nil, for: service)
+        }
+    }
+    
+    func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: Error?) {
+        
+        guard let characteristics = service.characteristics else {
+            fatalError("Unexpectedly found nil while unwrapping characteristics")
+        }
+
+        for characteristic in characteristics {
+            if (characteristic.uuid == kaddInitCharacteristic) {
+                print(characteristic)
+                if characteristic.properties.contains(.read) {
+                    print("\(characteristic.uuid): properties contains .read")
+                    peripheral.readValue(for: characteristic)
+                }
+                if characteristic.properties.contains(.notify) {
+                  print("\(characteristic.uuid): properties contains .notify")
+                }
+                if characteristic.properties.contains(.write) {
+                  print("\(characteristic.uuid): properties contains .write")
+                }
+            }
+        }
+    }
+    func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
+        if (characteristic.uuid == kaddInitCharacteristic) {
+            // read data
+            self.kaddCharactaristic = characteristic
+            guard let data = characteristic.value else {
+                fatalError("Unexpectedly foundn nil when unwrapping characteristic value for initial setup")
+            }
+            let dataAsString = String(decoding: data, as: UTF8.self)
+            let tokens = dataAsString.components(separatedBy: ",")
+            
+            deviceModelNumber = tokens[0]
+            deviceSerialNumber = tokens[1]
+            deviceManufacturer = tokens[2]
+            
+            print("Will Segue Here")
+            self.segueToDeviceDetailVC(isNewDev: true, thisDev: Device())
+
+            // TODO: Pass Model and Serial number through segue and add to device info
+            
+//            print("success")
+//            print("Writing to peripheral")
+//            let ack = Data("ACK".utf8)
+//            peripheral.writeValue(ack, for: characteristic, type: .withResponse)
+        }
     }
 }

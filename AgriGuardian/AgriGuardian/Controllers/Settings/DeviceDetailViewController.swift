@@ -8,6 +8,8 @@
 import UIKit
 import MapKit
 import CoreLocation
+import CoreBluetooth
+import Firebase
 
 protocol gfDelegate
 {
@@ -38,6 +40,12 @@ class DeviceDetailViewController: UITableViewController, CLLocationManagerDelega
     var isNew: Bool = false
     var viewDelegate: RefreshDataDelegate?
     var ellipseSize: Double = 410.0
+    
+    // BLE
+    var kaddCharacteristic: CBCharacteristic!
+    var kaddPeripheral: CBPeripheral!
+    var serialNumber = ""
+    var modelNumber = ""
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -137,7 +145,14 @@ class DeviceDetailViewController: UITableViewController, CLLocationManagerDelega
             thisDevice.gfRadius = Double(gfRad)!
             thisDevice.gfToggle = self.geofenceToggle.isOn
             thisDevice.gfCenter = self.gfCenter
+            let user = Auth.auth().currentUser!.uid
             if isNew {
+                // TODO: Write data to pi here
+                let tokens =  "\(user), \(thisDevice.name), \(thisDevice.gfRadius), \(thisDevice.gfCenter.coordinate.latitude), \(thisDevice.gfCenter.coordinate.longitude)"
+                print("Writing to peripheral")
+                let data = Data(tokens.utf8)
+                kaddPeripheral.writeValue(data, for: kaddCharacteristic, type: .withResponse)
+                // disconnect device?
                 fbManager.addDevice(device: thisDevice)
             }
             else {
