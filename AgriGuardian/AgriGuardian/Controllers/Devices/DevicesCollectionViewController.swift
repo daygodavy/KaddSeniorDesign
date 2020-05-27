@@ -104,18 +104,18 @@ class DevicesCollectionViewController: UICollectionViewController, UICollectionV
         MainTabBarController.modalPresentationStyle = .fullScreen
         self.present(MainTabBarController, animated: true, completion: nil)
     }
-    private func navigateToAddDevice() {
-        let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        let vc = mainStoryboard.instantiateViewController(identifier: "AddDevice") as! AddDeviceViewController
-        // send over serial and model numbers + peripheral so that it can write back to pi
-        vc.modelNumber = self.deviceModelNumber
-        vc.serialNumber = self.deviceSerialNumber
-        vc.kaddPeripheral = self.kaddInitPeripheral
-        vc.kaddCharacteristic = self.kaddCharactaristic
-        
-        let navController = UINavigationController(rootViewController: vc)
-        self.present(navController, animated: true)
-    }
+//    private func navigateToAddDevice() {
+//        let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
+//        let vc = mainStoryboard.instantiateViewController(identifier: "AddDevice") as! AddDeviceViewController
+//        // send over serial and model numbers + peripheral so that it can write back to pi
+//        vc.modelNumber = self.deviceModelNumber
+//        vc.serialNumber = self.deviceSerialNumber
+//        vc.kaddPeripheral = self.kaddInitPeripheral
+//        vc.kaddCharacteristic = self.kaddCharactaristic
+//
+//        let navController = UINavigationController(rootViewController: vc)
+//        self.present(navController, animated: true)
+//    }
     
     @objc private func closeMenu() {
         self.dismiss(animated: true, completion: nil)
@@ -172,17 +172,17 @@ class DevicesCollectionViewController: UICollectionViewController, UICollectionV
 
     
     // MARK: - Navigation
-    @IBAction func unwindFromAddDevice(unwindSegue: UIStoryboardSegue) {
-        if unwindSegue.source is AddDeviceViewController {
-            if let sourceVC = unwindSegue.source as? AddDeviceViewController {
-                count.append(1)
-            }
-//            self.loadData()
-//            collectionView.reloadData()
-        }
-        self.showActivityIndicator()
-        self.loadData()
-    }
+//    @IBAction func unwindFromAddDevice(unwindSegue: UIStoryboardSegue) {
+//        if unwindSegue.source is AddDeviceViewController {
+//            if let sourceVC = unwindSegue.source as? AddDeviceViewController {
+//                count.append(1)
+//            }
+////            self.loadData()
+////            collectionView.reloadData()
+//        }
+//        self.showActivityIndicator()
+//        self.loadData()
+//    }
 
 }
 
@@ -272,7 +272,7 @@ extension DevicesCollectionViewController: CBPeripheralDelegate {
             
             deviceModelNumber = tokens[0]
             deviceSerialNumber = tokens[1]
-            navigateToAddDevice()
+//            navigateToAddDevice()
             
             // TODO: Pass Model and Serial number through segue and add to device info
             

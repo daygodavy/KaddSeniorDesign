@@ -19,8 +19,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
         FirebaseApp.configure()
         let db = Firestore.firestore()
+        if let uid = Auth.auth().currentUser?.uid {
+            let pushManager = PushNotificationManager(userID: uid)
+            pushManager.registerForPushNotifications()
+        }
         return true
     }
 

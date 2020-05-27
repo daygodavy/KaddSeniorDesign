@@ -27,6 +27,7 @@
 		5B96C864243E809C00843163 /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B96C863243E809C00843163 /* FirebaseManager.swift */; };
 		5B97AC0F2469C8B70086B18A /* InitialLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B97AC0E2469C8B70086B18A /* InitialLoginViewController.swift */; };
 		5B97AC112469C8FD0086B18A /* IntroAccountInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B97AC102469C8FD0086B18A /* IntroAccountInfoViewController.swift */; };
+		5BE69FF4247E37CD00A01E67 /* PushNotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BE69FF3247E37CD00A01E67 /* PushNotificationManager.swift */; };
 		5BFBC69B2458B9E700D0A745 /* DeviceDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BFBC69A2458B9E700D0A745 /* DeviceDetailViewController.swift */; };
 		5BFBC6A024660EF200D0A745 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BFBC69F24660EF200D0A745 /* SignUpViewController.swift */; };
 		6621C635240B69490039B49A /* YearlyHistoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6621C633240B69490039B49A /* YearlyHistoryTableViewController.swift */; };
@@ -126,6 +127,7 @@
 		5B96C863243E809C00843163 /* FirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
 		5B97AC0E2469C8B70086B18A /* InitialLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialLoginViewController.swift; sourceTree = "<group>"; };
 		5B97AC102469C8FD0086B18A /* IntroAccountInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroAccountInfoViewController.swift; sourceTree = "<group>"; };
+		5BE69FF3247E37CD00A01E67 /* PushNotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushNotificationManager.swift; sourceTree = "<group>"; };
 		5BFBC69A2458B9E700D0A745 /* DeviceDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceDetailViewController.swift; sourceTree = "<group>"; };
 		5BFBC69F24660EF200D0A745 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		618C7BDDD59ADCFBC6E61169 /* Pods-AgriGuardianTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AgriGuardianTests.release.xcconfig"; path = "Target Support Files/Pods-AgriGuardianTests/Pods-AgriGuardianTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -252,6 +254,7 @@
 				5B5A71F323EB3FE100B5E2C5 /* Info.plist */,
 				5B5A721523EB414200B5E2C5 /* GoogleService-Info.plist */,
 				5B5A71EB23EB3FDD00B5E2C5 /* AgriGuardian.xcdatamodeld */,
+				5BE69FF3247E37CD00A01E67 /* PushNotificationManager.swift */,
 			);
 			path = AgriGuardian;
 			sourceTree = "<group>";
@@ -787,6 +790,7 @@
 				6662C27E240E111700C622D5 /* MonthHistoryTableViewCell.swift in Sources */,
 				667302BB2405FF2600BA015A /* MessageReceiver.swift in Sources */,
 				5B5A71E523EB3FDD00B5E2C5 /* SceneDelegate.swift in Sources */,
+				5BE69FF4247E37CD00A01E67 /* PushNotificationManager.swift in Sources */,
 				666CC514244FDAE500222841 /* AccountViewController.swift in Sources */,
 				66603F20240B2C3300253B04 /* RideParameters.swift in Sources */,
 				5B5A71ED23EB3FDD00B5E2C5 /* AgriGuardian.xcdatamodeld in Sources */,
