@@ -31,6 +31,7 @@
 		5BFBC6A024660EF200D0A745 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BFBC69F24660EF200D0A745 /* SignUpViewController.swift */; };
 		6607CDDF247DB499002AFACA /* Notification.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6607CDDE247DB499002AFACA /* Notification.storyboard */; };
 		6607CDE2247DB825002AFACA /* CrashReportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6607CDE1247DB825002AFACA /* CrashReportViewController.swift */; };
+		6607CDE4247EF6B8002AFACA /* RideOrganization+Beta.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6607CDE3247EF6B8002AFACA /* RideOrganization+Beta.swift */; };
 		6621C635240B69490039B49A /* YearlyHistoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6621C633240B69490039B49A /* YearlyHistoryTableViewController.swift */; };
 		6621C636240B69490039B49A /* MonthlyHistoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6621C634240B69490039B49A /* MonthlyHistoryTableViewController.swift */; };
 		6621C63C240B69900039B49A /* AddDeviceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6621C638240B69900039B49A /* AddDeviceViewController.swift */; };
@@ -133,6 +134,7 @@
 		618C7BDDD59ADCFBC6E61169 /* Pods-AgriGuardianTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AgriGuardianTests.release.xcconfig"; path = "Target Support Files/Pods-AgriGuardianTests/Pods-AgriGuardianTests.release.xcconfig"; sourceTree = "<group>"; };
 		6607CDDE247DB499002AFACA /* Notification.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Notification.storyboard; sourceTree = "<group>"; };
 		6607CDE1247DB825002AFACA /* CrashReportViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrashReportViewController.swift; sourceTree = "<group>"; };
+		6607CDE3247EF6B8002AFACA /* RideOrganization+Beta.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "RideOrganization+Beta.swift"; sourceTree = "<group>"; };
 		6621C633240B69490039B49A /* YearlyHistoryTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YearlyHistoryTableViewController.swift; sourceTree = "<group>"; };
 		6621C634240B69490039B49A /* MonthlyHistoryTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MonthlyHistoryTableViewController.swift; sourceTree = "<group>"; };
 		6621C638240B69900039B49A /* AddDeviceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddDeviceViewController.swift; sourceTree = "<group>"; };
@@ -367,6 +369,7 @@
 		666AC0CA23FA218E00DEB3E3 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				6607CDE3247EF6B8002AFACA /* RideOrganization+Beta.swift */,
 				6697FE892417388300623A89 /* gps_2020_03_09.csv */,
 				667302B52405FF2600BA015A /* BLE */,
 				667302B12405FD2500BA015A /* Device.swift */,
@@ -777,6 +780,7 @@
 				6621C64C240C8B560039B49A /* RideDetailCollectionViewController.swift in Sources */,
 				5B96C864243E809C00843163 /* FirebaseManager.swift in Sources */,
 				6662C27A240E111700C622D5 /* RideTableViewCell.swift in Sources */,
+				6607CDE4247EF6B8002AFACA /* RideOrganization+Beta.swift in Sources */,
 				5B1BB309240B431600E235CD /* LoginViewController.swift in Sources */,
 				6662C27C240E111700C622D5 /* RideDetailHeaderCRV.swift in Sources */,
 				5B5A71E323EB3FDD00B5E2C5 /* AppDelegate.swift in Sources */,
