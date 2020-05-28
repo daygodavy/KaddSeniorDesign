@@ -140,7 +140,59 @@ class FirebaseManager {
          return organizeUserRides(rides: rides)
     }
     
+//    func getFcmToken(completion: @escaping (String) -> Void) {
+//        if let uid = Auth.auth().currentUser?.uid {
+//            let root = db.collection("users_table").whereField("fcmToken", isEqualTo: uid)
+//            root.get {(data, error) in
+//                if let err = error {
+//                    print("\(err)")
+//                }
+//                else if let fcmTok = data?.documents {
+//                    for token in fcmTok {
+//                        let tok: String = to
+//                        completion(token)
+//                    }
+//                }
+//
+//            }
+//        }
+//    }
     
+    func getFcmToken(completion: @escaping (String) -> Void) {
+        if let uid = Auth.auth().currentUser?.uid {
+            let root = db.collection("users_table").document(uid)
+            root.getDocument { (data, error) in
+                if let err = error {
+                    print(err)
+                }
+                else {
+                    var tok: String
+                    tok = data?.get("fcmToken") as! String
+                    print("TOKEN HERE \(tok)")
+                    completion(tok)
+                    
+//                    if let tok = data?.data()["fcmToken"] as! String {
+//                        completion(tok)
+//                    }
+//                    if let tok = data?.get("fcmToken") {
+//                        tok
+//                    }
+                }
+            }
+//            root.get {(data, error) in
+//                if let err = error {
+//                    print("\(err)")
+//                }
+//                else if let fcmTok = data?.documents {
+//                    for token in fcmTok {
+//                        let tok: String = to
+//                        completion(token)
+//                    }
+//                }
+//
+//            }
+        }
+    }
     
     func setAccountInfo(firstName: String, lastName: String, phoneNum: String) {
         if let uid = Auth.auth().currentUser?.uid {
@@ -413,8 +465,8 @@ class FirebaseManager {
                 
                 let coordinate = CLLocationCoordinate2DMake(latitude, longitude)
                 let date = formatDateFromData(data: tokens[0])
-                let speed = CLLocationSpeed(string: tokens[3])
-                let altitude = CLLocationDistance(string: tokens[4])!
+                let speed = CLLocationSpeed(tokens[3])
+                let altitude = CLLocationDistance(tokens[4])!
 
                 let location = CLLocation(coordinate: coordinate, altitude: altitude, horizontalAccuracy: 0, verticalAccuracy: 0, course: -1, speed: speed!, timestamp: date)
                 

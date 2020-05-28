@@ -60,6 +60,15 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
         weeklyRides = RideWeek(currMonth: currMonth, prevMonth: prevMonth)
         print("success")
     
+        let sender = PushNotificationSender()
+        print("STARTING")
+        fbManager.getFcmToken { tok in
+            sender.sendPushNotification(to: tok, title: "AgriGuardian", body: "Rollover Detected!")
+            print("DID IT")
+        }
+        print("DONEEEEEEEEEE")
+
+//        sender.sendPushNotification(to: "", title: "Notification title", body: "Notification body")
 
     }
     
@@ -85,8 +94,6 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
         self.collectionView.register(headerNib, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerId)
         
 //        self.collectionView.reloadData()
-        
-        
     }
     
     func showActivityIndicator() {
