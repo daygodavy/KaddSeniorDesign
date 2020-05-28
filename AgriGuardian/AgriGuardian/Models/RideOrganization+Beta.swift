@@ -49,7 +49,7 @@ extension Device {
             let locos = ride.locations
             let miles = ride.mileage
             let time = ride.totalTime
-            let thirtyDaysBeforeToday = Calendar.current.date(byAdding: .day, value: -2, to: ride.rideDate)!
+            let thirtyDaysBeforeToday = Calendar.current.date(byAdding: .day, value: -1, to: ride.rideDate)!
             newRide.setDate(date: thirtyDaysBeforeToday)
             newRide.addLocations(locos: locos)
             newRide.setMileage(mileage: miles)
@@ -69,19 +69,7 @@ extension Device {
             newRide.setTotalTime(time: time)
             self.rides.append(newRide)
         }
-        // change date of rides
-        for ride in rides {
-            var newRide = Ride()
-            let locos = ride.locations
-            let miles = ride.mileage
-            let time = ride.totalTime
-            let thirtyDaysBeforeToday = Calendar.current.date(byAdding: .day, value: -150, to: ride.rideDate)!
-            newRide.setDate(date: thirtyDaysBeforeToday)
-            newRide.addLocations(locos: locos)
-            newRide.setMileage(mileage: miles)
-            newRide.setTotalTime(time: time)
-            self.rides.append(newRide)
-        }
+
         // change date of rides
         for ride in rides {
             var newRide = Ride()

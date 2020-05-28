@@ -55,7 +55,7 @@ class StatisticsCell: UICollectionViewCell {
 
         graphView.shouldAnimateOnStartup = true
 
-        graphView.rangeMax = 5
+        graphView.rangeMax = 10
         graphView.rangeMin = 0
 
         // Add everything
@@ -74,8 +74,7 @@ class StatisticsCell: UICollectionViewCell {
 }
 extension StatisticsCell: ScrollableGraphViewDataSource {
     func value(forPlot plot: Plot, atIndex pointIndex: Int) -> Double {
-        return rideWeek.week[pointIndex].mileage
-    }
+        return Double(Int.random(in: 0 ... 8))    }
     
     func label(atIndex pointIndex: Int) -> String {
         return days[pointIndex]

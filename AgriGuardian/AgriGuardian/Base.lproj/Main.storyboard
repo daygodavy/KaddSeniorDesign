@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
@@ -682,24 +682,7 @@
                                     <constraint firstAttribute="width" constant="150" id="ztF-p5-BEg"/>
                                 </constraints>
                             </view>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="NWX-LE-jWm">
-                                <rect key="frame" x="92.5" y="134" width="229" height="42"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please make sure device is on" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uwW-Sd-Ofl">
-                                        <rect key="frame" x="0.0" y="0.0" width="229" height="20.5"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="and in range..." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="610-nq-Ajw">
-                                        <rect key="frame" x="0.0" y="21.5" width="229" height="20.5"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
-                            </stackView>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="cart.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="v0N-ze-UVG">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="v0N-ze-UVG">
                                 <rect key="frame" x="195" y="339.5" width="25" height="25"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
@@ -715,8 +698,6 @@
                             <constraint firstItem="1ov-fP-o8l" firstAttribute="centerY" secondItem="T4W-3H-RuE" secondAttribute="centerY" id="3gP-mb-Ex1"/>
                             <constraint firstItem="mKg-pd-QcJ" firstAttribute="top" secondItem="1ov-fP-o8l" secondAttribute="bottom" constant="100" id="Jpe-xD-giQ"/>
                             <constraint firstItem="mKg-pd-QcJ" firstAttribute="centerX" secondItem="T4W-3H-RuE" secondAttribute="centerX" id="UPd-x0-rSf"/>
-                            <constraint firstItem="NWX-LE-jWm" firstAttribute="centerX" secondItem="T4W-3H-RuE" secondAttribute="centerX" id="bRC-hs-mpt"/>
-                            <constraint firstItem="NWX-LE-jWm" firstAttribute="top" secondItem="P0f-3E-weD" secondAttribute="top" constant="90" id="j2E-UR-Wmd"/>
                             <constraint firstItem="1ov-fP-o8l" firstAttribute="centerX" secondItem="T4W-3H-RuE" secondAttribute="centerX" id="mEd-vF-SUO"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="P0f-3E-weD"/>
@@ -1410,7 +1391,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="cart.fill" catalog="system" width="128" height="102"/>
         <image name="chevron.right" catalog="system" width="96" height="128"/>
+        <image name="logo" width="450" height="450"/>
     </resources>
 </document>

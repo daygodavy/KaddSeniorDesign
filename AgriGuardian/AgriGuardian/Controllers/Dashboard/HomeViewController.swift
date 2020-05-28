@@ -84,7 +84,7 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
         let headerNib = UINib(nibName: "DashboardHeaderView", bundle: nil)
         self.collectionView.register(headerNib, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerId)
         
-//        self.collectionView.reloadData()
+
         
         
     }
@@ -106,12 +106,6 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
         return currDevice
     }
     
-    @objc func SignOutButtonPressed(_ sender: Any) {
-        print("attempting to signout")
-        self.userLogout()
-        self.goToHome()
-    }
-    
     // MARK: - Private functions    
     fileprivate func registerFlowLayout() {
         let layout = UICollectionViewFlowLayout()
@@ -128,34 +122,7 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
         //self.navigationItem.rightBarButtonItem = addButton
         self.navigationItem.leftBarButtonItem = devicesButton
         
-        let signoutImg = UIImage(systemName: "clear")
-        let signoutButton = UIBarButtonItem(image: signoutImg, style: .plain, target: self, action: #selector(userLogout))
-        self.navigationItem.rightBarButtonItem = signoutButton
-    }
-    
 
-    
-    @objc fileprivate func userLogout() {
-
-        
-        // Check provider ID to verify that the user has signed in with Apple
-        if let providerId = Auth.auth().currentUser?.providerData.first?.providerID,
-            providerId == "apple.com" {
-            // Clear saved user ID
-            UserDefaults.standard.set(nil, forKey: "appleAuthorizedUserIdKey")
-        } else {
-            GIDSignIn.sharedInstance().signOut()
-        }
-        
-        // Perform sign out from Firebase
-        do {
-            try Auth.auth().signOut()
-        } catch let signOutError as NSError {
-            print ("Error signing out: %@", signOutError)
-        }
-        
-        
-        self.goToHome()
     }
     
     @objc fileprivate func showDevices() {
@@ -219,7 +186,7 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
         } else if (indexPath.row == 4) {
             let detCell = collectionView.dequeueReusableCell(withReuseIdentifier: detailId, for: indexPath) as! WeekDetailCell
             detCell.nameLabel.text = "Rollovers"
-            detCell.valueLabel.text = weeklyRides.getTotalRollovers()
+            detCell.valueLabel.text = weeklyRides.getTotalRollovers() 
             detCell.backgroundColor = .systemGray6
             return detCell
         }

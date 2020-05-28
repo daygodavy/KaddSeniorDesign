@@ -55,7 +55,10 @@ class MainTabBarController: UITabBarController {
                     // ACCOMMODATE FOR WHEN ThERE ARE NO RIDES AVAILABLE...
                     self.fbManager.getRides(devId: self.chosenDevice.devId) { (rides) in
                         self.chosenDevice.rides = rides
-                        let history = self.fbManager.getRideHistory(rides: rides)
+                        
+                       //  self.chosenDevice.addRides()
+
+                        let history = self.fbManager.getRideHistory(rides: self.chosenDevice.rides )
                         self.chosenDevice.rideHistory = history
                         
                         self.user.currentDevice = self.chosenDevice

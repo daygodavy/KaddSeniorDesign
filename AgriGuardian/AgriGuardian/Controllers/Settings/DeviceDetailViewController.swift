@@ -148,7 +148,7 @@ class DeviceDetailViewController: UITableViewController, CLLocationManagerDelega
             let user = Auth.auth().currentUser!.uid
             if isNew {
                 // TODO: Write data to pi here
-                let tokens =  "\(user), \(thisDevice.name), \(thisDevice.gfRadius), \(thisDevice.gfCenter.coordinate.latitude), \(thisDevice.gfCenter.coordinate.longitude)"
+                let tokens =  "\(user), \(thisDevice.name), \(thisDevice.gfRadius), \(thisDevice.gfCenter.coordinate.latitude), \(thisDevice.gfCenter.coordinate.longitude), 9999999999"
                 print("Writing to peripheral")
                 let data = Data(tokens.utf8)
                 kaddPeripheral.writeValue(data, for: kaddCharacteristic, type: .withResponse)

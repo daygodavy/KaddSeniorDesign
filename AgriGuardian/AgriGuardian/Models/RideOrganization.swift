@@ -240,7 +240,7 @@ public final class RideWeek {
                 }
             }
         }
-        return String(format: "%.2f", rolls)
+        return String(rolls)
     }
     
     func getLastRideDate() -> String {

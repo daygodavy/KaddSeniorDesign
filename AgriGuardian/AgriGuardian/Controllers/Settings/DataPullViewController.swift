@@ -40,6 +40,9 @@ class DataPullViewController: UIViewController {
         super.viewDidLoad()
         setupViews()
         centralManager = CBCentralManager(delegate: self, queue: nil)
+        presentBasicAlert(title: "Initiating data transfer", message: "Please make sure device is on and in range") {
+             
+         }
 
     }
     
