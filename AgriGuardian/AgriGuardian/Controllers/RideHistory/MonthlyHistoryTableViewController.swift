@@ -24,8 +24,7 @@ class MonthlyHistoryTableViewController: UITableViewController {
 
     }
     private func setupNavBar() {
-        let filterButton = UIBarButtonItem(title: "Filter", style: .plain, target: self, action: nil)
-        self.navigationItem.rightBarButtonItem = filterButton
+
         self.title = "Ride History"
         
         // automatically scroll to most selected month
