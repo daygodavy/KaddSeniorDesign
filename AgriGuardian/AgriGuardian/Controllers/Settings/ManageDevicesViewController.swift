@@ -44,7 +44,9 @@ class ManageDevicesViewController: UITableViewController, RefreshDataDelegate {
 
     // MARK: - Actions
     @objc private func didTapAdd() {
-        centralManager.scanForPeripherals(withServices: [kaddService])
+        //centralManager.scanForPeripherals(withServices: [kaddService])
+        self.segueToDeviceDetailVC(isNewDev: true, thisDev: Device())
+
     }
     
     func startSpinner() {
@@ -59,6 +61,7 @@ class ManageDevicesViewController: UITableViewController, RefreshDataDelegate {
             self.user = user
             //            self.currDevice = self.loadCurrentDevice()
             self.devices = user.getDevices()
+            self.devices += DataManager().loadDevs()
             self.tableView.dataSource = self
             self.tableView.delegate = self
             self.tableView.reloadData()
@@ -118,8 +121,8 @@ class ManageDevicesViewController: UITableViewController, RefreshDataDelegate {
 
         // Configure the cell...
         cell.backgroundColor = .systemGray5
-        cell.nameLabel.text = self.user.devices[indexPath.row].getDeviceName()
-        cell.vehicleLabel.text = self.user.devices[indexPath.row].getVehicleName()
+        cell.nameLabel.text = self.devices[indexPath.row].getDeviceName()
+        cell.vehicleLabel.text = self.devices[indexPath.row].getVehicleName()
         return cell
     }
     
@@ -228,7 +231,6 @@ extension ManageDevicesViewController: CBPeripheralDelegate {
             deviceManufacturer = tokens[2]
             
             print("Will Segue Here")
-            self.segueToDeviceDetailVC(isNewDev: true, thisDev: Device())
 
             // TODO: Pass Model and Serial number through segue and add to device info
             

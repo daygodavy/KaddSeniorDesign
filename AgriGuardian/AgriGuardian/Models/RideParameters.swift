@@ -18,7 +18,6 @@ public class Ride {
     var mileage: Double
     var didRollover: Bool
     var rideDate: Date
-    
     var devId: String
     var devIdx: Int
     // left out satellines & terrain points
@@ -151,6 +150,9 @@ public class Ride {
         df.dateFormat = "EEEE, MMM d, yyyy"
         let now = df.string(from: self.rideDate)
         return now
+    }
+    func setRollover(didRollover: Bool) {
+        self.didRollover = didRollover
     }
     func printDate() {
         print(self.rideDate.description)

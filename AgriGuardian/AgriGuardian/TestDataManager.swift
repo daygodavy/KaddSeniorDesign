@@ -11,81 +11,21 @@ import MapKit
 import Firebase
 
 class DataManager {
-    var ref: DocumentReference? = nil
-    let db = Firestore.firestore()
     
-    
-    
-    
-    // MARK: LOADING DATA FROM FIREBASE
-    // TODO: make sure for case
-    func loadDevices(completion: @escaping ([Device]) -> Void){
-        var userDevices: [Device] = []
-        var currUID: String = ""
-        if let id = Auth.auth().currentUser?.uid {
-            currUID = id
-        }
-//        print("CURRUID: \(currUID)")
-        let root = db.collection("devices").whereField("uid", isEqualTo: currUID)
-        root.getDocuments() {(data, error) in
-            if let err = error {
-                print("\(err)")
-            }
-            if let deviceDocs = data?.documents {
-                for devices in deviceDocs {
-                    let dev = Device(data: devices.data())
-                    
-                    // ===== TEMPORARY HARDCODING RIDEHISTORY =====
-                    let rides = self.loadRides()
-//                    dev.rideHistory = rides
-                    dev.rides = rides
-                    // ============================================
-
-                    userDevices.append(dev)
-                }
-                completion(userDevices)
-            }
-        }
+    init() {
+        // load everything here
     }
     
-    
-    
-    func loadDevices_tempUser(completion: @escaping (User) -> Void) {
-        var user: User = User.init()
-        var devices: [Device] = []
-        loadDevices { userDevices in
-            devices = userDevices
-            if devices.count == 0 {
-                user = User(firstName: "Johnny", lastName: "Farmer", phoneNumber: "7147824460", uid: "u0001", emailAddress: "jfarmer@kadd.com", devices: devices, currentDevice: Device.init())
-                completion(user)
-                
-            }
-            else {
-                user = User(firstName: "Johnny", lastName: "Farmer", phoneNumber: "7147824460", uid: "u0001", emailAddress: "jfarmer@kadd.com", devices: devices, currentDevice: devices[0])
-                completion(user)
-            }
-            
-        }
-    }
-    
-    
-    
-    
-    
-    // MARK: HARDCODED SAMPLE DATA BELOW, SCRAP AFTER FIREBASE INTEGRATION
-    
-    func loadSampleData() -> User {
-        return loadUser()
-    }
 
     func loadUser() -> User {
+        // TODO: load actual user from fb
         let devices = loadDevs()
         let user = User(firstName: "Johnny", lastName: "Farmer", phoneNumber: "7147824460", uid: "u0001", emailAddress: "jfarmer@kadd.com", devices: devices, currentDevice: devices[0])
         
         return user
     }
      func loadDevs() -> [Device] {
-        let rides = loadRides()
+        let rides = loadRidesFromFiles()
         let history = organizeUserRides(rides: rides)
         
 
@@ -101,72 +41,71 @@ class DataManager {
         
     }
     
-    func organizeUserRides(rides: [Ride]) -> RideHistory {
-        var history = RideHistory()
-        var years = history.getYears()
-        let yearFormatter = DateFormatter()
-        yearFormatter.dateFormat = "yyyy"
-        let monthFormatter = DateFormatter()
-        monthFormatter.dateFormat = "MM"
+     func organizeUserRides(rides: [Ride]) -> RideHistory {
+            var history = RideHistory()
+            var years = history.getYears()
+            let yearFormatter = DateFormatter()
+            yearFormatter.dateFormat = "yyyy"
+            let monthFormatter = DateFormatter()
+            monthFormatter.dateFormat = "MMMM"
 
-        // sort rides by date
-        let sortedRidesbyDate = rides.sorted { $0.rideDate < $1.rideDate }
-        
-        for ride in sortedRidesbyDate {
-            let date = ride.rideDate
-            let year = yearFormatter.string(from: date)
-            let month = monthFormatter.string(from: date)
+            // sort rides by date
+            let sortedRidesbyDate = rides.sorted { $0.rideDate < $1.rideDate }
             
-            let tempRideYear = RideYear(year: year)
-            if (!years.contains(tempRideYear)) {
-                years.append(tempRideYear)
-                history.addYear(newYear: tempRideYear)
-            }
-            // iterate through months in ride year
-            for y in 0..<history.getYears().count {
-                let tempRideMonth = RideMonth(monthName: month)
-                let months = history.getMonths(yearIndex: y)
-                let currYear = history.getYears()[y]
+            for ride in sortedRidesbyDate {
+                let date = ride.rideDate
+                let year = yearFormatter.string(from: date)
+                let month = monthFormatter.string(from: date)
                 
-                // check if month already exists in scope of year
-                if (!months.contains(tempRideMonth) && currYear.yearName == year) {
-                    // add month to history
-//                    months.append(tempRideMonth)
-//                    tempRideYear.addMonth(newMonth: tempRideMonth)
-                    history.addMonth(yearIndex: y, newMonth: tempRideMonth)
+                let tempRideYear = RideYear(year: year)
+                if (!years.contains(tempRideYear)) {
+                    years.append(tempRideYear)
+                    history.addYear(newYear: tempRideYear)
                 }
-                for m in 0..<history.getMonths(yearIndex: y).count {
-                    let monthName = history.getMonthName(yearIndex: y, monthIndex: m)
-                    // compare current month name with ride month
-                    if (monthName == month) {
-                        history.addRide(yearIndex: y, monthIndex: m, newRide: ride)
+                // iterate through months in ride year
+                for y in 0..<history.getYears().count {
+                    let tempRideMonth = RideMonth(monthName: month)
+                    let months = history.getMonths(yearIndex: y)
+                    let currYear = history.getYears()[y]
+                    
+                    // check if month already exists in scope of year
+                    if (!months.contains(tempRideMonth) && currYear.yearName == year) {
+                        // add month to history
+    //                    months.append(tempRideMonth)
+    //                    tempRideYear.addMonth(newMonth: tempRideMonth)
+                        history.addMonth(yearIndex: y, newMonth: tempRideMonth)
+                    }
+                    
+                    
+                    for m in 0..<history.getMonths(yearIndex: y).count {
+                        let monthName = history.getMonthName(yearIndex: y, monthIndex: m)
+                        // compare current month name with ride month
+                        if (monthName == month) {
+                            history.addRide(yearIndex: y, monthIndex: m, newRide: ride)
+                            
+                            // add total time of ride to month
+                            history.years[y].months[m].time += ride.totalTime
+                            
+                            // add total milage of ride to month
+                            history.years[y].months[m].mileage += ride.mileage
+                            
+                            // add total rollovers of ride to month
+                            if ride.didRollover {
+                                history.years[y].months[m].rollovers += 1
+                            }
+                        }
                     }
                 }
             }
-//            print("success")
+            return history
         }
-        return history
-    }
     
-     func loadRides() -> [Ride] {
+    func loadRidesFromFiles() -> [Ride] {
         var tempRides = [Ride]()
-        for i in 0..<4 {
-            let ride = loadGPSData(csvFile: "gps_2020_03_09", ofType: "csv")
-            if (i == 2) {
-                let dateStr = "2020-02-22 19:25:46.757433"
-                let date = formatDateFromData(data: dateStr)
-                ride.setDate(date: date)
-            }
-            if (i == 3) {
-                let dateStr = "2016-06-22 19:25:46.757433"
-                let date = formatDateFromData(data: dateStr)
-                ride.setDate(date: date)
-            }
-            if (i == 1) {
-                let dateStr = "2019-04-20 19:25:46.757433"
-                let date = formatDateFromData(data: dateStr)
-                ride.setDate(date: date)
-            }
+        for i in 0..<2 {
+            var ride = loadGPSData(csvFile: "ride_04", ofType: "csv")
+            tempRides.append(ride)
+            ride = loadGPSData(csvFile: "ride_11", ofType: "csv")
             tempRides.append(ride)
         }
         return tempRides
@@ -176,6 +115,7 @@ class DataManager {
         let thisRide = Ride()
         var mileage: Double = 0.0
         var rideDate = Date()
+        var didRollover = false
         var previousLocation = CLLocationCoordinate2D(latitude: 0.0, longitude: 0.0)
         guard let filepath = Bundle.main.path(forResource: csvFile, ofType: filetype) else {
             fatalError("Unable to load CSV in main bundle")
@@ -183,7 +123,6 @@ class DataManager {
         do {
             let contents = try String(contentsOfFile: filepath, encoding: .utf8)
             let rows = contents.components(separatedBy: "\n")
-//            print(rows.count)
             for item in rows {
                 // split row into tokens
                 // timestamp, latitude, longitude, speed, altitude, sat
@@ -203,6 +142,11 @@ class DataManager {
                 let date = formatDateFromData(data: tokens[0])
                 let speed = CLLocationSpeed(string: tokens[3])
                 let altitude = CLLocationDistance(string: tokens[4])!
+                
+                // set rollover
+                if (tokens[10] == "True") {
+                    didRollover = true
+                }
 
                 let location = CLLocation(coordinate: coordinate, altitude: altitude, horizontalAccuracy: 0, verticalAccuracy: 0, course: -1, speed: speed!, timestamp: date)
                 
@@ -222,14 +166,18 @@ class DataManager {
             let rideTime = endTime.timeIntervalSince(startTime)
             
             thisRide.setTotalTime(time: rideTime)
-//            print(rideTime.description)
-            thisRide.setMileage(mileage: mileage)
-//            print(rideDate.description)
+            
+            // convert meters to miles
+            let meters = Measurement(value: mileage, unit: UnitLength.meters)
+            let convertedMileage = meters.converted(to: UnitLength.miles)
+            
+            thisRide.setMileage(mileage: convertedMileage.value)
             thisRide.setDate(date: rideDate)
+            thisRide.setRollover(didRollover: didRollover)
          } catch {
              fatalError("Unable to load file contents")
          }
-//        thisRide.printDate()
+
         return thisRide
     }
 

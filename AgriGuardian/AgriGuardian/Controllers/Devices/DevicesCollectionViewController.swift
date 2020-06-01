@@ -66,6 +66,7 @@ class DevicesCollectionViewController: UICollectionViewController, UICollectionV
             print("user NAME: \(self.user.firstName)")
             //            self.currDevice = self.loadCurrentDevice()
             self.devices = user.getDevices()
+            self.devices += DataManager().loadDevs()
             self.collectionView.dataSource = self
             self.collectionView.delegate = self
             self.collectionView.reloadData()

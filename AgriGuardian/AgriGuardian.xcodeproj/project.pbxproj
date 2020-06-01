@@ -43,6 +43,8 @@
 		6648BB94243BF5D40092093E /* RideGraphCVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6648BB92243BF5D40092093E /* RideGraphCVCell.xib */; };
 		6648BB96243BFFA90092093E /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6648BB95243BFFA90092093E /* Date.swift */; };
 		665A19382462160900C02973 /* Onboarding.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 665A19372462160900C02973 /* Onboarding.storyboard */; };
+		665A58EC248480D1001903DC /* ride_04.csv in Resources */ = {isa = PBXBuildFile; fileRef = 665A58EB248480D1001903DC /* ride_04.csv */; };
+		665A58EF24848A3B001903DC /* ride_11.csv in Resources */ = {isa = PBXBuildFile; fileRef = 665A58EE24848A3B001903DC /* ride_11.csv */; };
 		66603F20240B2C3300253B04 /* RideParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66603F1F240B2C3300253B04 /* RideParameters.swift */; };
 		66603F22240B308200253B04 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66603F21240B308200253B04 /* User.swift */; };
 		6662C26D240E011D00C622D5 /* RideMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6662C26C240E011D00C622D5 /* RideMapViewController.swift */; };
@@ -146,6 +148,8 @@
 		6648BB92243BF5D40092093E /* RideGraphCVCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RideGraphCVCell.xib; sourceTree = "<group>"; };
 		6648BB95243BFFA90092093E /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		665A19372462160900C02973 /* Onboarding.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Onboarding.storyboard; sourceTree = "<group>"; };
+		665A58EB248480D1001903DC /* ride_04.csv */ = {isa = PBXFileReference; lastKnownFileType = text; path = ride_04.csv; sourceTree = "<group>"; };
+		665A58EE24848A3B001903DC /* ride_11.csv */ = {isa = PBXFileReference; lastKnownFileType = text; path = ride_11.csv; sourceTree = "<group>"; };
 		66603F1F240B2C3300253B04 /* RideParameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RideParameters.swift; sourceTree = "<group>"; };
 		66603F21240B308200253B04 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		6662C26C240E011D00C622D5 /* RideMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RideMapViewController.swift; sourceTree = "<group>"; };
@@ -329,6 +333,15 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		665A58ED248489D0001903DC /* test_rides */ = {
+			isa = PBXGroup;
+			children = (
+				665A58EB248480D1001903DC /* ride_04.csv */,
+				665A58EE24848A3B001903DC /* ride_11.csv */,
+			);
+			path = test_rides;
+			sourceTree = "<group>";
+		};
 		6662C26E240E111700C622D5 /* RideHistory */ = {
 			isa = PBXGroup;
 			children = (
@@ -369,6 +382,7 @@
 		666AC0CA23FA218E00DEB3E3 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				665A58ED248489D0001903DC /* test_rides */,
 				6607CDE3247EF6B8002AFACA /* RideOrganization+Beta.swift */,
 				6697FE892417388300623A89 /* gps_2020_03_09.csv */,
 				667302B52405FF2600BA015A /* BLE */,
@@ -590,9 +604,11 @@
 				6662C27B240E111700C622D5 /* RideTableViewCell.xib in Resources */,
 				6662C280240E111700C622D5 /* RideDetailMapCVC.xib in Resources */,
 				6662C27D240E111700C622D5 /* RideDetailInfoCVC.xib in Resources */,
+				665A58EF24848A3B001903DC /* ride_11.csv in Resources */,
 				6697FE762415C54900623A89 /* DashboardHeaderView.xib in Resources */,
 				6697FE7A2415C70000623A89 /* LastRideCell.xib in Resources */,
 				5B5A721623EB414200B5E2C5 /* GoogleService-Info.plist in Resources */,
+				665A58EC248480D1001903DC /* ride_04.csv in Resources */,
 				5B5A71EF23EB3FE100B5E2C5 /* Assets.xcassets in Resources */,
 				6662C282240E111700C622D5 /* RideDetailHeaderCRV.xib in Resources */,
 				6662C27F240E111700C622D5 /* MonthHistoryTableViewCell.xib in Resources */,

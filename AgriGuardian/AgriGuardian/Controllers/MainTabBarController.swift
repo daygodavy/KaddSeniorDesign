@@ -44,45 +44,34 @@ class MainTabBarController: UITabBarController {
         // ========================================================================
         if let uid = Auth.auth().currentUser?.uid {
             self.fbManager.getUser(uid: uid) { (currUser) in
+                let db = DataManager()
                 self.user = currUser
-                self.fbManager.getDevices(uid: uid) { (currDevs) in
-                    self.user.devices = currDevs
-                    
-                    self.chosenDevice = self.loadCurrDev(devId: self.user.currentDevice.devId)
-//                    self.user.currentDevice = self.chosenDevice
-                    
-                    // load ride history ONLY for the current device
-                    // ACCOMMODATE FOR WHEN ThERE ARE NO RIDES AVAILABLE...
-                    self.fbManager.getRides(devId: self.chosenDevice.devId) { (rides) in
-                        self.chosenDevice.rides = rides
-                        
-                       //  self.chosenDevice.addRides()
+                self.user.devices = db.loadDevs()
+                self.chosenDevice = self.user.devices[0]
+                self.user.currentDevice = self.chosenDevice
+                
+                
 
-                        let history = self.fbManager.getRideHistory(rides: self.chosenDevice.rides )
-                        self.chosenDevice.rideHistory = history
-                        
-                        self.user.currentDevice = self.chosenDevice
-                        
-                        // pass data to view controllers
-                        homeVC.currDevice = self.chosenDevice
-                        homeVC.user = self.user
-                        
-                        historyVC.currDevice = self.chosenDevice
-                        historyVC.user = self.user
-                        
-                        settingVC.currDevice = self.chosenDevice
-                        settingVC.user = self.user
-                        
-                        let tabBarList = [homeNC, historyNC, settingsNC]
-                        self.viewControllers = tabBarList
+                
+                // pass data to view controllers
+                homeVC.currDevice = self.chosenDevice
+                homeVC.user = self.user
+                
+                historyVC.currDevice = self.chosenDevice
+                historyVC.user = self.user
+                
+                settingVC.currDevice = self.chosenDevice
+                settingVC.user = self.user
+                
+                let tabBarList = [homeNC, historyNC, settingsNC]
+                self.viewControllers = tabBarList
                     }
                     
                     
                     
-                }
-            }
+                
+            
         }
-        // ========================================================================
         
     }
     
@@ -103,15 +92,5 @@ class MainTabBarController: UITabBarController {
         return Device()
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
