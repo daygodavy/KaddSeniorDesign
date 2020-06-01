@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Firebase
+import GoogleSignIn
 
 class SettingsViewController: UITableViewController {
     var currDevice: Device = Device()
@@ -51,6 +53,37 @@ class SettingsViewController: UITableViewController {
         navigationController?.pushViewController(vc, animated: true)
     }
     
+    func userLogout() {
+        // Check provider ID to verify that the user has signed in with Apple
+        if let providerId = Auth.auth().currentUser?.providerData.first?.providerID,
+            providerId == "apple.com" {
+            // Clear saved user ID
+            UserDefaults.standard.set(nil, forKey: "appleAuthorizedUserIdKey")
+        } else {
+            GIDSignIn.sharedInstance().signOut()
+        }
+        
+        // Perform sign out from Firebase
+        do {
+            try Auth.auth().signOut()
+        } catch let signOutError as NSError {
+            print ("Error signing out: %@", signOutError)
+        }
+        
+        
+        self.goToHome()
+    }
+    
+    func goToHome() {
+        let onboardStoryboard = UIStoryboard(name: "Onboarding", bundle: nil)
+        
+        let loginViewController = onboardStoryboard.instantiateViewController(withIdentifier: "InitialLoginViewController") as? InitialLoginViewController
+
+        self.view.window?.rootViewController = loginViewController
+        self.view.window?.makeKeyAndVisible()
+
+    }
+    
     // MARK: - Table view data source
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch (indexPath.section) {
@@ -68,6 +101,9 @@ class SettingsViewController: UITableViewController {
                 // TODO: Present an alert for User to select which device they seek to pull data from
                 segueToDataPull()
             }
+        case 3:
+            // Logout
+            userLogout()
         default:
             break
         }
