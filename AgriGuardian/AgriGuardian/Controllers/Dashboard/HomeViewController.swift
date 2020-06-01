@@ -63,7 +63,7 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
         let sender = PushNotificationSender()
         print("STARTING")
         fbManager.getFcmToken { tok in
-            sender.sendPushNotification(to: tok, title: "AgriGuardian", body: "Rollover Detected!")
+            sender.sendPushNotification(to: tok, title: "AgriGuardian", body: "Rollover Detected!!!!!!!")
             print("DID IT")
         }
         print("DONEEEEEEEEEE")

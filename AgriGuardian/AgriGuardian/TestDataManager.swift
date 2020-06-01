@@ -201,8 +201,8 @@ class DataManager {
                 
                 let coordinate = CLLocationCoordinate2DMake(latitude, longitude)
                 let date = formatDateFromData(data: tokens[0])
-                let speed = CLLocationSpeed(string: tokens[3])
-                let altitude = CLLocationDistance(string: tokens[4])!
+                let speed = CLLocationSpeed(tokens[3])
+                let altitude = CLLocationDistance(tokens[4])!
 
                 let location = CLLocation(coordinate: coordinate, altitude: altitude, horizontalAccuracy: 0, verticalAccuracy: 0, course: -1, speed: speed!, timestamp: date)
                 
