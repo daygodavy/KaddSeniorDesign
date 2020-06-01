@@ -212,7 +212,7 @@ class DeviceDetailViewController: UITableViewController, CLLocationManagerDelega
         case 0:
             break
         case 1:
-            if (indexPath.row == 2) {
+            if (indexPath.row == 1) {
                 // segue to map view on select
                 segueToGeofencing()
             }
