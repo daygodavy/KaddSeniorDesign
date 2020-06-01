@@ -13,7 +13,7 @@ import Firebase
 
 protocol gfDelegate
 {
-    func pullGFCenter(gfPoint: CLLocation)
+    func pullGFCenter(gfPoint: CLLocation, gfRad: Double)
 }
 
 protocol RefreshDataDelegate
@@ -37,6 +37,7 @@ class DeviceDetailViewController: UITableViewController, CLLocationManagerDelega
     var locationManager: CLLocationManager = CLLocationManager()
     var currLoc: CLLocation = CLLocation()
     var gfCenter: CLLocation = CLLocation()
+    var gfRad: Double = 0.0
     var isNew: Bool = false
     var viewDelegate: RefreshDataDelegate?
     var ellipseSize: Double = 410.0
@@ -53,7 +54,7 @@ class DeviceDetailViewController: UITableViewController, CLLocationManagerDelega
         setupView()
         self.deviceNameLabel.addDoneButtonOnKeyboard()
         self.vehicleModelLabel.addDoneButtonOnKeyboard()
-        self.geofenceRadius.addDoneButtonOnKeyboard()
+//        self.geofenceRadius.addDoneButtonOnKeyboard()
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -79,13 +80,13 @@ class DeviceDetailViewController: UITableViewController, CLLocationManagerDelega
         
         deviceNameLabel.delegate = self
         vehicleModelLabel.delegate = self
-        geofenceRadius.delegate = self
+//        geofenceRadius.delegate = self
         var endPosition = deviceNameLabel.endOfDocument
         deviceNameLabel.selectedTextRange = deviceNameLabel.textRange(from: endPosition, to: endPosition)
         endPosition = vehicleModelLabel.endOfDocument
         vehicleModelLabel.selectedTextRange = vehicleModelLabel.textRange(from: endPosition, to: endPosition)
-        endPosition = geofenceRadius.endOfDocument
-        geofenceRadius.selectedTextRange = geofenceRadius.textRange(from: endPosition, to: endPosition)
+//        endPosition = geofenceRadius.endOfDocument
+//        geofenceRadius.selectedTextRange = geofenceRadius.textRange(from: endPosition, to: endPosition)
         
         if isNew {
             self.geofenceToggle.isOn = false
@@ -96,7 +97,7 @@ class DeviceDetailViewController: UITableViewController, CLLocationManagerDelega
             self.geofenceToggle.isOn = thisDevice.gfToggle
             self.deviceNameLabel.text = thisDevice.name
             self.vehicleModelLabel.text = thisDevice.atvModel
-            self.geofenceRadius.text = String(thisDevice.gfRadius)
+//            self.geofenceRadius.text = String(thisDevice.gfRadius)
             self.gfCenter = thisDevice.gfCenter
         }
         
@@ -122,8 +123,9 @@ class DeviceDetailViewController: UITableViewController, CLLocationManagerDelega
         navigationController?.pushViewController(vc, animated: true)
         
     }
-    func pullGFCenter(gfPoint: CLLocation) {
+    func pullGFCenter(gfPoint: CLLocation, gfRad: Double) {
         self.gfCenter = gfPoint
+        self.gfRad = gfRad
     }
     @objc func cancelNavButtonPressed() {
         presentCustomAlert(title: "Are you sure?", message: "Any changes made will not be saved") {
@@ -136,13 +138,13 @@ class DeviceDetailViewController: UITableViewController, CLLocationManagerDelega
     
     @IBAction func submitButtonPressed(_ sender: Any) {
         print(self.gfCenter)
-        print(self.geofenceRadius.text!)
+//        print(self.geofenceRadius.text!)
  
 //        var currDevice: Device = Device()
-        if let devName = self.deviceNameLabel.text, !devName.isEmpty, let vehName = self.vehicleModelLabel.text, !vehName.isEmpty, let gfRad = geofenceRadius.text, geofenceRadius.text!.isnumberordouble {
+        if let devName = self.deviceNameLabel.text, !devName.isEmpty, let vehName = self.vehicleModelLabel.text, !vehName.isEmpty {
             thisDevice.name = devName
             thisDevice.atvModel = vehName
-            thisDevice.gfRadius = Double(gfRad)!
+            thisDevice.gfRadius = self.gfRad
             thisDevice.gfToggle = self.geofenceToggle.isOn
             thisDevice.gfCenter = self.gfCenter
             let user = Auth.auth().currentUser!.uid
@@ -188,16 +190,17 @@ class DeviceDetailViewController: UITableViewController, CLLocationManagerDelega
         deviceNameLabel.selectedTextRange = deviceNameLabel.textRange(from: endPosition, to: endPosition)
         endPosition = vehicleModelLabel.endOfDocument
         vehicleModelLabel.selectedTextRange = vehicleModelLabel.textRange(from: endPosition, to: endPosition)
-        endPosition = geofenceRadius.endOfDocument
-        geofenceRadius.selectedTextRange = geofenceRadius.textRange(from: endPosition, to: endPosition)
+//        endPosition = geofenceRadius.endOfDocument
+//        geofenceRadius.selectedTextRange = geofenceRadius.textRange(from: endPosition, to: endPosition)
         if textField == deviceNameLabel {
             print("pressed1")
 
         } else if textField == vehicleModelLabel {
             print("pressed2")
-        } else if textField == geofenceRadius {
-            print("pressed3")
         }
+//        else if textField == geofenceRadius {
+//            print("pressed3")
+//        }
     }
 
     
@@ -323,7 +326,7 @@ public class GeofenceController: UIViewController, MKMapViewDelegate {
     @objc func tappedDone(_ sender: UIBarButtonItem){
         let target2d = mapView.convert(ellipsisLayer.position, toCoordinateFrom: mapView)
         let target = CLLocation.init(latitude: target2d.latitude, longitude: target2d.longitude)
-        delegate?.pullGFCenter(gfPoint: target)
+        delegate?.pullGFCenter(gfPoint: target, gfRad: self.mapView.region.distanceMax())
 //        self.dismiss(animated: true, completion: nil)
         self.navigationController?.popViewController(animated: true)
     }
