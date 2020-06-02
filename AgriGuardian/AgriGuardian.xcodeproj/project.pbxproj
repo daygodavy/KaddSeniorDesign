@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2179126A1D637B5859C9948F /* Pods_AgriGuardian_AgriGuardianUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4105BD46B8FED2606965F48E /* Pods_AgriGuardian_AgriGuardianUITests.framework */; };
-		56C7AD22A1A13119480A2213 /* Pods_AgriGuardian.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B95C3541C7589A86775711F5 /* Pods_AgriGuardian.framework */; };
 		5B1BB309240B431600E235CD /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1BB308240B431600E235CD /* LoginViewController.swift */; };
 		5B1BB30D240B450000E235CD /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1BB30C240B450000E235CD /* HomeViewController.swift */; };
 		5B5A71E323EB3FDD00B5E2C5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5A71E223EB3FDD00B5E2C5 /* AppDelegate.swift */; };
@@ -34,7 +32,6 @@
 		6607CDE4247EF6B8002AFACA /* RideOrganization+Beta.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6607CDE3247EF6B8002AFACA /* RideOrganization+Beta.swift */; };
 		6621C635240B69490039B49A /* YearlyHistoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6621C633240B69490039B49A /* YearlyHistoryTableViewController.swift */; };
 		6621C636240B69490039B49A /* MonthlyHistoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6621C634240B69490039B49A /* MonthlyHistoryTableViewController.swift */; };
-		6621C63C240B69900039B49A /* AddDeviceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6621C638240B69900039B49A /* AddDeviceViewController.swift */; };
 		6621C63D240B69900039B49A /* DeviceTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6621C639240B69900039B49A /* DeviceTableViewController.swift */; };
 		6621C63E240B69900039B49A /* ViewController+Alerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6621C63B240B69900039B49A /* ViewController+Alerts.swift */; };
 		6621C640240B6D230039B49A /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6621C63F240B6D230039B49A /* MainTabBarController.swift */; };
@@ -83,7 +80,9 @@
 		6697FE862415DEC300623A89 /* LastLocationCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6697FE842415DEC300623A89 /* LastLocationCell.xib */; };
 		6697FE882415EDBE00623A89 /* TestDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6697FE872415EDBE00623A89 /* TestDataManager.swift */; };
 		6697FE8A2417388400623A89 /* gps_2020_03_09.csv in Resources */ = {isa = PBXBuildFile; fileRef = 6697FE892417388300623A89 /* gps_2020_03_09.csv */; };
-		DE74545DB1BF91D578B9B020 /* Pods_AgriGuardianTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 308491F463AA03189AF1C47D /* Pods_AgriGuardianTests.framework */; };
+		6DB29B079D0657A665F2FEB9 /* Pods_AgriGuardian_AgriGuardianUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E09B5FDD8AD16490081C627 /* Pods_AgriGuardian_AgriGuardianUITests.framework */; };
+		8C7F317BE3BCEF184CFF6FD1 /* Pods_AgriGuardianTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A450BBE35690E39175F7E24F /* Pods_AgriGuardianTests.framework */; };
+		C7B49D1582F673FADC4DEE5E /* Pods_AgriGuardian.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 879949621C67682580496505 /* Pods_AgriGuardian.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -104,11 +103,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0E26F404FF7C1C65AD048677 /* Pods-AgriGuardian.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AgriGuardian.release.xcconfig"; path = "Target Support Files/Pods-AgriGuardian/Pods-AgriGuardian.release.xcconfig"; sourceTree = "<group>"; };
-		20E22A3316F18985F4EA8446 /* Pods-AgriGuardian-AgriGuardianUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AgriGuardian-AgriGuardianUITests.debug.xcconfig"; path = "Target Support Files/Pods-AgriGuardian-AgriGuardianUITests/Pods-AgriGuardian-AgriGuardianUITests.debug.xcconfig"; sourceTree = "<group>"; };
-		308491F463AA03189AF1C47D /* Pods_AgriGuardianTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AgriGuardianTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		4105BD46B8FED2606965F48E /* Pods_AgriGuardian_AgriGuardianUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AgriGuardian_AgriGuardianUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		47E5248EF16D6D1D773BE05C /* Pods-AgriGuardian.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AgriGuardian.debug.xcconfig"; path = "Target Support Files/Pods-AgriGuardian/Pods-AgriGuardian.debug.xcconfig"; sourceTree = "<group>"; };
+		2EDA8491E9DCBAC6C6237A7C /* Pods-AgriGuardian-AgriGuardianUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AgriGuardian-AgriGuardianUITests.release.xcconfig"; path = "Target Support Files/Pods-AgriGuardian-AgriGuardianUITests/Pods-AgriGuardian-AgriGuardianUITests.release.xcconfig"; sourceTree = "<group>"; };
+		3ADD5A61AEAEC14444025D1B /* Pods-AgriGuardianTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AgriGuardianTests.debug.xcconfig"; path = "Target Support Files/Pods-AgriGuardianTests/Pods-AgriGuardianTests.debug.xcconfig"; sourceTree = "<group>"; };
 		5B1BB308240B431600E235CD /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		5B1BB30C240B450000E235CD /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		5B5A71DF23EB3FDD00B5E2C5 /* AgriGuardian.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AgriGuardian.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -133,13 +129,11 @@
 		5B97AC102469C8FD0086B18A /* IntroAccountInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroAccountInfoViewController.swift; sourceTree = "<group>"; };
 		5BFBC69A2458B9E700D0A745 /* DeviceDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceDetailViewController.swift; sourceTree = "<group>"; };
 		5BFBC69F24660EF200D0A745 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
-		618C7BDDD59ADCFBC6E61169 /* Pods-AgriGuardianTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AgriGuardianTests.release.xcconfig"; path = "Target Support Files/Pods-AgriGuardianTests/Pods-AgriGuardianTests.release.xcconfig"; sourceTree = "<group>"; };
 		6607CDDE247DB499002AFACA /* Notification.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Notification.storyboard; sourceTree = "<group>"; };
 		6607CDE1247DB825002AFACA /* CrashReportViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrashReportViewController.swift; sourceTree = "<group>"; };
 		6607CDE3247EF6B8002AFACA /* RideOrganization+Beta.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "RideOrganization+Beta.swift"; sourceTree = "<group>"; };
 		6621C633240B69490039B49A /* YearlyHistoryTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YearlyHistoryTableViewController.swift; sourceTree = "<group>"; };
 		6621C634240B69490039B49A /* MonthlyHistoryTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MonthlyHistoryTableViewController.swift; sourceTree = "<group>"; };
-		6621C638240B69900039B49A /* AddDeviceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddDeviceViewController.swift; sourceTree = "<group>"; };
 		6621C639240B69900039B49A /* DeviceTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceTableViewController.swift; sourceTree = "<group>"; };
 		6621C63B240B69900039B49A /* ViewController+Alerts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ViewController+Alerts.swift"; sourceTree = "<group>"; };
 		6621C63F240B6D230039B49A /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
@@ -189,9 +183,13 @@
 		6697FE842415DEC300623A89 /* LastLocationCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LastLocationCell.xib; sourceTree = "<group>"; };
 		6697FE872415EDBE00623A89 /* TestDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestDataManager.swift; sourceTree = "<group>"; };
 		6697FE892417388300623A89 /* gps_2020_03_09.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = gps_2020_03_09.csv; sourceTree = "<group>"; };
-		72CDA6B62E40929D7489B30A /* Pods-AgriGuardian-AgriGuardianUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AgriGuardian-AgriGuardianUITests.release.xcconfig"; path = "Target Support Files/Pods-AgriGuardian-AgriGuardianUITests/Pods-AgriGuardian-AgriGuardianUITests.release.xcconfig"; sourceTree = "<group>"; };
-		7E3A151E18A68275109273B7 /* Pods-AgriGuardianTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AgriGuardianTests.debug.xcconfig"; path = "Target Support Files/Pods-AgriGuardianTests/Pods-AgriGuardianTests.debug.xcconfig"; sourceTree = "<group>"; };
-		B95C3541C7589A86775711F5 /* Pods_AgriGuardian.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AgriGuardian.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		74F66AC400C5FCBCD351D838 /* Pods-AgriGuardian.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AgriGuardian.debug.xcconfig"; path = "Target Support Files/Pods-AgriGuardian/Pods-AgriGuardian.debug.xcconfig"; sourceTree = "<group>"; };
+		7E09B5FDD8AD16490081C627 /* Pods_AgriGuardian_AgriGuardianUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AgriGuardian_AgriGuardianUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7F22C73168F5407AE20F86B9 /* Pods-AgriGuardian.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AgriGuardian.release.xcconfig"; path = "Target Support Files/Pods-AgriGuardian/Pods-AgriGuardian.release.xcconfig"; sourceTree = "<group>"; };
+		879949621C67682580496505 /* Pods_AgriGuardian.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AgriGuardian.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9A73395228C1E315A6D9707E /* Pods-AgriGuardian-AgriGuardianUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AgriGuardian-AgriGuardianUITests.debug.xcconfig"; path = "Target Support Files/Pods-AgriGuardian-AgriGuardianUITests/Pods-AgriGuardian-AgriGuardianUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		A450BBE35690E39175F7E24F /* Pods_AgriGuardianTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AgriGuardianTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A6380960F6E7C948CA0A1CE2 /* Pods-AgriGuardianTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AgriGuardianTests.release.xcconfig"; path = "Target Support Files/Pods-AgriGuardianTests/Pods-AgriGuardianTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -199,7 +197,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				56C7AD22A1A13119480A2213 /* Pods_AgriGuardian.framework in Frameworks */,
+				C7B49D1582F673FADC4DEE5E /* Pods_AgriGuardian.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -207,7 +205,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DE74545DB1BF91D578B9B020 /* Pods_AgriGuardianTests.framework in Frameworks */,
+				8C7F317BE3BCEF184CFF6FD1 /* Pods_AgriGuardianTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -215,7 +213,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2179126A1D637B5859C9948F /* Pods_AgriGuardian_AgriGuardianUITests.framework in Frameworks */,
+				6DB29B079D0657A665F2FEB9 /* Pods_AgriGuardian_AgriGuardianUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -230,7 +228,7 @@
 				5B5A720623EB3FE100B5E2C5 /* AgriGuardianUITests */,
 				5B5A71E023EB3FDD00B5E2C5 /* Products */,
 				7972145C9AC6A816D97D3155 /* Pods */,
-				79BB0521C1765DA1FB3FE9B8 /* Frameworks */,
+				7A86F74E9FEF06315AEE2941 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -317,7 +315,6 @@
 		6621C637240B69900039B49A /* Devices */ = {
 			isa = PBXGroup;
 			children = (
-				6621C638240B69900039B49A /* AddDeviceViewController.swift */,
 				6621C639240B69900039B49A /* DeviceTableViewController.swift */,
 				66946A5E240F374D00800E0B /* DevicesCollectionViewController.swift */,
 			);
@@ -464,22 +461,22 @@
 		7972145C9AC6A816D97D3155 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				47E5248EF16D6D1D773BE05C /* Pods-AgriGuardian.debug.xcconfig */,
-				0E26F404FF7C1C65AD048677 /* Pods-AgriGuardian.release.xcconfig */,
-				20E22A3316F18985F4EA8446 /* Pods-AgriGuardian-AgriGuardianUITests.debug.xcconfig */,
-				72CDA6B62E40929D7489B30A /* Pods-AgriGuardian-AgriGuardianUITests.release.xcconfig */,
-				7E3A151E18A68275109273B7 /* Pods-AgriGuardianTests.debug.xcconfig */,
-				618C7BDDD59ADCFBC6E61169 /* Pods-AgriGuardianTests.release.xcconfig */,
+				74F66AC400C5FCBCD351D838 /* Pods-AgriGuardian.debug.xcconfig */,
+				7F22C73168F5407AE20F86B9 /* Pods-AgriGuardian.release.xcconfig */,
+				9A73395228C1E315A6D9707E /* Pods-AgriGuardian-AgriGuardianUITests.debug.xcconfig */,
+				2EDA8491E9DCBAC6C6237A7C /* Pods-AgriGuardian-AgriGuardianUITests.release.xcconfig */,
+				3ADD5A61AEAEC14444025D1B /* Pods-AgriGuardianTests.debug.xcconfig */,
+				A6380960F6E7C948CA0A1CE2 /* Pods-AgriGuardianTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
 		};
-		79BB0521C1765DA1FB3FE9B8 /* Frameworks */ = {
+		7A86F74E9FEF06315AEE2941 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				B95C3541C7589A86775711F5 /* Pods_AgriGuardian.framework */,
-				4105BD46B8FED2606965F48E /* Pods_AgriGuardian_AgriGuardianUITests.framework */,
-				308491F463AA03189AF1C47D /* Pods_AgriGuardianTests.framework */,
+				879949621C67682580496505 /* Pods_AgriGuardian.framework */,
+				7E09B5FDD8AD16490081C627 /* Pods_AgriGuardian_AgriGuardianUITests.framework */,
+				A450BBE35690E39175F7E24F /* Pods_AgriGuardianTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -491,12 +488,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 5B5A720C23EB3FE100B5E2C5 /* Build configuration list for PBXNativeTarget "AgriGuardian" */;
 			buildPhases = (
-				E869C524779948C8C2886EE3 /* [CP] Check Pods Manifest.lock */,
+				C55E7A43AC87EFB3F0F64203 /* [CP] Check Pods Manifest.lock */,
 				5B5A71DB23EB3FDD00B5E2C5 /* Sources */,
 				5B5A71DC23EB3FDD00B5E2C5 /* Frameworks */,
 				5B5A71DD23EB3FDD00B5E2C5 /* Resources */,
-				F06AAAB7FDBAB118657178B9 /* [CP] Embed Pods Frameworks */,
-				341FAAF1B3A9956509062E53 /* [CP] Copy Pods Resources */,
+				590EB2E976D48CA4814F1DDE /* [CP] Embed Pods Frameworks */,
+				0226E66128BCE826E5E86F7F /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -511,7 +508,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 5B5A720F23EB3FE100B5E2C5 /* Build configuration list for PBXNativeTarget "AgriGuardianTests" */;
 			buildPhases = (
-				0BCA102F2A8E0CB6724CF118 /* [CP] Check Pods Manifest.lock */,
+				A47EB86849E7C172C8D4CCB1 /* [CP] Check Pods Manifest.lock */,
 				5B5A71F423EB3FE100B5E2C5 /* Sources */,
 				5B5A71F523EB3FE100B5E2C5 /* Frameworks */,
 				5B5A71F623EB3FE100B5E2C5 /* Resources */,
@@ -530,12 +527,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 5B5A721223EB3FE100B5E2C5 /* Build configuration list for PBXNativeTarget "AgriGuardianUITests" */;
 			buildPhases = (
-				0A8A0DC720C990E16A0A9E54 /* [CP] Check Pods Manifest.lock */,
+				0D2E2543B60F8C2F6981B577 /* [CP] Check Pods Manifest.lock */,
 				5B5A71FF23EB3FE100B5E2C5 /* Sources */,
 				5B5A720023EB3FE100B5E2C5 /* Frameworks */,
 				5B5A720123EB3FE100B5E2C5 /* Resources */,
-				4ED9BDD1BE3A34952EAA69FD /* [CP] Embed Pods Frameworks */,
-				74B5ED3A9A2BC7654E8FC123 /* [CP] Copy Pods Resources */,
+				C7ECBF49456600C78004D9B1 /* [CP] Embed Pods Frameworks */,
+				CFC47F06190BF9CCC7B13C95 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -638,7 +635,24 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		0A8A0DC720C990E16A0A9E54 /* [CP] Check Pods Manifest.lock */ = {
+		0226E66128BCE826E5E86F7F /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-AgriGuardian/Pods-AgriGuardian-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-AgriGuardian/Pods-AgriGuardian-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-AgriGuardian/Pods-AgriGuardian-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		0D2E2543B60F8C2F6981B577 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -660,7 +674,24 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		0BCA102F2A8E0CB6724CF118 /* [CP] Check Pods Manifest.lock */ = {
+		590EB2E976D48CA4814F1DDE /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-AgriGuardian/Pods-AgriGuardian-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-AgriGuardian/Pods-AgriGuardian-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-AgriGuardian/Pods-AgriGuardian-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A47EB86849E7C172C8D4CCB1 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -682,58 +713,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		341FAAF1B3A9956509062E53 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-AgriGuardian/Pods-AgriGuardian-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-AgriGuardian/Pods-AgriGuardian-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-AgriGuardian/Pods-AgriGuardian-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		4ED9BDD1BE3A34952EAA69FD /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-AgriGuardian-AgriGuardianUITests/Pods-AgriGuardian-AgriGuardianUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-AgriGuardian-AgriGuardianUITests/Pods-AgriGuardian-AgriGuardianUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-AgriGuardian-AgriGuardianUITests/Pods-AgriGuardian-AgriGuardianUITests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		74B5ED3A9A2BC7654E8FC123 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-AgriGuardian-AgriGuardianUITests/Pods-AgriGuardian-AgriGuardianUITests-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-AgriGuardian-AgriGuardianUITests/Pods-AgriGuardian-AgriGuardianUITests-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-AgriGuardian-AgriGuardianUITests/Pods-AgriGuardian-AgriGuardianUITests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		E869C524779948C8C2886EE3 /* [CP] Check Pods Manifest.lock */ = {
+		C55E7A43AC87EFB3F0F64203 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -755,21 +735,38 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		F06AAAB7FDBAB118657178B9 /* [CP] Embed Pods Frameworks */ = {
+		C7ECBF49456600C78004D9B1 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-AgriGuardian/Pods-AgriGuardian-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-AgriGuardian-AgriGuardianUITests/Pods-AgriGuardian-AgriGuardianUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-AgriGuardian/Pods-AgriGuardian-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-AgriGuardian-AgriGuardianUITests/Pods-AgriGuardian-AgriGuardianUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-AgriGuardian/Pods-AgriGuardian-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-AgriGuardian-AgriGuardianUITests/Pods-AgriGuardian-AgriGuardianUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		CFC47F06190BF9CCC7B13C95 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-AgriGuardian-AgriGuardianUITests/Pods-AgriGuardian-AgriGuardianUITests-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-AgriGuardian-AgriGuardianUITests/Pods-AgriGuardian-AgriGuardianUITests-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-AgriGuardian-AgriGuardianUITests/Pods-AgriGuardian-AgriGuardianUITests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -826,7 +823,6 @@
 				666CC514244FDAE500222841 /* AccountViewController.swift in Sources */,
 				66603F20240B2C3300253B04 /* RideParameters.swift in Sources */,
 				5B5A71ED23EB3FDD00B5E2C5 /* AgriGuardian.xcdatamodeld in Sources */,
-				6621C63C240B69900039B49A /* AddDeviceViewController.swift in Sources */,
 				666CC516244FE26800222841 /* ManageDevicesViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -998,17 +994,19 @@
 		};
 		5B5A720D23EB3FE100B5E2C5 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 47E5248EF16D6D1D773BE05C /* Pods-AgriGuardian.debug.xcconfig */;
+			baseConfigurationReference = 74F66AC400C5FCBCD351D838 /* Pods-AgriGuardian.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = AgriGuardian/AgriGuardian.entitlements;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = K3DJPEYB23;
 				INFOPLIST_FILE = AgriGuardian/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.TeamKadd.AggieG;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -1018,17 +1016,19 @@
 		};
 		5B5A720E23EB3FE100B5E2C5 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0E26F404FF7C1C65AD048677 /* Pods-AgriGuardian.release.xcconfig */;
+			baseConfigurationReference = 7F22C73168F5407AE20F86B9 /* Pods-AgriGuardian.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = AgriGuardian/AgriGuardian.entitlements;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = K3DJPEYB23;
 				INFOPLIST_FILE = AgriGuardian/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.TeamKadd.AggieG;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -1038,7 +1038,7 @@
 		};
 		5B5A721023EB3FE100B5E2C5 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7E3A151E18A68275109273B7 /* Pods-AgriGuardianTests.debug.xcconfig */;
+			baseConfigurationReference = 3ADD5A61AEAEC14444025D1B /* Pods-AgriGuardianTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -1061,7 +1061,7 @@
 		};
 		5B5A721123EB3FE100B5E2C5 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 618C7BDDD59ADCFBC6E61169 /* Pods-AgriGuardianTests.release.xcconfig */;
+			baseConfigurationReference = A6380960F6E7C948CA0A1CE2 /* Pods-AgriGuardianTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -1084,7 +1084,7 @@
 		};
 		5B5A721323EB3FE100B5E2C5 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 20E22A3316F18985F4EA8446 /* Pods-AgriGuardian-AgriGuardianUITests.debug.xcconfig */;
+			baseConfigurationReference = 9A73395228C1E315A6D9707E /* Pods-AgriGuardian-AgriGuardianUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -1105,7 +1105,7 @@
 		};
 		5B5A721423EB3FE100B5E2C5 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 72CDA6B62E40929D7489B30A /* Pods-AgriGuardian-AgriGuardianUITests.release.xcconfig */;
+			baseConfigurationReference = 2EDA8491E9DCBAC6C6237A7C /* Pods-AgriGuardian-AgriGuardianUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;

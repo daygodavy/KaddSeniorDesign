@@ -140,8 +140,8 @@ class DataManager {
                 
                 let coordinate = CLLocationCoordinate2DMake(latitude, longitude)
                 let date = formatDateFromData(data: tokens[0])
-                let speed = CLLocationSpeed(string: tokens[3])
-                let altitude = CLLocationDistance(string: tokens[4])!
+                let speed = CLLocationSpeed(tokens[3])
+                let altitude = CLLocationDistance(tokens[4])!
                 
                 // set rollover
                 if (tokens[10] == "True") {

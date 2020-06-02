@@ -1,19 +1,19 @@
-////
-////  AddDeviceTableViewController.swift
-////  AgriGuardian
-////
-////  Created by Daniel Weatrowski on 2/25/20.
-////  Copyright © 2020 Team Kadd. All rights reserved.
-////
 //
-//import UIKit
-//import CoreLocation
-//import MapKit
-//import Firebase
-//import CoreBluetooth
+//  AddDeviceTableViewController.swift
+//  AgriGuardian
 //
-//class AddDeviceViewController: FormViewController, CLLocationManagerDelegate {
+//  Created by Daniel Weatrowski on 2/25/20.
+//  Copyright © 2020 Team Kadd. All rights reserved.
 //
+
+import UIKit
+import CoreLocation
+import MapKit
+import Firebase
+import CoreBluetooth
+
+class AddDeviceViewController: FormViewController, CLLocationManagerDelegate {
+
 //    // MARK: - Properties
 //    var ref: DocumentReference? = nil
 //    let db = Firestore.firestore()
@@ -275,16 +275,16 @@
 //            }
 //        }
 //    }
-//}
-//
-//
-//
-//
-//
-//
-//
-//
-//
+}
+
+
+
+
+
+
+
+
+
 //
 ////MARK: LocationRow
 //public final class LocationRow: OptionsRow<PushSelectorCell<CLLocation>>, PresenterRowType, RowType {
