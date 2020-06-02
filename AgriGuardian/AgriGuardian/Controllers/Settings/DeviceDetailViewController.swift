@@ -153,7 +153,7 @@ class DeviceDetailViewController: UITableViewController, CLLocationManagerDelega
                 let tokens =  "\(user), \(thisDevice.name), \(thisDevice.gfRadius), \(thisDevice.gfCenter.coordinate.latitude), \(thisDevice.gfCenter.coordinate.longitude), 9999999999"
                 print("Writing to peripheral")
                 let data = Data(tokens.utf8)
-                kaddPeripheral.writeValue(data, for: kaddCharacteristic, type: .withResponse)
+//                kaddPeripheral.writeValue(data, for: kaddCharacteristic, type: .withResponse)
                 // disconnect device?
                 fbManager.addDevice(device: thisDevice)
             }

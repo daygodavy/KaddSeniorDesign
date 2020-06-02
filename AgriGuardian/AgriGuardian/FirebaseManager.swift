@@ -159,6 +159,27 @@ class FirebaseManager {
         }
     }
     
+    func deleteAccount() {
+        if let uid = Auth.auth().currentUser?.uid {
+            db.collection("devices").whereField("uid", isEqualTo: uid).getDocuments() { (snap, err) in
+                if let error = err {
+                    print(error)
+                } else {
+                    for docs in snap!.documents {
+                        docs.reference.delete()
+                    }
+                }
+                
+            }
+            db.collection("users").document(uid).delete()
+            let user = Auth.auth().currentUser
+            user?.delete() { error in
+                if let error = error {
+                    print(error)
+                }
+            }
+        }
+    }
     
     // MARK: - STORING DEVICE OBJECT INTO FIREBASE
     func addDevice(device: Device) {

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
@@ -550,18 +550,21 @@
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Delete Account" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wdO-Gy-JXW">
-                                                    <rect key="frame" x="20" y="12" width="354" height="20"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GLu-zC-fj2">
+                                                    <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                                                    <state key="normal" title="Delete Account">
+                                                        <color key="titleColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="deleteAcctButtonPressed:" destination="W3l-H0-Ute" eventType="touchUpInside" id="D2e-4T-doN"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="bottom" secondItem="wdO-Gy-JXW" secondAttribute="bottom" constant="12" id="06v-L1-Fzt"/>
-                                                <constraint firstItem="wdO-Gy-JXW" firstAttribute="leading" secondItem="l1o-kG-iI9" secondAttribute="leading" constant="20" id="Mmz-fW-dZr"/>
-                                                <constraint firstItem="wdO-Gy-JXW" firstAttribute="top" secondItem="l1o-kG-iI9" secondAttribute="top" constant="12" id="OSQ-PH-i5p"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="wdO-Gy-JXW" secondAttribute="trailing" constant="20" id="dt4-wg-w1h"/>
+                                                <constraint firstItem="GLu-zC-fj2" firstAttribute="leading" secondItem="l1o-kG-iI9" secondAttribute="leadingMargin" constant="-20" id="AAf-gz-gwC"/>
+                                                <constraint firstItem="GLu-zC-fj2" firstAttribute="centerY" secondItem="l1o-kG-iI9" secondAttribute="centerY" id="Gvw-iQ-h2T"/>
+                                                <constraint firstItem="GLu-zC-fj2" firstAttribute="centerX" secondItem="l1o-kG-iI9" secondAttribute="centerX" id="eME-al-c4J"/>
+                                                <constraint firstItem="GLu-zC-fj2" firstAttribute="top" secondItem="l1o-kG-iI9" secondAttribute="topMargin" constant="-11" id="ov2-XL-vje"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>

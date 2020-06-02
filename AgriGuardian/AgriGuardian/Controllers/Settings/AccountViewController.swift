@@ -74,11 +74,40 @@ class AccountViewController: UITableViewController {
         }
 
     }
+    @IBAction func deleteAcctButtonPressed(_ sender: Any) {
+        let alert = UIAlertController(title: "Please Confirm", message: "Are you sure you want to delete this your Account?", preferredStyle: .alert)
+
+
+        alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { action in
+//            self.fbManager.deleteDevice(device: self.thisDevice)
+//            self.viewDelegate?.refreshData()
+//            self.dismiss(animated: true, completion: nil)
+            
+            self.fbManager.deleteAccount()
+            self.goToHome()
+        }))
+        
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { action in
+//            self.viewDelegate?.refreshData()
+//            self.dismiss(animated: true, completion: nil)
+        }))
+
+
+        self.present(alert, animated: true)
+    }
+    
+    func goToHome() {
+        let onboardStoryboard = UIStoryboard(name: "Onboarding", bundle: nil)
+        
+        let loginViewController = onboardStoryboard.instantiateViewController(withIdentifier: "InitialLoginViewController") as? InitialLoginViewController
+
+        self.view.window?.rootViewController = loginViewController
+        self.view.window?.makeKeyAndVisible()
+
+    }
     
     func loadAcctInfo(completion: @escaping () -> Void) {
         fbManager.getUser(uid: user.uid) { curruser in
-            print("GOT IT")
-            print(curruser.uid)
             self.user = curruser
             self.firstNameTF.text = self.user.firstName
             self.lastNameTF.text = self.user.lastName
