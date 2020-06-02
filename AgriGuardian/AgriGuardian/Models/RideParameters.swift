@@ -201,6 +201,23 @@ public class Ride {
             completion(thisCity)
         }
     }
+    
+    func getStops() -> String {
+        var numStops = 0
+        var locations = self.locations
+        var lastCoord = locations[0].coordinate
+        for item in locations {
+            if (item.speed == 0 && item.coordinate.longitude == lastCoord.longitude && item.coordinate.latitude == lastCoord.latitude) {
+                numStops += 1
+            }
+            lastCoord = item.coordinate
+        }
+        return String(numStops)
+    }
+    
+    func getRollovers() -> String {
+        return self.didRollover ? String(1) : String(0)
+    }
 
     func isSameDate(date: Date) -> Bool {
         return Calendar.current.isDate(self.rideDate, inSameDayAs: date)

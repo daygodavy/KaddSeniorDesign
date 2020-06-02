@@ -28,6 +28,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             if let windowScene = scene as? UIWindowScene {
                 self.window = UIWindow(windowScene: windowScene)
+                self.window?.overrideUserInterfaceStyle = .dark
                 let initialVC = storyboard.instantiateViewController(withIdentifier: "MainTabBarController") as? MainTabBarController
                 self.window!.rootViewController = initialVC
                 self.window!.makeKeyAndVisible()
@@ -35,6 +36,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         } else {
             if let windowScene = scene as? UIWindowScene {
                 self.window = UIWindow(windowScene: windowScene)
+                self.window?.overrideUserInterfaceStyle = .dark
                 let storyBoard = UIStoryboard(name: "Onboarding", bundle: nil)
                 let secondVC = storyBoard.instantiateViewController(withIdentifier: "InitialLoginViewController") as! InitialLoginViewController
                 self.window?.rootViewController = secondVC

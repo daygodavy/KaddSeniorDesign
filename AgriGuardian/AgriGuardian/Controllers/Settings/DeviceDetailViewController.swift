@@ -130,7 +130,7 @@ class DeviceDetailViewController: UITableViewController, CLLocationManagerDelega
     @objc func cancelNavButtonPressed() {
         presentCustomAlert(title: "Are you sure?", message: "Any changes made will not be saved") {
             // OK was pressed
-            self.dismiss(animated: true, completion: nil)
+            self.navigationController?.popViewController(animated: true)
         }
         // otherwise cancel, nothing happens
         
@@ -161,7 +161,7 @@ class DeviceDetailViewController: UITableViewController, CLLocationManagerDelega
                 fbManager.updateDevice(device: thisDevice)
             }
             viewDelegate?.refreshData()
-            self.dismiss(animated: true, completion: nil)
+            self.navigationController?.popViewController(animated: true)
         }
     }
     

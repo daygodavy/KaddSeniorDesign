@@ -81,7 +81,7 @@ class RideDetailCollectionViewController: UICollectionViewController, UICollecti
 
         case 3:
             cell.titleLabel.text = "Rollovers"
-            cell.valueLabel.text = "00"
+            cell.valueLabel.text = thisRide.getRollovers()
             cell.iconLabel.image = UIImage(systemName: "exclamationmark.triangle.fill")
 
         case 4:
@@ -90,7 +90,7 @@ class RideDetailCollectionViewController: UICollectionViewController, UICollecti
             cell.iconLabel.image = UIImage(systemName: "gauge.badge.plus")
         case 5:
             cell.titleLabel.text = "Stops"
-            cell.valueLabel.text = "0"
+            cell.valueLabel.text = thisRide.getStops()
             cell.iconLabel.image = UIImage(systemName: "hexagon.fill")
 
         default:
