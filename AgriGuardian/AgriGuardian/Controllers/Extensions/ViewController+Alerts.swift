@@ -12,7 +12,7 @@ import UIKit
 extension UIViewController {
     func presentCustomAlert(title: String, message: String, completion: @escaping () -> Void) {
         
-        let alertController = UIAlertController(title: title, message: message, preferredStyle: .actionSheet)
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
         let okAction = UIAlertAction(title: "OK", style: .default) { action in
             completion()
         }
@@ -25,6 +25,16 @@ extension UIViewController {
     }
     
     func presentBasicAlert(title: String, message: String, completion: @escaping () -> Void) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK", style: .default) { action in
+            completion()
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        alertController.addAction(okAction)
+        alertController.addAction(cancelAction)
+        self.present(alertController, animated: true, completion: nil)
+    }
+    func presentBasicAlertAction(title: String, message: String, completion: @escaping () -> Void) {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .actionSheet)
         let okAction = UIAlertAction(title: "OK", style: .default) { action in
             completion()

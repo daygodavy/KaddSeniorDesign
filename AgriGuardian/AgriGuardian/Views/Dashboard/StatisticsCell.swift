@@ -74,7 +74,8 @@ class StatisticsCell: UICollectionViewCell {
 }
 extension StatisticsCell: ScrollableGraphViewDataSource {
     func value(forPlot plot: Plot, atIndex pointIndex: Int) -> Double {
-        return Double(Int.random(in: 0 ... 8))    }
+        return rideWeek.week[pointIndex].mileage
+    }
     
     func label(atIndex pointIndex: Int) -> String {
         return days[pointIndex]

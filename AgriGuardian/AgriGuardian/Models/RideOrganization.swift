@@ -25,6 +25,9 @@ public final class RideHistory {
     func getMonthName(yearIndex: Int, monthIndex: Int) -> String {
         return self.years[yearIndex].months[monthIndex].getMonthName()
     }
+    func getRide(yearIndex: Int, monthIndex: Int, rowIndex: Int) -> Ride {
+        return self.self.years[yearIndex].months[monthIndex].rides[rowIndex]
+    }
     func getCurrentMonth() -> RideMonth {
         let year = self.years.last
         let months = year?.getMonths()

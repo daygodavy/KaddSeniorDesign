@@ -105,7 +105,9 @@ class DataManager {
         for i in 0..<2 {
             var ride = loadGPSData(csvFile: "ride_04", ofType: "csv")
             tempRides.append(ride)
-            ride = loadGPSData(csvFile: "ride_11", ofType: "csv")
+            ride = loadGPSData(csvFile: "ride_00", ofType: "csv")
+            tempRides.append(ride)
+            ride = loadGPSData(csvFile: "ride_01", ofType: "csv")
             tempRides.append(ride)
         }
         return tempRides

@@ -23,15 +23,30 @@ class DataPullViewController: UIViewController {
     var tempCharacteristic: CBUUID!
     let raspberryPi = CBUUID(string: "27cf08c1-076a-41af-becd-02ed6f6109b9")
     var datagrams = [Datagram]()
+    
+    var isPulling: Bool = false
   
     var data: String?
     // MARK: - Actions
     @IBAction func didTapStart(_ sender: Any) {
-        atvImage.isHidden = false
-        statusLabel.text = "Connecting..."
-        startButton.setTitle("Stop", for: .normal)
-        animateAtv()
-        centralManager.scanForPeripherals(withServices: [raspberryPi])
+        if (!isPulling) {
+            atvImage.isHidden = false
+            isPulling = true
+            statusLabel.text = "Connecting..."
+            startButton.setTitle("Stop", for: .normal)
+            animateAtv()
+           // centralManager.scanForPeripherals(withServices: [raspberryPi])
+        } else {
+            presentBasicAlert(title: "Stop Transfer?", message: "Select OK to cancel data pull") {
+                self.isPulling = true
+                self.statusLabel.text = "Cancelled"
+                self.startButton.setTitle("Start", for: .normal)
+                self.navigationController?.popViewController(animated: true)
+                
+             }
+            
+        }
+        
 
     }
     
@@ -41,7 +56,7 @@ class DataPullViewController: UIViewController {
         setupViews()
         centralManager = CBCentralManager(delegate: self, queue: nil)
         presentBasicAlert(title: "Initiating data transfer", message: "Please make sure device is on and in range") {
-             
+            
          }
 
     }
@@ -59,7 +74,8 @@ class DataPullViewController: UIViewController {
         let orbit = CAKeyframeAnimation(keyPath: "position")
         var affineTransform = CGAffineTransform(rotationAngle: 0.0)
         affineTransform = affineTransform.rotated(by: .pi)
-        let arcCenter = self.view.center
+        var arcCenter = self.buttonView.center
+        
         
         let radius = self.buttonView.frame.size.width / 2 + 12
   

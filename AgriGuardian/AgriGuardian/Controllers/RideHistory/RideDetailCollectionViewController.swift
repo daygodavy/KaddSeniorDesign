@@ -31,10 +31,8 @@ class RideDetailCollectionViewController: UICollectionViewController, UICollecti
         registerCellClasses()
         registerFlowLayout()
         
-        
         locationPoints = thisRide.locations
         
-        // Do any additional setup after loading the view.
     }
     
     // MARK: Private Functions
@@ -118,8 +116,6 @@ class RideDetailCollectionViewController: UICollectionViewController, UICollecti
         // dequeue main detail cells for 0th section
         if indexPath.row < 6 {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath) as! RideDetailInfoCVC
-            //cell.titleLabel.text = "row: \(indexPath.row)"
-            
             return setupDetailCell(cell: cell, indexPath: indexPath)
         }
             // deque special cells for 1st section
@@ -139,18 +135,11 @@ class RideDetailCollectionViewController: UICollectionViewController, UICollecti
             
             return mapCell
         }
-    
-//        } else {
-//            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: tempID, for: indexPath)
-//            cell.backgroundColor = .systemGray6
-//            return cell
-//        }
 
     }
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         // dequeue header
         let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerID, for: indexPath) as! RideDetailHeaderCRV
-//        header.locationLabel.text = thisRide.getRideCity()]
         thisRide.getRideCity { thisCity in
             header.locationLabel.text = "📍 \(thisCity)"
             header.vehicleLabel.text = self.thisDevice.getVehicleName()

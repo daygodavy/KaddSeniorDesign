@@ -173,7 +173,7 @@ class DeviceDetailViewController: UITableViewController, CLLocationManagerDelega
         alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { action in
             self.fbManager.deleteDevice(device: self.thisDevice)
             self.viewDelegate?.refreshData()
-            self.dismiss(animated: true, completion: nil)
+            self.navigationController?.popViewController(animated: true)
         }))
         
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { action in

@@ -19,19 +19,12 @@ class SettingsViewController: UITableViewController {
         self.tableView.delegate = self
         self.tableView.dataSource = self
         setupNavBar()
-      
-
-        // Do any additional setup after loading the view.
     }
 
     private func setupNavBar() {
         self.navigationItem.title = "Settings"
         self.navigationController?.navigationItem.largeTitleDisplayMode = .never
         self.navigationItem.largeTitleDisplayMode  = .never
-//        let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(didTapDone))
-//        let cancelButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(didTapCancel))
-//        self.navigationItem.rightBarButtonItem = doneButton
-//        self.navigationItem.leftBarButtonItem = cancelButton
     }
     private func segueToAccountView() {
         let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
@@ -50,6 +43,12 @@ class SettingsViewController: UITableViewController {
         let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = mainStoryboard.instantiateViewController(identifier: "DataPullView") as! DataPullViewController
         vc.title = "Data Pull"
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    private func segueToAboutView() {
+        let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = mainStoryboard.instantiateViewController(withIdentifier: "AboutView") as! AboutViewController
+        vc.title = "About"
         navigationController?.pushViewController(vc, animated: true)
     }
     
@@ -97,9 +96,15 @@ class SettingsViewController: UITableViewController {
                 // Manage Devices view
                 segueToDevicesView()
             }
-            else if (indexPath.row == 3) {
+            else if (indexPath.row == 2) {
                 // TODO: Present an alert for User to select which device they seek to pull data from
                 segueToDataPull()
+            }
+        case 1:
+            // About
+            if (indexPath.row == 1) {
+            // About row - segue to about view
+                segueToAboutView()
             }
         case 3:
             // Logout
@@ -111,5 +116,29 @@ class SettingsViewController: UITableViewController {
 
 
 
+}
+
+class AboutViewController: UIViewController {
+    // MARK: Properties
+    @IBOutlet weak var buildLabel: UILabel!
+    @IBOutlet weak var imageView: UIImageView!
+    
+    override func viewDidLoad() {
+        imageView.layer.cornerRadius = 20.0
+        imageView.layer.borderWidth = 1.0
+        imageView.layer.borderColor = UIColor.systemGray.cgColor
+        
+        buildLabel.text = getVersion()
+        
+    }
+    
+    private func getVersion() -> String {
+        let dict = Bundle.main.infoDictionary!
+        let version = dict["CFBundleShortVersionString"] as! String
+        let build = dict["CFBundleVersion"] as! String
+        return "v\(version).\(build)"
+
+    }
+    
 }
 
