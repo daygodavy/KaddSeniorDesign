@@ -19,6 +19,9 @@ target 'AgriGuardian' do
   pod 'Firebase/Firestore'
   pod 'FirebaseFirestoreSwift'
   pod 'GoogleSignIn'
+  pod 'Firebase/Messaging'
+  pod 'Firebase/AdMob'
+
 
   target 'AgriGuardianTests' do
     inherit! :search_paths
