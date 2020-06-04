@@ -169,6 +169,7 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
         } else if (indexPath.row == 1) {
             let statCell = collectionView.dequeueReusableCell(withReuseIdentifier: statId, for: indexPath) as! StatisticsCell
             statCell.rideWeek = weeklyRides
+            statCell.cellWidth = self.view.frame.size.width
             statCell.backgroundColor = .systemGray6
             return statCell
         } else if (indexPath.row == 2){

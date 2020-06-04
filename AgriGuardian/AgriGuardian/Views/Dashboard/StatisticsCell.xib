@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
@@ -16,38 +16,23 @@
                 <rect key="frame" x="0.0" y="0.0" width="340" height="400"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RdC-rR-yHW">
+                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bwt-9z-aKL">
                         <rect key="frame" x="0.0" y="0.0" width="340" height="400"/>
-                        <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bwt-9z-aKL">
-                                <rect key="frame" x="0.0" y="0.0" width="340" height="400"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                            </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This Week" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0rV-Ob-9dA">
-                                <rect key="frame" x="20" y="20" width="300" height="23"/>
-                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="19"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                        </subviews>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <constraints>
-                            <constraint firstAttribute="trailing" secondItem="bwt-9z-aKL" secondAttribute="trailing" id="6uI-cY-rXw"/>
-                            <constraint firstItem="0rV-Ob-9dA" firstAttribute="top" secondItem="RdC-rR-yHW" secondAttribute="top" constant="20" id="BGm-Mc-byC"/>
-                            <constraint firstItem="0rV-Ob-9dA" firstAttribute="leading" secondItem="RdC-rR-yHW" secondAttribute="leading" constant="20" id="J0D-aX-JdV"/>
-                            <constraint firstItem="bwt-9z-aKL" firstAttribute="leading" secondItem="RdC-rR-yHW" secondAttribute="leading" id="Q0U-rL-TFu"/>
-                            <constraint firstItem="bwt-9z-aKL" firstAttribute="top" secondItem="RdC-rR-yHW" secondAttribute="top" id="eFS-t0-kBr"/>
-                            <constraint firstAttribute="bottom" secondItem="bwt-9z-aKL" secondAttribute="bottom" id="nak-Um-zFh"/>
-                            <constraint firstAttribute="trailing" secondItem="0rV-Ob-9dA" secondAttribute="trailing" constant="20" id="rlp-U6-pPc"/>
-                        </constraints>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                     </view>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This Week" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0rV-Ob-9dA">
+                        <rect key="frame" x="20" y="20" width="300" height="23"/>
+                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="19"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
             </view>
             <constraints>
-                <constraint firstItem="RdC-rR-yHW" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="69t-Ss-APq"/>
-                <constraint firstAttribute="bottom" secondItem="RdC-rR-yHW" secondAttribute="bottom" id="7aS-JH-TtT"/>
-                <constraint firstAttribute="trailing" secondItem="RdC-rR-yHW" secondAttribute="trailing" id="Mgw-QM-QGH"/>
-                <constraint firstItem="RdC-rR-yHW" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="hQq-3k-cdt"/>
+                <constraint firstItem="0rV-Ob-9dA" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="20" id="WK1-Sv-foW"/>
+                <constraint firstItem="0rV-Ob-9dA" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="20" id="nFO-ae-Ei9"/>
+                <constraint firstAttribute="trailing" secondItem="0rV-Ob-9dA" secondAttribute="trailing" constant="20" id="r3v-ah-0Qu"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <connections>

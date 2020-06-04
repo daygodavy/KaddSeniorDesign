@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -27,7 +27,7 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Detail" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pRl-yh-QuH">
-                                <rect key="frame" x="49" y="12" width="131" height="21"/>
+                                <rect key="frame" x="49" y="12" width="131" height="25"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" systemColor="systemGrayColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -43,10 +43,11 @@
                         <constraints>
                             <constraint firstItem="GD3-Ut-6ai" firstAttribute="leading" secondItem="7lc-Hc-xL9" secondAttribute="leading" constant="16" id="1vE-Ke-jec"/>
                             <constraint firstItem="GD3-Ut-6ai" firstAttribute="top" secondItem="7lc-Hc-xL9" secondAttribute="top" constant="12" id="8bN-L6-J2b"/>
+                            <constraint firstItem="pRl-yh-QuH" firstAttribute="bottom" secondItem="GD3-Ut-6ai" secondAttribute="bottom" id="Eao-8g-2pX"/>
                             <constraint firstItem="pRl-yh-QuH" firstAttribute="top" secondItem="7lc-Hc-xL9" secondAttribute="top" constant="12" id="I8x-lA-kRV"/>
-                            <constraint firstItem="wzC-DI-gPu" firstAttribute="top" secondItem="pRl-yh-QuH" secondAttribute="bottom" constant="8" id="Lki-Qw-Wjv"/>
                             <constraint firstAttribute="trailing" secondItem="wzC-DI-gPu" secondAttribute="trailing" constant="20" id="WuJ-8G-Tfj"/>
                             <constraint firstItem="wzC-DI-gPu" firstAttribute="leading" secondItem="7lc-Hc-xL9" secondAttribute="leading" constant="20" id="eGR-1Y-tND"/>
+                            <constraint firstItem="wzC-DI-gPu" firstAttribute="top" secondItem="GD3-Ut-6ai" secondAttribute="bottom" constant="4" id="wzU-Ip-4Ve"/>
                             <constraint firstAttribute="trailing" secondItem="pRl-yh-QuH" secondAttribute="trailing" constant="20" id="xPJ-Zl-iXJ"/>
                             <constraint firstItem="pRl-yh-QuH" firstAttribute="leading" secondItem="GD3-Ut-6ai" secondAttribute="trailing" constant="8" id="zsx-Zu-Mms"/>
                         </constraints>

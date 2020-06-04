@@ -109,6 +109,8 @@ class DataManager {
             tempRides.append(ride)
             ride = loadGPSData(csvFile: "ride_01", ofType: "csv")
             tempRides.append(ride)
+            ride = loadGPSData(csvFile: "ride_02", ofType: "csv")
+            tempRides.append(ride)
         }
         return tempRides
     }
@@ -124,7 +126,8 @@ class DataManager {
         }
         do {
             let contents = try String(contentsOfFile: filepath, encoding: .utf8)
-            let rows = contents.components(separatedBy: "\n")
+            var rows = contents.components(separatedBy: "\n")
+            rows = rows.dropLast()
             for item in rows {
                 // split row into tokens
                 // timestamp, latitude, longitude, speed, altitude, sat
@@ -142,15 +145,19 @@ class DataManager {
                 
                 let coordinate = CLLocationCoordinate2DMake(latitude, longitude)
                 let date = formatDateFromData(data: tokens[0])
-                let speed = CLLocationSpeed(tokens[3])
+                
                 let altitude = CLLocationDistance(tokens[4])!
                 
+                let mps = Measurement(value: Double(tokens[3])!, unit: UnitSpeed.metersPerSecond)
+                let mph = mps.converted(to: UnitSpeed.milesPerHour)
+                
+                let speed = CLLocationSpeed(mph.value)
                 // set rollover
                 if (tokens[10] == "True") {
                     didRollover = true
                 }
 
-                let location = CLLocation(coordinate: coordinate, altitude: altitude, horizontalAccuracy: 0, verticalAccuracy: 0, course: -1, speed: speed!, timestamp: date)
+                let location = CLLocation(coordinate: coordinate, altitude: altitude, horizontalAccuracy: 0, verticalAccuracy: 0, course: -1, speed: speed, timestamp: date)
                 
                 if (mileage == 0.0) {
                     rideDate = date

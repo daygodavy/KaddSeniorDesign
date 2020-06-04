@@ -16,6 +16,7 @@ class StatisticsCell: UICollectionViewCell {
     @IBOutlet weak var graphView: UIView!
     @IBOutlet weak var titleLabel: UILabel!
     
+    var cellWidth: CGFloat = 0
     var rideWeek = RideWeek()
     var days = ["Sun","Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
     
@@ -55,26 +56,24 @@ class StatisticsCell: UICollectionViewCell {
 
         graphView.shouldAnimateOnStartup = true
 
-        graphView.rangeMax = 10
+        graphView.rangeMax = 20
         graphView.rangeMin = 0
 
         // Add everything
         graphView.addPlot(plot: barPlot)
         graphView.addReferenceLines(referenceLines: referenceLines)
+        graphView.frame.size.width = 1000
+        
         self.graphView.addSubview(graphView)
 
-//        NSLayoutConstraint.activate([
-//            graphView.leadingAnchor.constraint(equalToSystemSpacingAfter: self.leadingAnchor, multiplier: 0),
-//            graphView.trailingAnchor.constraint(equalToSystemSpacingAfter: self.trailingAnchor, multiplier: 0),
-//            graphView.topAnchor.constraint(equalToSystemSpacingAfter: self.topAnchor, multiplier: 0)
-//            ]
-//        )
     }
 
 }
 extension StatisticsCell: ScrollableGraphViewDataSource {
     func value(forPlot plot: Plot, atIndex pointIndex: Int) -> Double {
+        print(rideWeek.week[pointIndex].mileage)
         return rideWeek.week[pointIndex].mileage
+    
     }
     
     func label(atIndex pointIndex: Int) -> String {

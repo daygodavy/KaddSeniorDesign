@@ -54,7 +54,7 @@ class RideGraphCVCell: UICollectionViewCell {
         graphView.rightmostPointPadding = 0.0
        //graphView.dataPointSpacing = 10.0
         
-        graphView.rangeMax = 10
+        graphView.rangeMax = 25
         graphView.rangeMin = 0
         
         
@@ -62,6 +62,7 @@ class RideGraphCVCell: UICollectionViewCell {
         graphView.addPlot(plot: graph)
         graphView.addPlot(plot: dots)
         graphView.addReferenceLines(referenceLines: referenceLines)
+        graphView.frame.size.width = 1000
     
         self.graphView.addSubview(graphView)
     }
@@ -78,7 +79,7 @@ extension RideGraphCVCell: ScrollableGraphViewDataSource {
     }
     
     func numberOfPoints() -> Int {
-        return 100
+        return points.count
     }
     
     
