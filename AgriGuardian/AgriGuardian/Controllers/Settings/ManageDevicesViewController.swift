@@ -29,6 +29,8 @@ class ManageDevicesViewController: UITableViewController, RefreshDataDelegate {
     var deviceModelNumber = ""
     var deviceSerialNumber = ""
     var deviceManufacturer = ""
+    
+    var enableBluetooth = true
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,9 +46,14 @@ class ManageDevicesViewController: UITableViewController, RefreshDataDelegate {
 
     // MARK: - Actions
     @objc private func didTapAdd() {
-        //centralManager.scanForPeripherals(withServices: [kaddService])
-        self.segueToDeviceDetailVC(isNewDev: true, thisDev: Device())
+        
+        if (enableBluetooth) {
+            centralManager.scanForPeripherals(withServices: [kaddService])
 
+        }
+        else {
+            self.segueToDeviceDetailVC(isNewDev: true, thisDev: Device())
+        }
     }
     
     func startSpinner() {
@@ -84,6 +91,7 @@ class ManageDevicesViewController: UITableViewController, RefreshDataDelegate {
             vc.serialNumber = deviceSerialNumber
             vc.kaddPeripheral = kaddInitPeripheral
             vc.kaddCharacteristic = kaddCharactaristic
+            vc.enableBluetooth = self.enableBluetooth
         }
         else {
             vc.title = "Edit Device"
@@ -231,6 +239,7 @@ extension ManageDevicesViewController: CBPeripheralDelegate {
             deviceManufacturer = tokens[2]
             
             print("Will Segue Here")
+            self.segueToDeviceDetailVC(isNewDev: true, thisDev: Device())
 
             // TODO: Pass Model and Serial number through segue and add to device info
             

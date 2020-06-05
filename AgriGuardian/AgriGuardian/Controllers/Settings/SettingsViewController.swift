@@ -9,6 +9,7 @@
 import UIKit
 import Firebase
 import GoogleSignIn
+import MessageUI
 
 class SettingsViewController: UITableViewController {
     var currDevice: Device = Device()
@@ -101,6 +102,9 @@ class SettingsViewController: UITableViewController {
                 segueToDataPull()
             }
         case 1:
+            if (indexPath.row == 0) {
+                sendEmail()
+            }
             // About
             if (indexPath.row == 1) {
             // About row - segue to about view
@@ -116,6 +120,29 @@ class SettingsViewController: UITableViewController {
 
 
 
+}
+
+extension SettingsViewController: MFMailComposeViewControllerDelegate {
+    
+    private func sendEmail() {
+        if MFMailComposeViewController.canSendMail() {
+            let mail = MFMailComposeViewController()
+            mail.mailComposeDelegate = self
+            mail.setToRecipients(["dchuon@ucdavis.edu", "dweatrowski@ucdavis.edu", "ajwald.ucdavis.edu", "kaiyoshido@ucdavis.edu"])
+            mail.setSubject("Kadd ATV Feedback")
+
+            present(mail, animated: true)
+        } else {
+            presentBasicAlert(title: "Unable to compose email", message: "Please check your email settings") {
+                self.dismiss(animated: true)
+                
+            }
+        }
+    }
+    
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+        controller.dismiss(animated: true)
+    }
 }
 
 class AboutViewController: UIViewController {
