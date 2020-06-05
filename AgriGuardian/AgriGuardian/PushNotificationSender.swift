@@ -11,6 +11,7 @@ import UIKit
 class PushNotificationSender {
     func sendPushNotification(to token: String, title: String, body: String) {
         print("FINNA SEND NOTIF \(token), \(title), \(body)")
+        
         let urlString = "https://fcm.googleapis.com/fcm/send"
         let url = NSURL(string: urlString)!
         let paramString: [String : Any] = ["to" : token,
@@ -29,6 +30,8 @@ class PushNotificationSender {
                 if let jsonData = data {
                     if let jsonDataDict  = try JSONSerialization.jsonObject(with: jsonData, options: JSONSerialization.ReadingOptions.allowFragments) as? [String: AnyObject] {
                         NSLog("Received data:\n\(jsonDataDict))")
+                        print("DATA: \(jsonDataDict)")
+                        print("RESPONSE: \(response)")
                     }
                 }
             } catch let err as NSError {

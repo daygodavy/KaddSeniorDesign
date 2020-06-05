@@ -61,12 +61,9 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
         print("success")
     
         let sender = PushNotificationSender()
-        print("STARTING")
         fbManager.getFcmToken { tok in
             sender.sendPushNotification(to: tok, title: "AgriGuardian", body: "Rollover Detected!!!!!!!")
-            print("DID IT")
         }
-        print("DONEEEEEEEEEE")
 
 //        sender.sendPushNotification(to: "", title: "Notification title", body: "Notification body")
 
@@ -114,9 +111,15 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
     }
     
     @objc func SignOutButtonPressed(_ sender: Any) {
-        print("attempting to signout")
-        self.userLogout()
-        self.goToHome()
+//        print("attempting to signout")
+//        self.userLogout()
+//        self.goToHome()
+        let sender = PushNotificationSender()
+        print("STARTING")
+        fbManager.getFcmToken { tok in
+            sender.sendPushNotification(to: tok, title: "AgriGuardian", body: "Rollover Detected!!!!!!!")
+            print("DID IT")
+        }
     }
     
     // MARK: - Private functions    
