@@ -17,10 +17,15 @@ class MonthlyHistoryTableViewController: UITableViewController {
     
 
     override func viewDidLoad() {
+        print("VIEWDIDLOAD FOR THE MONTHLY!!!!!!!!!!")
         super.viewDidLoad()
+        print("11111111111")
         setupNavBar()
+        print("222222222222")
         let nib = UINib(nibName: "RideTableViewCell", bundle: nil)
+        print("333333333333")
         self.tableView.register(nib, forCellReuseIdentifier: "RideCell")
+        print("!!!!!!!!!!!!VIEWDIDLOAD FOR THE MONTHLY!!!!!!!!!!")
 
     }
     private func setupNavBar() {
@@ -29,7 +34,8 @@ class MonthlyHistoryTableViewController: UITableViewController {
         self.title = "Ride History"
         
         // automatically scroll to most selected month
-        let indexPath = IndexPath(row: 3, section: monthIndex)
+        // row: 3 cause bug.. need to fix so that it's dynamic... set to 0 temporarily
+        let indexPath = IndexPath(row: 0, section: monthIndex)
         print(monthIndex)
         self.tableView.scrollToRow(at: indexPath, at: .top, animated: false)
     }
