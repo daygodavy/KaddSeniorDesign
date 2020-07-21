@@ -66,7 +66,6 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
         }
 
 //        sender.sendPushNotification(to: "", title: "Notification title", body: "Notification body")
-
     }
     
     
@@ -139,7 +138,8 @@ class HomeViewController: UICollectionViewController, UICollectionViewDelegateFl
         self.navigationItem.leftBarButtonItem = devicesButton
         
         let signoutImg = UIImage(systemName: "clear")
-        let signoutButton = UIBarButtonItem(image: signoutImg, style: .plain, target: self, action: #selector(userLogout))
+//        let signoutButton = UIBarButtonItem(image: signoutImg, style: .plain, target: self, action: #selector(userLogout))
+        let signoutButton = UIBarButtonItem(image: signoutImg, style: .plain, target: self, action: #selector(SignOutButtonPressed))
         self.navigationItem.rightBarButtonItem = signoutButton
     }
     

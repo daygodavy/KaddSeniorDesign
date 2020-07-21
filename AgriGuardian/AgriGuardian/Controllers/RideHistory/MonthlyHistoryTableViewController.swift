@@ -17,15 +17,10 @@ class MonthlyHistoryTableViewController: UITableViewController {
     
 
     override func viewDidLoad() {
-        print("VIEWDIDLOAD FOR THE MONTHLY!!!!!!!!!!")
         super.viewDidLoad()
-        print("11111111111")
         setupNavBar()
-        print("222222222222")
         let nib = UINib(nibName: "RideTableViewCell", bundle: nil)
-        print("333333333333")
         self.tableView.register(nib, forCellReuseIdentifier: "RideCell")
-        print("!!!!!!!!!!!!VIEWDIDLOAD FOR THE MONTHLY!!!!!!!!!!")
 
     }
     private func setupNavBar() {
