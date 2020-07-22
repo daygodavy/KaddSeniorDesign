@@ -152,11 +152,13 @@ class DeviceDetailViewController: UITableViewController, CLLocationManagerDelega
             let user = Auth.auth().currentUser!.uid
             if isNew {
                 // TODO: Write data to pi here
+                // NOTE: 7/21/20 - change thisDevice.name to unique devID in firebase
                 let tokens =  "\(user), \(thisDevice.name), \(thisDevice.gfRadius), \(thisDevice.gfCenter.coordinate.latitude), \(thisDevice.gfCenter.coordinate.longitude), 9999999999"
                 print("Writing to peripheral")
                 let data = Data(tokens.utf8)
                 if (enableBluetooth) {
                     kaddPeripheral.writeValue(data, for: kaddCharacteristic, type: .withResponse)
+                    print("================ KADDPERIPHERAL VALUE WRITTEN ================")
                 }
                 // disconnect device?
                 fbManager.addDevice(device: thisDevice)

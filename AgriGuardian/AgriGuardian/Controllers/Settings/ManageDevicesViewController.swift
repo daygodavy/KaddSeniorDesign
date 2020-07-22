@@ -48,12 +48,17 @@ class ManageDevicesViewController: UITableViewController, RefreshDataDelegate {
     @objc private func didTapAdd() {
         
         if (enableBluetooth) {
+            print("11111111111111111111111")
             centralManager.scanForPeripherals(withServices: [kaddService])
-
+            print("22222222222222222222222")
         }
         else {
+            print("33333333333333333333333")
             self.segueToDeviceDetailVC(isNewDev: true, thisDev: Device())
+            print("44444444444444444444444")
         }
+        print("55555555555555555555555")
+
     }
     
     func startSpinner() {
